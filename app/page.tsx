@@ -8,10 +8,24 @@ import { Input } from "@/components/ui/input"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Calendar, Clock, Facebook, Instagram, Linkedin, MapPin, Shield, Star, Users } from "lucide-react"
+import { Calendar as CalendarIcon, Clock, Facebook, Instagram, Linkedin, MapPin, Shield, Star, Users } from "lucide-react"
+import Calendar from "react-calendar"
+import 'react-calendar/dist/Calendar.css'
 
 export default function Home() {
   const [tripType, setTripType] = useState("one-way")
+  const [departureDate, setDepartureDate] = useState(new Date())
+  const [returnDate, setReturnDate] = useState(new Date())
+  const [showDepartureCalendar, setShowDepartureCalendar] = useState(false)
+  const [showReturnCalendar, setShowReturnCalendar] = useState(false)
+
+  const formatDate = (date) => {
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    })
+  }
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -142,15 +156,53 @@ export default function Home() {
 
                 <Input type="number" placeholder="No. of People" className="w-full p-3 border rounded-md" />
 
+                {/* Departure Date Calendar */}
                 <div className="relative">
-                  <Input type="text" placeholder="Departure Date" className="w-full p-3 border rounded-md pr-10" />
-                  <Calendar className="absolute right-3 top-3 h-5 w-5 text-gray-400" />
+                  <div 
+                    className="w-full p-3 border rounded-md flex justify-between items-center cursor-pointer"
+                    onClick={() => setShowDepartureCalendar(!showDepartureCalendar)}
+                  >
+                    <span>{formatDate(departureDate)}</span>
+                    <CalendarIcon className="h-5 w-5 text-gray-400" />
+                  </div>
+                  
+                  {showDepartureCalendar && (
+                    <div className="absolute z-10 mt-1 bg-white shadow-lg rounded-md">
+                      <Calendar 
+                        onChange={(date) => {
+                          setDepartureDate(date)
+                          setShowDepartureCalendar(false)
+                        }}
+                        value={departureDate}
+                        minDate={new Date()}
+                      />
+                    </div>
+                  )}
                 </div>
 
+                {/* Return Date Calendar (for round trips) */}
                 {tripType === "round" && (
                   <div className="relative">
-                    <Input type="text" placeholder="Return Date" className="w-full p-3 border rounded-md pr-10" />
-                    <Calendar className="absolute right-3 top-3 h-5 w-5 text-gray-400" />
+                    <div 
+                      className="w-full p-3 border rounded-md flex justify-between items-center cursor-pointer"
+                      onClick={() => setShowReturnCalendar(!showReturnCalendar)}
+                    >
+                      <span>{formatDate(returnDate)}</span>
+                      <CalendarIcon className="h-5 w-5 text-gray-400" />
+                    </div>
+                    
+                    {showReturnCalendar && (
+                      <div className="absolute z-10 mt-1 bg-white shadow-lg rounded-md">
+                        <Calendar 
+                          onChange={(date) => {
+                            setReturnDate(date)
+                            setShowReturnCalendar(false)
+                          }}
+                          value={returnDate}
+                          minDate={departureDate}
+                        />
+                      </div>
+                    )}
                   </div>
                 )}
 
