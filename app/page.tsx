@@ -12,20 +12,66 @@ import { Calendar as CalendarIcon, Clock, Facebook, Instagram, Linkedin, MapPin,
 import Calendar from "react-calendar"
 import { Navbar } from "@/components/ui/navbar"
 import 'react-calendar/dist/Calendar.css'
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
+import { BusBookingForm } from "@/components/ui/bus-booking-form"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+
+const formSchema = z.object({
+  fullName: z.string().min(2, "Name must be at least 2 characters"),
+  phoneNumber: z.string().min(10, "Phone number must be at least 10 digits"),
+  pickupLocation: z.string().min(1, "Pickup location is required"),
+  dropoffLocation: z.string().min(1, "Drop-off location is required"),
+  tripType: z.enum(["one-way", "round"]),
+  vehicleType: z.string().min(1, "Please select a vehicle type"),
+  numberOfPeople: z.string().min(1, "Number of people is required"),
+  departureDate: z.date(),
+  returnDate: z.date().optional(),
+})
+
+type FormValues = z.infer<typeof formSchema>
 
 export default function Home() {
-  const [tripType, setTripType] = useState("one-way")
-  const [departureDate, setDepartureDate] = useState(new Date())
-  const [returnDate, setReturnDate] = useState(new Date())
   const [showDepartureCalendar, setShowDepartureCalendar] = useState(false)
   const [showReturnCalendar, setShowReturnCalendar] = useState(false)
 
-  const formatDate = (date) => {
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      fullName: "",
+      phoneNumber: "",
+      pickupLocation: "",
+      dropoffLocation: "",
+      tripType: "one-way",
+      vehicleType: "",
+      numberOfPeople: "",
+      departureDate: new Date(),
+      returnDate: new Date(),
+    },
+  })
+
+  const tripType = form.watch("tripType")
+
+  const formatDate = (date: Date | undefined) => {
+    if (!date) return ""
     return date.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
       day: 'numeric'
     })
+  }
+
+  function onSubmit(values: FormValues) {
+    console.log(values)
+    // Handle form submission
   }
 
   return (
@@ -77,98 +123,199 @@ export default function Home() {
             <div className="bg-white rounded-lg p-6 shadow-lg">
               <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Book Your Ride</h2>
 
-              <form className="space-y-4">
-                <Input type="text" placeholder="Full Name" className="w-full p-3 border rounded-md" />
-
-                <Input type="tel" placeholder="Phone Number" className="w-full p-3 border rounded-md" />
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Input type="text" placeholder="Pick-up Location" className="w-full p-3 border rounded-md" />
-                  <Input type="text" placeholder="Drop-off Location" className="w-full p-3 border rounded-md" />
-                </div>
-
-                <RadioGroup
-                  defaultValue="one-way"
-                  className="flex space-x-6"
-                  value={tripType}
-                  onValueChange={setTripType}
-                >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="one-way" id="one-way" />
-                    <Label htmlFor="one-way">One-Way Trip</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="round" id="round" />
-                    <Label htmlFor="round">Round Trip</Label>
-                  </div>
-                </RadioGroup>
-
-                <Select>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Choose Your Ride" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="sedan">Sedan</SelectItem>
-                    <SelectItem value="suv">SUV</SelectItem>
-                    <SelectItem value="tempo">Tempo Traveller</SelectItem>
-                    <SelectItem value="bus">Bus</SelectItem>
-                  </SelectContent>
-                </Select>
-
-                <Input type="number" placeholder="No. of People" className="w-full p-3 border rounded-md" />
-
-                {/* Departure Date Calendar */}
-                <div className="relative">
-                  <div 
-                    className="w-full p-3 border rounded-md flex justify-between items-center cursor-pointer"
-                    onClick={() => setShowDepartureCalendar(!showDepartureCalendar)}
-                  >
-                    <span>{formatDate(departureDate)}</span>
-                    <CalendarIcon className="h-5 w-5 text-gray-400" />
-                  </div>
-                  
-                  {showDepartureCalendar && (
-                    <div className="absolute z-10 mt-1 bg-white shadow-lg rounded-md">
-                      <Calendar 
-                        onChange={(date) => {
-                          setDepartureDate(date)
-                          setShowDepartureCalendar(false)
-                        }}
-                        value={departureDate}
-                        minDate={new Date()}
-                      />
-                    </div>
-                  )}
-                </div>
-
-                {/* Return Date Calendar (for round trips) */}
-                {tripType === "round" && (
-                  <div className="relative">
-                    <div 
-                      className="w-full p-3 border rounded-md flex justify-between items-center cursor-pointer"
-                      onClick={() => setShowReturnCalendar(!showReturnCalendar)}
-                    >
-                      <span>{formatDate(returnDate)}</span>
-                      <CalendarIcon className="h-5 w-5 text-gray-400" />
-                    </div>
-                    
-                    {showReturnCalendar && (
-                      <div className="absolute z-10 mt-1 bg-white shadow-lg rounded-md">
-                        <Calendar 
-                          onChange={(date) => {
-                            setReturnDate(date)
-                            setShowReturnCalendar(false)
-                          }}
-                          value={returnDate}
-                          minDate={departureDate}
-                        />
-                      </div>
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                  <FormField
+                    control={form.control}
+                    name="fullName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Input placeholder="Full Name" {...field} className="w-full p-3 border rounded-md" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
                     )}
-                  </div>
-                )}
+                  />
 
-                <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3">Book Now</Button>
-              </form>
+                  <FormField
+                    control={form.control}
+                    name="phoneNumber"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Input type="tel" placeholder="Phone Number" {...field} className="w-full p-3 border rounded-md" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="pickupLocation"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Input placeholder="Pick-up Location" {...field} className="w-full p-3 border rounded-md" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="dropoffLocation"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Input placeholder="Drop-off Location" {...field} className="w-full p-3 border rounded-md" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <FormField
+                    control={form.control}
+                    name="tripType"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <RadioGroup
+                            className="flex space-x-6"
+                            value={field.value}
+                            onValueChange={field.onChange}
+                          >
+                            <div className="flex items-center space-x-2">
+                              <RadioGroupItem value="one-way" id="one-way" />
+                              <Label htmlFor="one-way">One-Way Trip</Label>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <RadioGroupItem value="round" id="round" />
+                              <Label htmlFor="round">Round Trip</Label>
+                            </div>
+                          </RadioGroup>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="vehicleType"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Select onValueChange={field.onChange} value={field.value}>
+                            <SelectTrigger className="w-full">
+                              <SelectValue placeholder="Choose Your Ride" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="sedan">Sedan</SelectItem>
+                              <SelectItem value="suv">SUV</SelectItem>
+                              <SelectItem value="tempo">Tempo Traveller</SelectItem>
+                              <SelectItem value="bus">Bus</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="numberOfPeople"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Input type="number" placeholder="No. of People" {...field} className="w-full p-3 border rounded-md" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="departureDate"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <div className="relative">
+                            <div 
+                              className="w-full p-3 border rounded-md flex justify-between items-center cursor-pointer"
+                              onClick={() => setShowDepartureCalendar(!showDepartureCalendar)}
+                            >
+                              <span>{formatDate(field.value)}</span>
+                              <CalendarIcon className="h-5 w-5 text-gray-400" />
+                            </div>
+                            
+                            {showDepartureCalendar && (
+                              <div className="absolute z-10 mt-1 bg-white shadow-lg rounded-md">
+                                <Calendar 
+                                  onChange={(date) => {
+                                    field.onChange(date)
+                                    setShowDepartureCalendar(false)
+                                  }}
+                                  value={field.value}
+                                  minDate={new Date()}
+                                />
+                              </div>
+                            )}
+                          </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  {tripType === "round" && (
+                    <FormField
+                      control={form.control}
+                      name="returnDate"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <div className="relative">
+                              <div 
+                                className="w-full p-3 border rounded-md flex justify-between items-center cursor-pointer"
+                                onClick={() => setShowReturnCalendar(!showReturnCalendar)}
+                              >
+                                <span>{formatDate(field.value)}</span>
+                                <CalendarIcon className="h-5 w-5 text-gray-400" />
+                              </div>
+                              
+                              {showReturnCalendar && (
+                                <div className="absolute z-10 mt-1 bg-white shadow-lg rounded-md">
+                                  <Calendar 
+                                    onChange={(date) => {
+                                      field.onChange(date)
+                                      setShowReturnCalendar(false)
+                                    }}
+                                    value={field.value}
+                                    minDate={form.getValues("departureDate")}
+                                  />
+                                </div>
+                              )}
+                            </div>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  )}
+
+                  <Button type="submit" className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3">
+                    Book Now
+                  </Button>
+                </form>
+              </Form>
             </div>
           </div>
         </div>
@@ -198,8 +345,8 @@ export default function Home() {
               </div>
               <h3 className="text-2xl font-bold mb-4">Transparent Billing</h3>
               <p className="text-gray-600">
-                We know GST, toll fees and inter-state tax are confusing and that's why our invoices are clear and
-                precise. There are no hidden costs and charges.
+                We believe in transparent billing. No hidden charges. What you see is what you pay. We provide detailed
+                bills and receipts for all your journeys.
               </p>
             </div>
 
@@ -208,10 +355,10 @@ export default function Home() {
               <div className="bg-blue-500 p-4 rounded-lg mb-4">
                 <Users className="h-10 w-10 text-white" />
               </div>
-              <h3 className="text-2xl font-bold mb-4">Multiple Options to choose from</h3>
+              <h3 className="text-2xl font-bold mb-4">Professional Drivers</h3>
               <p className="text-gray-600">
-                We have a variety of options ranging from taxis, to bus and tempo travellers. Don't worry we've got your
-                ride covered!
+                Our drivers are well-trained, professional and courteous. They undergo regular training to ensure the
+                highest standards of service and safety.
               </p>
             </div>
           </div>
