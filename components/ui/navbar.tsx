@@ -24,7 +24,7 @@ export function Navbar() {
               Services <span className="ml-1">▼</span>
             </Link>
           </div>
-          <Link href="#" className="text-white hover:text-orange-400">
+          <Link href="/destinations" className="text-white hover:text-orange-400">
             Popular Destinations
           </Link>
           <div className="relative group">
