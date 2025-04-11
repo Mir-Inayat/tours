@@ -13,7 +13,7 @@ export function Navbar() {
   const services = [
     { name: "Cab Services for events", href: "/servicecabForevents" },
     { name: "Bus Hire", href: "/servicebus" },
-    { name: "Outstation Taxi", href: "/serviceOutstationtaxi" },
+    { name: "Outstation Taxi", href: "/serviceout" },
     { name: "Local Taxi", href: "/servicelocaltaxi" },
     { name: "Corporate Travel", href: "/serviceCorporateCab" },
     { name: "Tempo Traveller", href: "/serviceTempo" },
@@ -21,14 +21,14 @@ export function Navbar() {
   ]
 
   const fleet = [
-    { name: "Maruti Suzuki Ertiga", href: "/fleet/cars" },
-    { name: "Toyota Innova", href: "/fleet/tempo" },
-    { name: "Toyota Innova Crysta", href: "/fleet/buses" },
-    { name: "Maruti Suzuki Swift Dzire", href: "/fleet/school" },
-    { name: "Tata Sumo Gold", href: "/fleet/school" },
-    { name: "Force Tempo Traveller", href: "/fleet/school" },
-    { name: "Toyota Etios", href: "/fleet/school" },
-    { name: "Volvo Deluxe Buses and Coaches", href: "/fleet/school" },
+    { name: "Maruti Suzuki Ertiga", href: "/fleetertiga" },
+    { name: "Toyota Innova", href: "/fleetnova" },
+    { name: "Toyota Innova Crysta", href: "/fleetcrysta" },
+    { name: "Maruti Suzuki Swift Dzire", href: "/fleetswift" },
+    { name: "Tata Sumo Gold", href: "/fleetsumo" },
+    { name: "Force Tempo Traveller", href: "/fleettempo" },
+    { name: "Toyota Etios", href: "/fleetetios" },
+    { name: "Volvo Deluxe Buses and Coaches", href: "/fleetvolvo" },
 
   ]
 

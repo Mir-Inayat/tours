@@ -4,51 +4,14 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Facebook, Instagram, Linkedin, Shield, Star, Clock, Check, Award } from "lucide-react"
+import { Navbar } from "@/components/ui/navbar"
+import { Footer } from "@/components/ui/footer"
+import { Copyright } from "@/components/ui/copyright"
 
 export default function AboutPage() {
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Navigation */}
-      <header className="sticky top-0 z-50 bg-blue-500 py-4">
-        <div className="container mx-auto px-4 flex items-center justify-between">
-          <div className="flex items-center">
-            <Link href="/">
-              <div className="text-white font-bold text-2xl">YASHIKA</div>
-              <div className="text-white text-xs">TOUR & TRAVELS</div>
-            </Link>
-          </div>
-
-          <nav className="hidden md:flex items-center space-x-6">
-            <Link href="/" className="text-white hover:text-orange-400">
-              Home
-            </Link>
-            <Link href="/about" className="text-white hover:text-orange-400 font-bold">
-              About
-            </Link>
-            <div className="relative group">
-              <Link href="#" className="text-white hover:text-orange-400 flex items-center">
-                Services <span className="ml-1">▼</span>
-              </Link>
-            </div>
-            <Link href="#" className="text-white hover:text-orange-400">
-              Popular Destinations
-            </Link>
-            <div className="relative group">
-              <Link href="#" className="text-white hover:text-orange-400 flex items-center">
-                Our Fleet <span className="ml-1">▼</span>
-              </Link>
-            </div>
-            <Link href="#" className="text-white hover:text-orange-400">
-              Blogs
-            </Link>
-            <Link href="#" className="text-white hover:text-orange-400">
-              Contact
-            </Link>
-          </nav>
-
-          <Button className="bg-orange-500 hover:bg-orange-600 text-white rounded-md">Call Us</Button>
-        </div>
-      </header>
+      <Navbar />
 
       {/* Hero Section */}
       <section className="relative bg-blue-500 py-16">
@@ -61,11 +24,53 @@ export default function AboutPage() {
               </h1>
               <p className="mb-6">
                 Yashika Tour & Travels, since 1995, is the best and the most reliable
-                <span className="font-bold">
-                  {" "}
-                  Local Taxi Rental/Outstation Taxi Rental/Tempo-Traveller Rental/Bus Rental/Corporate Car Rental/School
-                  & College Transport Services/ Wedding Transport Rental
-                </span>{" "}
+              </p>
+              {/* Service Links */}
+              <div className="flex flex-wrap gap-2 mb-6">
+                <Link 
+                  href="/servicelocaltaxi" 
+                  className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-full text-sm transition-colors"
+                >
+                  Local Taxi Rental
+                </Link>
+                <Link 
+                  href="/serviceout" 
+                  className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-full text-sm transition-colors"
+                >
+                  Outstation Taxi Rental
+                </Link>
+                <Link 
+                  href="/serviceTempo" 
+                  className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-full text-sm transition-colors"
+                >
+                  Tempo-Traveller Rental
+                </Link>
+                <Link 
+                  href="/servicebus" 
+                  className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-full text-sm transition-colors"
+                >
+                  Bus Rental
+                </Link>
+                <Link 
+                  href="/serviceCorporateCab" 
+                  className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-full text-sm transition-colors"
+                >
+                  Corporate Car Rental
+                </Link>
+                <Link 
+                  href="/serviceSchoolCollege" 
+                  className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-full text-sm transition-colors"
+                >
+                  School/College Transport
+                </Link>
+                <Link 
+                  href="/servicecabForevents" 
+                  className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-full text-sm transition-colors"
+                >
+                  Wedding Transport
+                </Link>
+              </div>
+              <p className="text-lg">
                 Company in Noida, Greater Noida & Ghaziabad, with 24*7 availability.
               </p>
             </div>
@@ -542,85 +547,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-100 py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-              <h3 className="text-lg font-bold mb-4">Contact Information</h3>
-              <p className="mb-2">B7, 153A, near Income Tax Office, Block B, Sector 22</p>
-              <p className="mb-2">Noida, Uttar Pradesh 201301</p>
-              <p className="mb-2">+91 9312244228, 8750333222, 0120-4261411</p>
-              <p className="mb-4">contact@yashikatourandtravel.com</p>
-              <div className="flex space-x-4">
-                <Link href="#" className="text-gray-600 hover:text-blue-500">
-                  <Facebook className="h-6 w-6" />
-                </Link>
-                <Link href="#" className="text-gray-600 hover:text-pink-500">
-                  <Instagram className="h-6 w-6" />
-                </Link>
-                <Link href="#" className="text-gray-600 hover:text-blue-700">
-                  <Linkedin className="h-6 w-6" />
-                </Link>
-              </div>
-            </div>
-            <div>
-              <h3 className="text-lg font-bold mb-4">Useful Links</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="/" className="text-gray-600 hover:text-orange-500">
-                    Home
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/about" className="text-gray-600 hover:text-orange-500">
-                    About Us
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-gray-600 hover:text-orange-500">
-                    Contact us
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-gray-600 hover:text-orange-500">
-                    Privacy Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-gray-600 hover:text-orange-500">
-                    Our Gallery
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-gray-600 hover:text-orange-500">
-                    Terms & Conditions
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-lg font-bold mb-4">Location</h3>
-              <div className="h-64 bg-gray-200 rounded-lg relative">
-                <Image src="/placeholder.svg?height=300&width=400" alt="Map" fill className="object-cover rounded-lg" />
-                <div className="absolute bottom-2 left-2 text-xs text-gray-600">Use ctrl + scroll to zoom the map</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
-
-      {/* Copyright */}
-      <div className="bg-gray-100 border-t py-6">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-600 text-sm">
-              Copyright © 1995 - 2025 Yashika Tour and Travels. All rights reserved
-            </p>
-            <p className="text-gray-600 text-sm">Designed & Developed by Magnus Corps</p>
-          </div>
-        </div>
-      </div>
+      <Footer />
+      <Copyright />
 
       {/* WhatsApp Button */}
       <div className="fixed bottom-6 right-6 z-50">

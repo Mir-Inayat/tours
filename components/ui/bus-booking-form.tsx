@@ -56,33 +56,33 @@ export function BusBookingForm() {
   };
 
   return (
-    <div className="bg-white rounded-3xl p-8 max-w-md mx-auto">
-      <h2 className="text-2xl font-semibold text-gray-800 mb-6">Book Your Ride</h2>
+    <div className="bg-white rounded-xl p-5 max-w-md mx-auto">
+      <h2 className="text-xl font-semibold text-gray-800 mb-4">Book Your Ride</h2>
       
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
           <FormField
             control={form.control}
             name="fullName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Full Name</FormLabel>
+                <FormLabel className="text-sm">Full Name</FormLabel>
                 <FormControl>
                   <div className="relative">
                     <Input 
                       placeholder="Full Name"
                       {...field}
-                      className="pl-10 w-full h-12 rounded-lg border border-gray-200"
+                      className="pl-9 w-full h-10 rounded-md border border-gray-200"
                     />
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2">
-                      <svg className="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <span className="absolute left-2.5 top-1/2 -translate-y-1/2">
+                      <svg className="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                         <circle cx="12" cy="7" r="4" />
                       </svg>
                     </span>
                   </div>
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-xs" />
               </FormItem>
             )}
           />
@@ -92,22 +92,22 @@ export function BusBookingForm() {
             name="phoneNumber"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Phone Number</FormLabel>
+                <FormLabel className="text-sm">Phone Number</FormLabel>
                 <FormControl>
                   <div className="relative">
                     <Input 
                       placeholder="Phone Number"
                       {...field}
-                      className="pl-10 w-full h-12 rounded-lg border border-gray-200"
+                      className="pl-9 w-full h-10 rounded-md border border-gray-200"
                     />
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2">
-                      <svg className="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <span className="absolute left-2.5 top-1/2 -translate-y-1/2">
+                      <svg className="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                         <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
                       </svg>
                     </span>
                   </div>
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-xs" />
               </FormItem>
             )}
           />
@@ -117,23 +117,23 @@ export function BusBookingForm() {
             name="pickupLocation"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Pick-up Location</FormLabel>
+                <FormLabel className="text-sm">Pick-up Location</FormLabel>
                 <FormControl>
                   <div className="relative">
                     <Input 
                       placeholder="Pick-up Location"
                       {...field}
-                      className="pl-10 w-full h-12 rounded-lg border border-gray-200"
+                      className="pl-9 w-full h-10 rounded-md border border-gray-200"
                     />
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2">
-                      <svg className="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <span className="absolute left-2.5 top-1/2 -translate-y-1/2">
+                      <svg className="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                         <circle cx="12" cy="10" r="3" />
                       </svg>
                     </span>
                   </div>
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-xs" />
               </FormItem>
             )}
           />
@@ -143,23 +143,23 @@ export function BusBookingForm() {
             name="dropoffLocation"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Drop-off Location</FormLabel>
+                <FormLabel className="text-sm">Drop-off Location</FormLabel>
                 <FormControl>
                   <div className="relative">
                     <Input 
                       placeholder="Drop-off Location"
                       {...field}
-                      className="pl-10 w-full h-12 rounded-lg border border-gray-200"
+                      className="pl-9 w-full h-10 rounded-md border border-gray-200"
                     />
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2">
-                      <svg className="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <span className="absolute left-2.5 top-1/2 -translate-y-1/2">
+                      <svg className="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                         <circle cx="12" cy="10" r="3" />
                       </svg>
                     </span>
                   </div>
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-xs" />
               </FormItem>
             )}
           />
@@ -169,24 +169,24 @@ export function BusBookingForm() {
             name="rideType"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Trip Type</FormLabel>
+                <FormLabel className="text-sm">Trip Type</FormLabel>
                 <FormControl>
                   <RadioGroup
                     onValueChange={field.onChange}
                     defaultValue={field.value}
-                    className="flex gap-6"
+                    className="flex gap-4"
                   >
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-1.5">
                       <RadioGroupItem value="One-Way Trip" id="one-way" />
-                      <Label htmlFor="one-way" className="text-gray-600">One-Way Trip</Label>
+                      <Label htmlFor="one-way" className="text-sm text-gray-600">One-Way Trip</Label>
                     </div>
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-1.5">
                       <RadioGroupItem value="Round Trip" id="round-trip" />
-                      <Label htmlFor="round-trip" className="text-gray-600">Round Trip</Label>
+                      <Label htmlFor="round-trip" className="text-sm text-gray-600">Round Trip</Label>
                     </div>
                   </RadioGroup>
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-xs" />
               </FormItem>
             )}
           />
@@ -196,13 +196,13 @@ export function BusBookingForm() {
             name="vehicleType"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Vehicle Type</FormLabel>
+                <FormLabel className="text-sm">Vehicle Type</FormLabel>
                 <FormControl>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <SelectTrigger className="w-full h-12 rounded-lg border border-gray-200 bg-white text-gray-500">
+                    <SelectTrigger className="w-full h-10 rounded-md border border-gray-200 bg-white text-gray-500">
                       <SelectValue placeholder="Choose Your Ride" />
                     </SelectTrigger>
-                    <SelectContent position="popper" className="w-full max-h-[300px] overflow-auto bg-white">
+                    <SelectContent position="popper" className="w-full max-h-[200px] overflow-auto bg-white">
                       <SelectItem value="Wagon R">Wagon R</SelectItem>
                       <SelectItem value="Swift Dzire">Swift Dzire</SelectItem>
                       <SelectItem value="Toyota Etios">Toyota Etios</SelectItem>
@@ -215,7 +215,7 @@ export function BusBookingForm() {
                     </SelectContent>
                   </Select>
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-xs" />
               </FormItem>
             )}
           />
@@ -225,16 +225,16 @@ export function BusBookingForm() {
             name="numberOfPeople"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Number of People</FormLabel>
+                <FormLabel className="text-sm">Number of People</FormLabel>
                 <FormControl>
                   <Input 
                     type="number"
                     placeholder="No. of People"
                     {...field}
-                    className="w-full h-12 rounded-lg border border-gray-200"
+                    className="w-full h-10 rounded-md border border-gray-200"
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-xs" />
               </FormItem>
             )}
           />
@@ -244,19 +244,19 @@ export function BusBookingForm() {
             name="departureDate"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Departure Date</FormLabel>
+                <FormLabel className="text-sm">Departure Date</FormLabel>
                 <FormControl>
                   <div className="relative">
                     <Input 
                       type="date"
                       placeholder="dd-mm-yyyy"
                       {...field}
-                      className="w-full h-12 rounded-lg border border-gray-200"
+                      className="w-full h-10 rounded-md border border-gray-200"
                     />
-                    <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                    <Calendar className="absolute right-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                   </div>
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-xs" />
               </FormItem>
             )}
           />
@@ -267,19 +267,19 @@ export function BusBookingForm() {
               name="returnDate"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Return Date</FormLabel>
+                  <FormLabel className="text-sm">Return Date</FormLabel>
                   <FormControl>
                     <div className="relative">
                       <Input 
                         type="date"
                         placeholder="dd-mm-yyyy"
                         {...field}
-                        className="w-full h-12 rounded-lg border border-gray-200"
+                        className="w-full h-10 rounded-md border border-gray-200"
                       />
-                      <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                      <Calendar className="absolute right-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                     </div>
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="text-xs" />
                 </FormItem>
               )}
             />
@@ -287,7 +287,7 @@ export function BusBookingForm() {
 
           <Button 
             type="submit" 
-            className="w-full h-12 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-medium"
+            className="w-full h-10 bg-orange-500 hover:bg-orange-600 text-white rounded-md font-medium"
           >
             Book Now
           </Button>
