@@ -2,13 +2,32 @@
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import { Menu, X } from "lucide-react"
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [isServicesOpen, setIsServicesOpen] = useState(false)
   const [isFleetOpen, setIsFleetOpen] = useState(false)
+  
+  const servicesRef = useRef(null)
+  const fleetRef = useRef(null)
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (servicesRef.current && !servicesRef.current.contains(event.target)) {
+        setIsServicesOpen(false)
+      }
+      if (fleetRef.current && !fleetRef.current.contains(event.target)) {
+        setIsFleetOpen(false)
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [])
 
   const services = [
     { name: "Cab Services for events", href: "/servicecabForevents" },
@@ -29,7 +48,6 @@ export function Navbar() {
     { name: "Force Tempo Traveller", href: "/fleettempo" },
     { name: "Toyota Etios", href: "/fleetetios" },
     { name: "Volvo Deluxe Buses and Coaches", href: "/fleetvolvo" },
-
   ]
 
   return (
@@ -62,11 +80,10 @@ export function Navbar() {
             <Link href="/about" className="text-white hover:text-orange-400">
               About
             </Link>
-            <div className="relative group">
+            <div className="relative group" ref={servicesRef}>
               <button 
                 className="text-white hover:text-orange-400 flex items-center"
                 onClick={() => setIsServicesOpen(!isServicesOpen)}
-                onBlur={() => setTimeout(() => setIsServicesOpen(false), 200)}
               >
                 Services <span className="ml-1">▼</span>
               </button>
@@ -90,11 +107,10 @@ export function Navbar() {
             <Link href="/destinations" className="text-white hover:text-orange-400">
               Popular Destinations
             </Link>
-            <div className="relative group">
+            <div className="relative group" ref={fleetRef}>
               <button 
                 className="text-white hover:text-orange-400 flex items-center"
                 onClick={() => setIsFleetOpen(!isFleetOpen)}
-                onBlur={() => setTimeout(() => setIsFleetOpen(false), 200)}
               >
                 Our Fleet <span className="ml-1">▼</span>
               </button>
@@ -131,7 +147,7 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation - unchanged */}
         {isOpen && (
           <div className="md:hidden mt-4">
             <nav className="flex flex-col space-y-4">
