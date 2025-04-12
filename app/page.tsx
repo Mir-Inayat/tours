@@ -239,7 +239,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        
+
         {/* Why Choose Us Section - New Version */}
         <section className="py-16">
           <div className="container mx-auto px-4">
@@ -511,19 +511,19 @@ export default function Home() {
                   </div>
                   <div>
                     <h3 className="text-4xl md:text-5xl font-bold text-white mb-2">
-                      <CountUp end={52} duration={1500} />
+                      <CountUp end={52} />
                     </h3>
                     <p className="text-[11px] text-white/70 uppercase tracking-wider">CORPORATE CLIENTS</p>
                   </div>
                   <div>
                     <h3 className="text-4xl md:text-5xl font-bold text-white mb-2">
-                      <CountUp end={1000} duration={1800} />
+                      <CountUp end={1000}  />
                     </h3>
                     <p className="text-[11px] text-white/70 uppercase tracking-wider">HAPPY CLIENTS</p>
                   </div>
                   <div>
                     <h3 className="text-4xl md:text-5xl font-bold text-white mb-2">
-                      <CountUp end={131} duration={1200} />
+                      <CountUp end={131} />
                     </h3>
                     <p className="text-[11px] text-white/70 uppercase tracking-wider">REVIEWS</p>
                   </div>
