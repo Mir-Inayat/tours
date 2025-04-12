@@ -12,7 +12,7 @@ import {
   Settings,
   LogOut,
   Bell,
-  FileInput
+  Car
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
@@ -32,7 +32,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   // Sample notification counts (would come from API in real app)
   const [notificationCounts, setNotificationCounts] = useState({
     comments: 3,
-    submissions: 5
+    bookings: 5
   });
   
   useEffect(() => {
@@ -60,54 +60,47 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
         <div className="p-4">
           <h2 className="text-xl font-bold">Admin Panel</h2>
         </div>
-        <nav className="mt-6">
-          <SidebarLink 
-            href="/admin/dashboard" 
-            icon={<LayoutDashboard className="h-5 w-5" />} 
-            isActive={pathname === "/admin/dashboard"}
-          >
+        <nav className="mt-6 space-y-1">
+          <Link href="/admin/dashboard" className={`flex items-center px-4 py-2 text-sm font-medium rounded-md ${pathname === "/admin/dashboard" ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`}>
+            <LayoutDashboard className="h-5 w-5 mr-3 text-gray-500" />
             Dashboard
-          </SidebarLink>
+          </Link>
           
-          <SidebarLink 
-            href="/admin/tours" 
-            icon={<Map className="h-5 w-5" />} 
-            isActive={pathname === "/admin/tours"}
-          >
+          <Link href="/admin/tours" className={`flex items-center px-4 py-2 text-sm font-medium rounded-md ${pathname === "/admin/tours" ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`}>
+            <Map className="h-5 w-5 mr-3 text-gray-500" />
             Tours
-          </SidebarLink>
+          </Link>
           
-          <SidebarLink 
-            href="/admin/blogs" 
-            icon={<FileText className="h-5 w-5" />} 
-            isActive={pathname === "/admin/blogs"}
-          >
+          <Link href="/admin/blogs" className={`flex items-center px-4 py-2 text-sm font-medium rounded-md ${pathname === "/admin/blogs" ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`}>
+            <FileText className="h-5 w-5 mr-3 text-gray-500" />
             Blogs
-          </SidebarLink>
+          </Link>
           
-          <SidebarLink 
-            href="/admin/comments" 
-            icon={<MessageSquare className="h-5 w-5" />} 
-            isActive={pathname === "/admin/comments"}
-            badgeCount={notificationCounts.comments}
-          >
+          <Link href="/admin/comments" className={`flex items-center px-4 py-2 text-sm font-medium rounded-md ${pathname === "/admin/comments" ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`}>
+            <MessageSquare className="h-5 w-5 mr-3 text-gray-500" />
             Comments
-          </SidebarLink>
+            {notificationCounts.comments > 0 && (
+              <Badge className="ml-auto bg-red-500 text-white">
+                {notificationCounts.comments}
+              </Badge>
+            )}
+          </Link>
           
-          <SidebarLink 
-            href="/admin/submissions" 
-            icon={<FileInput className="h-5 w-5" />} 
-            isActive={pathname === "/admin/submissions"}
-            badgeCount={notificationCounts.submissions}
-          >
-            Form Submissions
-          </SidebarLink>
+          <Link href="/admin/bookings" className={`flex items-center px-4 py-2 text-sm font-medium rounded-md ${pathname === "/admin/bookings" ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`}>
+            <Car className="h-5 w-5 mr-3 text-gray-500" />
+            Bookings
+            {notificationCounts.bookings > 0 && (
+              <Badge className="ml-auto bg-red-500 text-white">
+                {notificationCounts.bookings}
+              </Badge>
+            )}
+          </Link>
           
           <button
             onClick={() => router.push('/api/auth/signout')}
-            className="flex items-center w-full px-6 py-3 text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
+            className="flex w-full items-center px-4 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white"
           >
-            <LogOut className="h-5 w-5 mr-3" />
+            <LogOut className="h-5 w-5 mr-3 text-gray-500" />
             <span>Log Out</span>
           </button>
         </nav>
@@ -122,15 +115,15 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
               {pathname === "/admin/tours" && "Tours Management"}
               {pathname === "/admin/blogs" && "Blog Management"}
               {pathname === "/admin/comments" && "Comments Management"}
-              {pathname === "/admin/submissions" && "Form Submissions"}
+              {pathname === "/admin/bookings" && "Booking Management"}
             </h1>
             
             <div className="flex items-center space-x-4">
               <div className="relative">
                 <Bell className="h-6 w-6 text-gray-600 cursor-pointer" />
-                {(notificationCounts.comments + notificationCounts.submissions) > 0 && (
+                {(notificationCounts.comments + notificationCounts.bookings) > 0 && (
                   <Badge className="absolute -top-2 -right-2 bg-red-500 text-white h-5 w-5 flex items-center justify-center p-0 rounded-full">
-                    {notificationCounts.comments + notificationCounts.submissions}
+                    {notificationCounts.comments + notificationCounts.bookings}
                   </Badge>
                 )}
               </div>
@@ -149,19 +142,5 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
         </main>
       </div>
     </div>
-  );
-}
-
-function SidebarLink({ href, icon, children, isActive, badgeCount = 0 }) {
-  return (
-    <Link href={href} className={`flex items-center w-full px-6 py-3 ${isActive ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'} transition-colors`}>
-      <span className="mr-3">{icon}</span>
-      <span>{children}</span>
-      {badgeCount > 0 && (
-        <Badge className="ml-auto bg-red-500 text-white">
-          {badgeCount}
-        </Badge>
-      )}
-    </Link>
   );
 }

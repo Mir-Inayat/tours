@@ -1,12 +1,13 @@
-import { NextResponse } from 'next/server'
+import { NextResponse } from 'next/server';
 
 // Define the data structure for bookings
 export interface BookingData {
+  id: string;
   fullName: string;
   phoneNumber: string;
   pickupLocation: string;
   dropoffLocation: string;
-  tripType: "One-Way Trip" | "Round Trip";
+  tripType: string;
   vehicleType: string;
   numberOfPeople: string;
   departureDate: string;
@@ -15,13 +16,14 @@ export interface BookingData {
   status: "new" | "processed" | "completed" | "cancelled";
 }
 
-// Mock database for development
-let bookings: BookingData[] = [];
+// Store bookings in memory for development (in production you'd use a database)
+if (!(global as any).bookings) {
+  (global as any).bookings = [];
+}
 
 export async function GET() {
   try {
-    // In a real app, you would fetch from a database
-    return NextResponse.json(bookings);
+    return NextResponse.json((global as any).bookings);
   } catch (error) {
     console.error('Error fetching bookings:', error);
     return NextResponse.json(
@@ -36,8 +38,15 @@ export async function POST(request: Request) {
     const booking = await request.json();
     
     // Validate required fields
-    const requiredFields = ['fullName', 'phoneNumber', 'pickupLocation', 'dropoffLocation', 
-                           'vehicleType', 'numberOfPeople', 'departureDate'];
+    const requiredFields = [
+      'fullName', 
+      'phoneNumber', 
+      'pickupLocation', 
+      'dropoffLocation', 
+      'vehicleType', 
+      'numberOfPeople', 
+      'departureDate'
+    ];
     
     for (const field of requiredFields) {
       if (!booking[field]) {
@@ -56,16 +65,16 @@ export async function POST(request: Request) {
       );
     }
     
-    // Add ID and timestamp if not provided
-    const newBooking = {
+    // Create a new booking with a unique ID
+    const newBooking: BookingData = {
       ...booking,
       id: `booking-${Date.now()}`,
       date: booking.date || new Date().toISOString(),
       status: booking.status || 'new'
     };
     
-    // In a real app, you would save to a database
-    bookings.push(newBooking);
+    // Add to our in-memory storage
+    (global as any).bookings.push(newBooking);
     
     return NextResponse.json({ 
       success: true, 

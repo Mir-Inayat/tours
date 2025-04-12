@@ -10,13 +10,16 @@ import {
   FileText, 
   Bell, 
   Settings, 
-  Key
+  Key,
+  Car
 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "@/components/ui/use-toast";
+import Link from "next/link";
+import { format } from "date-fns";
 
 // Types
 interface Notification {
@@ -31,20 +34,15 @@ interface BookingData {
   totalBookings: number;
   activeTours: number;
   newCustomers: number;
-  formSubmissions: number;
   recentBookings: {
-    id: number;
-    customer: string;
-    destination: string;
-    amount: number;
+    id: string;
+    fullName: string;
+    pickupLocation: string;
+    dropoffLocation: string;
+    tripType: string;
+    vehicleType: string;
     date: string;
-  }[];
-  recentSubmissions: {
-    id: number;
-    name: string;
-    type: string;
-    email: string;
-    date: string;
+    status: string;
   }[];
 }
 
@@ -66,16 +64,26 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        // In a real app, you would fetch from an API endpoint
-        // For now simulating with a timeout
-        await new Promise(resolve => setTimeout(resolve, 800));
+        // In a real app, you would fetch booking-related notifications
+        const response = await fetch('/api/bookings');
         
-        // Sample data (in production, this would come from an API)
-        const data = [
-          { id: 1, type: "comment", message: "New comment on 'Delhi to Jaipur' blog", read: false, date: "2 hours ago" },
-          { id: 2, type: "booking", message: "New booking request for Tempo Traveller", read: false, date: "5 hours ago" },
-          { id: 3, type: "form", message: "New contact form submission", read: false, date: "1 day ago" },
-        ];
+        if (!response.ok) {
+          throw new Error('Failed to fetch bookings');
+        }
+        
+        const bookings = await response.json();
+        
+        // Get recent bookings as notifications
+        const data = bookings
+          .filter(booking => booking.status === 'new')
+          .slice(0, 5)
+          .map((booking, index) => ({
+            id: index + 1,
+            type: "booking",
+            message: `New booking from ${booking.fullName} (${booking.vehicleType})`,
+            read: false,
+            date: format(new Date(booking.date), "dd MMM yyyy")
+          }));
         
         setNotifications(data);
         setIsLoadingNotifications(false);
@@ -86,6 +94,14 @@ export default function Dashboard() {
           description: "Failed to load notifications. Please try again.",
           variant: "destructive"
         });
+        
+        // Fallback data in case of error
+        const fallbackData = [
+          { id: 1, type: "booking", message: "New booking request for Swift Dzire", read: false, date: "2 hours ago" },
+          { id: 2, type: "booking", message: "New booking request for Tempo Traveller", read: false, date: "5 hours ago" },
+        ];
+        
+        setNotifications(fallbackData);
         setIsLoadingNotifications(false);
       }
     };
@@ -97,30 +113,30 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        // In a real app, you would fetch from an API endpoint
-        // For now simulating with a timeout
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        // First try to fetch real bookings from API
+        const response = await fetch('/api/bookings');
         
-        // Sample data (in production, this would come from an API)
+        if (!response.ok) {
+          throw new Error('Failed to fetch bookings');
+        }
+        
+        const bookings = await response.json();
+        
+        // Transform bookings data for dashboard display
         const data: BookingData = {
-          totalBookings: 120,
-          activeTours: 24,
-          newCustomers: 45,
-          formSubmissions: 38,
-          recentBookings: [
-            { id: 1, customer: "Rahul Sharma", destination: "Delhi to Jaipur", amount: 1550, date: "2 days ago" },
-            { id: 2, customer: "Priya Patel", destination: "Noida to Agra", amount: 1800, date: "3 days ago" },
-            { id: 3, customer: "Amit Kumar", destination: "Ghaziabad to Dehradun", amount: 2200, date: "4 days ago" },
-            { id: 4, customer: "Neha Gupta", destination: "Noida to Chandigarh", amount: 2500, date: "5 days ago" },
-            { id: 5, customer: "Vikram Singh", destination: "Delhi to Manali", amount: 3500, date: "6 days ago" }
-          ],
-          recentSubmissions: [
-            { id: 1, name: "Rahul Singh", type: "Contact Form", email: "rahul@example.com", date: "1 day ago" },
-            { id: 2, name: "Priya Sharma", type: "Booking Form", email: "priya@example.com", date: "2 days ago" },
-            { id: 3, name: "Amit Kumar", type: "Quote Request", email: "amit@example.com", date: "3 days ago" },
-            { id: 4, name: "Neha Gupta", type: "Corporate Inquiry", email: "neha@example.com", date: "4 days ago" },
-            { id: 5, name: "Vikram Patel", type: "Contact Form", email: "vikram@example.com", date: "5 days ago" }
-          ]
+          totalBookings: bookings.length,
+          activeTours: bookings.filter(b => b.status === 'processed').length,
+          newCustomers: new Set(bookings.map(b => b.phoneNumber)).size,
+          recentBookings: bookings.slice(0, 5).map(booking => ({
+            id: booking.id,
+            fullName: booking.fullName,
+            pickupLocation: booking.pickupLocation,
+            dropoffLocation: booking.dropoffLocation,
+            tripType: booking.tripType,
+            vehicleType: booking.vehicleType,
+            date: booking.date,
+            status: booking.status
+          }))
         };
         
         setDashboardData(data);
@@ -132,6 +148,20 @@ export default function Dashboard() {
           description: "Failed to load dashboard data. Please try again.",
           variant: "destructive"
         });
+        
+        // Fallback to sample data if API fails
+        const fallbackData: BookingData = {
+          totalBookings: 15,
+          activeTours: 5,
+          newCustomers: 10,
+          recentBookings: [
+            { id: "booking-1", fullName: "Rahul Sharma", pickupLocation: "Delhi", dropoffLocation: "Jaipur", tripType: "One-Way Trip", vehicleType: "Innova", date: new Date().toISOString(), status: "new" },
+            { id: "booking-2", fullName: "Priya Patel", pickupLocation: "Noida", dropoffLocation: "Agra", tripType: "Round Trip", vehicleType: "Swift Dzire", date: new Date().toISOString(), status: "processed" },
+            { id: "booking-3", fullName: "Amit Kumar", pickupLocation: "Ghaziabad", dropoffLocation: "Dehradun", tripType: "One-Way Trip", vehicleType: "Tempo Traveller", date: new Date().toISOString(), status: "completed" }
+          ]
+        };
+        
+        setDashboardData(fallbackData);
         setIsLoadingData(false);
       }
     };
@@ -180,6 +210,12 @@ export default function Dashboard() {
         <h1 className="text-3xl font-bold">Dashboard</h1>
         
         <div className="flex items-center gap-4">
+          <Link href="/admin/bookings">
+            <Button variant="outline" className="flex items-center gap-2">
+              <Car className="h-4 w-4" />
+              Manage Bookings
+            </Button>
+          </Link>
           <div className="relative">
             <Bell className="h-6 w-6 cursor-pointer" />
             {unreadCount > 0 && (
@@ -210,7 +246,7 @@ export default function Dashboard() {
             </div>
           ) : dashboardData ? (
             <>
-              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between pb-2">
                     <CardTitle className="text-sm font-medium">Total Bookings</CardTitle>
@@ -218,7 +254,7 @@ export default function Dashboard() {
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-bold">{dashboardData.totalBookings}</div>
-                    <p className="text-xs text-muted-foreground">+10% from last month</p>
+                    <p className="text-xs text-muted-foreground">All time bookings</p>
                   </CardContent>
                 </Card>
                 
@@ -229,7 +265,7 @@ export default function Dashboard() {
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-bold">{dashboardData.activeTours}</div>
-                    <p className="text-xs text-muted-foreground">+2 since last week</p>
+                    <p className="text-xs text-muted-foreground">Currently in progress</p>
                   </CardContent>
                 </Card>
                 
@@ -240,63 +276,52 @@ export default function Dashboard() {
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-bold">{dashboardData.newCustomers}</div>
-                    <p className="text-xs text-muted-foreground">+12% from last month</p>
-                  </CardContent>
-                </Card>
-                
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between pb-2">
-                    <CardTitle className="text-sm font-medium">Form Submissions</CardTitle>
-                    <FileText className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">{dashboardData.formSubmissions}</div>
-                    <p className="text-xs text-muted-foreground">7 new this week</p>
+                    <p className="text-xs text-muted-foreground">Unique customers</p>
                   </CardContent>
                 </Card>
               </div>
               
-              <div className="mt-8 grid gap-6 md:grid-cols-2">
+              <div className="mt-8">
                 <Card>
-                  <CardHeader>
+                  <CardHeader className="flex justify-between items-center">
                     <CardTitle>Recent Bookings</CardTitle>
+                    <Link href="/admin/bookings">
+                      <Button variant="outline" size="sm">View All</Button>
+                    </Link>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      {dashboardData.recentBookings.map((booking) => (
-                        <div key={booking.id} className="flex items-center justify-between border-b pb-2">
-                          <div>
-                            <p className="font-medium">{booking.customer}</p>
-                            <p className="text-sm text-muted-foreground">{booking.destination}</p>
+                      {dashboardData.recentBookings.length === 0 ? (
+                        <p className="text-center text-muted-foreground py-4">No recent bookings</p>
+                      ) : (
+                        dashboardData.recentBookings.map((booking) => (
+                          <div key={booking.id} className="flex items-center justify-between border-b pb-3">
+                            <div>
+                              <p className="font-medium">{booking.fullName}</p>
+                              <p className="text-sm text-muted-foreground">
+                                {booking.pickupLocation} to {booking.dropoffLocation}
+                              </p>
+                              <div className="flex items-center mt-1">
+                                <Badge className={
+                                  booking.status === 'new' ? 'bg-blue-100 text-blue-800' :
+                                  booking.status === 'processed' ? 'bg-yellow-100 text-yellow-800' :
+                                  booking.status === 'completed' ? 'bg-green-100 text-green-800' :
+                                  'bg-red-100 text-red-800'
+                                }>
+                                  {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
+                                </Badge>
+                                <span className="text-xs text-gray-500 ml-2">
+                                  {format(new Date(booking.date), "dd MMM yyyy")}
+                                </span>
+                              </div>
+                            </div>
+                            <div className="text-right">
+                              <p className="font-medium">{booking.vehicleType}</p>
+                              <p className="text-sm text-muted-foreground">{booking.tripType}</p>
+                            </div>
                           </div>
-                          <div className="text-right">
-                            <p className="font-medium">₹{booking.amount}</p>
-                            <p className="text-sm text-muted-foreground">{booking.date}</p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-                
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Recent Form Submissions</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      {dashboardData.recentSubmissions.map((submission) => (
-                        <div key={submission.id} className="flex items-center justify-between border-b pb-2">
-                          <div>
-                            <p className="font-medium">{submission.name}</p>
-                            <p className="text-sm text-muted-foreground">{submission.type}</p>
-                          </div>
-                          <div className="text-right">
-                            <p className="text-sm">{submission.email}</p>
-                            <p className="text-xs text-muted-foreground">{submission.date}</p>
-                          </div>
-                        </div>
-                      ))}
+                        ))
+                      )}
                     </div>
                   </CardContent>
                 </Card>
