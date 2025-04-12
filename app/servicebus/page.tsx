@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { MapPin } from "lucide-react";
 import { BusBookingForm } from "@/components/ui/bus-booking-form";
 import { Navbar } from "@/components/ui/navbar";
@@ -8,6 +8,16 @@ import { Footer } from "@/components/ui/footer";
 import { Copyright } from "@/components/ui/copyright";
 
 export default function Page() {
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  const toggleFaq = (index: number) => {
+    if (openFaq === index) {
+      setOpenFaq(null);
+    } else {
+      setOpenFaq(index);
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -23,6 +33,33 @@ export default function Page() {
               Noida, Greater Noida, and Ghaziabad for weddings, parties, business events, etc. with a 100% customer
               satisfaction rate. We have the largest fleet of buses and deluxe coaches at affordable rates.
             </p>
+            <h3 className="text-xl font-semibold mb-4 text-white">You can hire our vehicles:</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+              <a href="/fleetertiga" className="bg-emerald-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-emerald-600 transition-all shadow-sm">
+                Ertiga
+              </a>
+              <a href="/fleetnova" className="bg-sky-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-sky-600 transition-all shadow-sm">
+                Toyota Innova
+              </a>
+              <a href="/fleetcrysta" className="bg-violet-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-violet-600 transition-all shadow-sm">
+                Innova Crysta
+              </a>
+              <a href="/fleetswift" className="bg-rose-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-rose-600 transition-all shadow-sm">
+                Swift Dzire
+              </a>
+              <a href="/fleetsumo" className="bg-amber-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-amber-600 transition-all shadow-sm">
+                Sumo Gold
+              </a>
+              <a href="/fleettempo" className="bg-indigo-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-indigo-600 transition-all shadow-sm">
+                Tempo Traveller
+              </a>
+              <a href="/fleetvolvo" className="bg-fuchsia-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-fuchsia-600 transition-all shadow-sm">
+                Volvo Buses
+              </a>
+              <a href="/fleetetios" className="bg-orange-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-orange-600 transition-all shadow-sm">
+                Etios
+              </a>
+            </div>
           </div>
 
           {/* Integrated Form Component */}
@@ -157,34 +194,78 @@ export default function Page() {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-gray-800 mb-12 text-center">Frequently Asked Questions</h2>
-          <div className="max-w-3xl mx-auto">
-            <div className="mb-6 border-b pb-4">
-              <button className="flex justify-between items-center w-full text-left">
+          <div className="max-w-3xl mx-auto space-y-4">
+            <div className="border rounded-lg overflow-hidden">
+              <button 
+                className="flex justify-between items-center w-full text-left p-4 bg-white hover:bg-gray-50"
+                onClick={() => toggleFaq(0)}
+              >
                 <h3 className="text-lg font-semibold text-gray-800">Why choose our bus booking service?</h3>
-                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg 
+                  className={`w-5 h-5 text-gray-500 transform transition-transform ${openFaq === 0 ? 'rotate-180' : ''}`} 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
+              {openFaq === 0 && (
+                <div className="p-4 bg-gray-50 border-t">
+                  <p className="text-gray-600">
+                    Yashika Tour & Travels is in this business since 1995 and is one of the best bus rental service provider in Noida. Whether it's a wedding, a business event, school/college transportation service, family tour, etc we have got a ride for everything! All our buses are GPS enabled so you don't have to worry about security.
+                  </p>
+                </div>
+              )}
             </div>
-            <div className="mb-6 border-b pb-4">
-              <button className="flex justify-between items-center w-full text-left">
-                <h3 className="text-lg font-semibold text-gray-800">
-                  What are the types of buses offered for booking in Noida?
-                </h3>
-                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+            <div className="border rounded-lg overflow-hidden">
+              <button 
+                className="flex justify-between items-center w-full text-left p-4 bg-white hover:bg-gray-50"
+                onClick={() => toggleFaq(1)}
+              >
+                <h3 className="text-lg font-semibold text-gray-800">What are the types of buses offered for booking in Noida?</h3>
+                <svg 
+                  className={`w-5 h-5 text-gray-500 transform transition-transform ${openFaq === 1 ? 'rotate-180' : ''}`} 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
+              {openFaq === 1 && (
+                <div className="p-4 bg-gray-50 border-t">
+                  <p className="text-gray-600">
+                    The type of buses offered by Yashika Tour & Travels in Noida is 35 seater, 41 seaters, 45 seaters AC deluxe buses, and 35 seater & 45 seaters Volvo non AC.
+                  </p>
+                </div>
+              )}
             </div>
-            <div className="mb-6 border-b pb-4">
-              <button className="flex justify-between items-center w-full text-left">
-                <h3 className="text-lg font-semibold text-gray-800">
-                  In which cities are Yashika Tour & Travels Bus Hire Service available?
-                </h3>
-                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+            <div className="border rounded-lg overflow-hidden">
+              <button 
+                className="flex justify-between items-center w-full text-left p-4 bg-white hover:bg-gray-50"
+                onClick={() => toggleFaq(2)}
+              >
+                <h3 className="text-lg font-semibold text-gray-800">In which cities are Yashika Tour & Travels' Bus Hire Service available?</h3>
+                <svg 
+                  className={`w-5 h-5 text-gray-500 transform transition-transform ${openFaq === 2 ? 'rotate-180' : ''}`} 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
+              {openFaq === 2 && (
+                <div className="p-4 bg-gray-50 border-t">
+                  <p className="text-gray-600">
+                    We are in the tour and travels business since 1995, and we proudly say that we are one of the best bus/deluxe coach booking service providers in Noida, Greater Noida & Ghaziabad.<br /><br />
+                    As of now, we provide bus booking services in Noida, Greater Noida & Ghaziabad.
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>

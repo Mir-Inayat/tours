@@ -18,8 +18,35 @@ export default function Page() {
               Hire School/College Transport Service in Noida, Greater Noida & Ghaziabad
             </h2>
             <p className="mb-6">
-              Yashika Tour & Travels is providing the best School/College Transport Service since 1995, in Noida, Greater Noida and Ghaziabad with 100% Customer Satisfaction Rate. We have the largest fleet of GPS enabled Transport Vehicles. You can hire Ertiga, Toyota Innova, Innova Crysta, Swift Dzire, Sumo Gold, Tempo Traveller, Volvo Buses, and Etios.
+              Yashika Tour & Travels is providing the best School/College Transport Service since 1995, in Noida, Greater Noida and Ghaziabad with 100% Customer Satisfaction Rate. We have the largest fleet of GPS enabled Transport Vehicles.
             </p>
+            <h3 className="text-xl font-semibold mb-4 text-white">Available Transport Vehicles:</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+              <a href="/fleetertiga" className="bg-emerald-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-emerald-600 transition-all shadow-sm">
+                Ertiga
+              </a>
+              <a href="/fleetnova" className="bg-sky-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-sky-600 transition-all shadow-sm">
+                Toyota Innova
+              </a>
+              <a href="/fleetcrysta" className="bg-violet-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-violet-600 transition-all shadow-sm">
+                Innova Crysta
+              </a>
+              <a href="/fleetswift" className="bg-rose-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-rose-600 transition-all shadow-sm">
+                Swift Dzire
+              </a>
+              <a href="/fleetsumo" className="bg-amber-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-amber-600 transition-all shadow-sm">
+                Sumo Gold
+              </a>
+              <a href="/fleettempo" className="bg-indigo-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-indigo-600 transition-all shadow-sm">
+                Tempo Traveller
+              </a>
+              <a href="/fleetvolvo" className="bg-fuchsia-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-fuchsia-600 transition-all shadow-sm">
+                Volvo Buses
+              </a>
+              <a href="/fleetetios" className="bg-orange-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-orange-600 transition-all shadow-sm">
+                Etios
+              </a>
+            </div>
             <p className="mb-6">
               Connect With Us Now
             </p>
@@ -30,19 +57,6 @@ export default function Page() {
             <div className="max-w-sm mx-auto">
               <BusBookingForm />
             </div>
-            <p className="mt-4 text-sm text-gray-300">
-              Skip to content
-              Yashika Tour and Travels logo - taxi, tempo traveller booking company in noida, greater noida, Ghaziabad
-              Home
-              About
-              Services
-              Popular Destinations
-              Our Fleet
-              Blogs
-              Contact
-              Call us
-            </p>
-            <img src="/path/to/school-transport-image.jpg" alt="School/College Transport" className="mt-4 w-full h-auto" />
           </div>
         </div>
       </section>
@@ -51,7 +65,12 @@ export default function Page() {
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-8 md:mb-0">
-            <img src="/path/to/school-transport-image.jpg" alt="School/College Transport" className="w-full h-auto rounded-lg shadow-md" />
+            <img 
+              src="https://th.bing.com/th/id/OIP.jjk7UfkigWWJZzL2plYrpwHaE8?rs=1&pid=ImgDetMain" 
+              alt="School/College Transport" 
+              className="w-full max-w-md mx-auto h-auto rounded-lg shadow-md"
+              loading="lazy"
+            />
           </div>
           <div className="md:w-1/2 md:pl-8">
             <h2 className="text-3xl font-bold text-gray-800 mb-6">

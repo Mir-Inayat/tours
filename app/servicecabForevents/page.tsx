@@ -1,12 +1,23 @@
 "use client"
 
-import React from "react"
+import React, { useState } from "react"
 import { MapPin, Shield, Users, Clock, Calendar } from "lucide-react"
 import { BusBookingForm } from "@/components/ui/bus-booking-form"
 import { Navbar } from "@/components/ui/navbar"
 import { Footer } from "@/components/ui/footer"
 import { Copyright } from "@/components/ui/copyright"
+
 export default function EventTransport() {
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  const toggleFaq = (index: number) => {
+    if (openFaq === index) {
+      setOpenFaq(null);
+    } else {
+      setOpenFaq(index);
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -21,6 +32,33 @@ export default function EventTransport() {
               Make your events memorable with our premium transportation services. From weddings to corporate 
               events, we provide reliable and comfortable transportation solutions for all occasions.
             </p>
+            <h3 className="text-xl font-semibold mb-4 text-white">Available vehicles for your events:</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+              <a href="/fleetertiga" className="bg-emerald-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-emerald-600 transition-all shadow-sm">
+                Ertiga
+              </a>
+              <a href="/fleetnova" className="bg-sky-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-sky-600 transition-all shadow-sm">
+                Toyota Innova
+              </a>
+              <a href="/fleetcrysta" className="bg-violet-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-violet-600 transition-all shadow-sm">
+                Innova Crysta
+              </a>
+              <a href="/fleetswift" className="bg-rose-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-rose-600 transition-all shadow-sm">
+                Swift Dzire
+              </a>
+              <a href="/fleetsumo" className="bg-amber-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-amber-600 transition-all shadow-sm">
+                Sumo Gold
+              </a>
+              <a href="/fleettempo" className="bg-indigo-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-indigo-600 transition-all shadow-sm">
+                Tempo Traveller
+              </a>
+              <a href="/fleetvolvo" className="bg-fuchsia-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-fuchsia-600 transition-all shadow-sm">
+                Volvo Buses
+              </a>
+              <a href="/fleetetios" className="bg-orange-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-orange-600 transition-all shadow-sm">
+                Etios
+              </a>
+            </div>
           </div>
 
           {/* Booking Form */}
@@ -126,8 +164,102 @@ export default function EventTransport() {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
+            Frequently Asked Questions
+          </h2>
+          <div className="max-w-3xl mx-auto space-y-4">
+            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+              <button
+                className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50"
+                onClick={() => toggleFaq(0)}
+              >
+                <h3 className="text-xl font-semibold">
+                  Why choose our cab service for events?
+                </h3>
+                <svg
+                  className={`w-6 h-6 transform transition-transform ${
+                    openFaq === 0 ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {openFaq === 0 && (
+                <div className="px-6 pb-4">
+                  <p className="text-gray-600">
+                    Whether it is about dropping off your guests at an airport, booking a deluxe bus for wedding, or arranging pick-up & drop off facilities for your business events, school trips, graduation party, tours, etc. we make sure that you have your safety ensured that too within your budget.
+                  </p>
+                </div>
+              )}
+            </div>
+
+            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+              <button
+                className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50"
+                onClick={() => toggleFaq(1)}
+              >
+                <h3 className="text-xl font-semibold">
+                  What sets our event transportation apart?
+                </h3>
+                <svg
+                  className={`w-6 h-6 transform transition-transform ${
+                    openFaq === 1 ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {openFaq === 1 && (
+                <div className="px-6 pb-4">
+                  <p className="text-gray-600">
+                    Wherever you want to, it's not possible without professional drivers. Our drivers are well trained to handle your event transportation needs safely and courteously. With Yashika Tour & Travels, you do not have to worry about unqualified drivers as we hire only those who possess good knowledge of routes. We provide the best in customer service for you and your group so that you can relax and enjoy your event.
+                  </p>
+                </div>
+              )}
+            </div>
+
+            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+              <button
+                className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50"
+                onClick={() => toggleFaq(2)}
+              >
+                <h3 className="text-xl font-semibold">
+                  In which cities are Yashika Tour & Travel's Event Cab Booking Service available?
+                </h3>
+                <svg
+                  className={`w-6 h-6 transform transition-transform ${
+                    openFaq === 2 ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {openFaq === 2 && (
+                <div className="px-6 pb-4">
+                  <p className="text-gray-600">
+                    We are in the tour and travels business since 1995, and we proudly say that we are one of the best event transportation service providers in Noida, Greater Noida & Ghaziabad. As of now, we provide event cab rental services in Noida, Greater Noida & Ghaziabad.
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
       <Footer />
       <Copyright />
     </>
   )
-} 
+}

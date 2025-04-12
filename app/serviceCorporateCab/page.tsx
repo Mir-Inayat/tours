@@ -22,6 +22,27 @@ export default function Corporate() {
               Yashika Tour & Travels provides premium corporate travel services with dedicated account management, 
               flexible billing options, and a wide range of vehicles to meet your business transportation needs.
             </p>
+            <h3 className="text-xl font-semibold mb-4 text-white">Premium Fleet for Corporate Travel:</h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
+              <a href="/fleetnova" className="bg-sky-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-sky-600 transition-all shadow-sm">
+                Toyota Innova
+              </a>
+              <a href="/fleetcrysta" className="bg-violet-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-violet-600 transition-all shadow-sm">
+                Innova Crysta
+              </a>
+              <a href="/fleetetios" className="bg-orange-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-orange-600 transition-all shadow-sm">
+                Etios
+              </a>
+              <a href="/fleetswift" className="bg-rose-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-rose-600 transition-all shadow-sm">
+                Swift Dzire
+              </a>
+              <a href="/fleettempo" className="bg-indigo-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-indigo-600 transition-all shadow-sm">
+                Tempo Traveller
+              </a>
+              <a href="/fleetvolvo" className="bg-fuchsia-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-fuchsia-600 transition-all shadow-sm">
+                Volvo Buses
+              </a>
+            </div>
           </div>
 
           {/* Booking Form */}
@@ -108,4 +129,4 @@ export default function Corporate() {
       <Copyright />
     </>
   )
-} 
+}

@@ -1,12 +1,22 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Navbar } from "@/components/ui/navbar";
 import { Footer } from "@/components/ui/footer";
 import { Copyright } from "@/components/ui/copyright";
 import { BusBookingForm } from "@/components/ui/bus-booking-form";
 
 export default function Page() {
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  const toggleFaq = (index: number) => {
+    if (openFaq === index) {
+      setOpenFaq(null);
+    } else {
+      setOpenFaq(index);
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -20,38 +30,57 @@ export default function Page() {
             <p className="mb-6">
               Yashika Tour & Travels provides the best Cab Booking Service since 1995, in Noida, Greater Noida and Ghaziabad with 100% Customer Satisfaction Rate. We have the largest fleet of GPS enabled Force Tempo Travellers in Noida. You can hire Force tempo traveller in Noida with 12, 16, 20, 25, etc. seating options available for local travel, outstation travel, employee transport facilities, event vehicle rental, corporate cab rental, etc.
             </p>
+            <h3 className="text-xl font-semibold mb-4 text-white">Our Available Vehicles You can Also look for:</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 mb-6">
+              <a href="/fleetertiga" className="bg-emerald-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-emerald-600 transition-all shadow-sm">
+                Ertiga
+              </a>
+              <a href="/fleetnova" className="bg-sky-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-sky-600 transition-all shadow-sm">
+                Toyota Innova
+              </a>
+              <a href="/fleetcrysta" className="bg-violet-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-violet-600 transition-all shadow-sm">
+                Innova Crysta
+              </a>
+              <a href="/fleetswift" className="bg-rose-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-rose-600 transition-all shadow-sm">
+                Swift Dzire
+              </a>
+              <a href="/fleetsumo" className="bg-amber-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-amber-600 transition-all shadow-sm">
+                Sumo Gold
+              </a>
+              <a href="/fleettempo" className="bg-indigo-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-indigo-600 transition-all shadow-sm">
+                Tempo Traveller
+              </a>
+              <a href="/fleetvolvo" className="bg-fuchsia-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-fuchsia-600 transition-all shadow-sm">
+                Volvo Buses
+              </a>
+              <a href="/fleetetios" className="bg-orange-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-orange-600 transition-all shadow-sm">
+                Etios
+              </a>
+            </div>
             <p className="mb-6">
               Book Tempo Traveller in Noida Now
             </p>
           </div>
 
           {/* Integrated Form Component */}
-          <div className="md:w-1/2 md:pl-8">
-            <div className="max-w-sm mx-auto">
+          <div className="w-full md:w-1/2 px-4 md:pl-8">
+            <div className="max-w-sm mx-auto lg:mr-0">
               <BusBookingForm />
             </div>
-            <p className="mt-4 text-sm text-gray-300">
-              Skip to content
-              Yashika Tour and Travels logo - taxi, tempo traveller booking company in noida, greater noida, Ghaziabad
-              Home
-              About
-              Services
-              Popular Destinations
-              Our Fleet
-              Blogs
-              Contact
-              Call us
-            </p>
-            <img src="/path/to/tempo-traveller-image.jpg" alt="Force Tempo Traveller" className="mt-4 w-full h-auto" />
           </div>
         </div>
       </section>
 
       {/* Why book Tempo Traveller Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
-          <div className="md:w-1/2 mb-8 md:mb-0">
-            <img src="/path/to/tempo-traveller-image.jpg" alt="Force Tempo Traveller" className="w-full h-auto rounded-lg shadow-md" />
+      <section className="py-8 sm:py-12 md:py-16 bg-gray-50">
+        <div className="container mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center">
+          <div className="w-full md:w-1/2 mb-8 md:mb-0 px-4">
+            <img 
+              src="https://www.trucksbuses.com/uploads/Force%20Tempo%20Traveler%203050.jpg" 
+              alt="Force Tempo Traveller" 
+              className="w-full max-w-lg mx-auto h-auto rounded-lg shadow-md object-cover"
+              loading="lazy"
+            />
           </div>
           <div className="md:w-1/2 md:pl-8">
             <h2 className="text-3xl font-bold text-gray-800 mb-6">
@@ -71,9 +100,9 @@ export default function Page() {
       </section>
 
       {/* Additional Content */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
+      <section className="py-8 sm:py-12 md:py-16 bg-gray-50">
+        <div className="container mx-auto px-4 sm:px-6">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4 sm:mb-6 text-center">
             Best Tempo Traveller Booking Service Provider in Noida | Greater Noida | Ghaziabad
           </h2>
           <p className="text-gray-600 mb-6">
@@ -83,9 +112,9 @@ export default function Page() {
       </section>
 
       {/* Why Tempo Traveller is Best Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">What sets our Tempo Traveller booking service in Noida apart?</h2>
+      <section className="py-8 sm:py-12 md:py-16">
+        <div className="container mx-auto px-4 sm:px-6">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4 sm:mb-6 text-center">What sets our Tempo Traveller booking service in Noida apart?</h2>
           <p className="text-gray-600 mb-6">
             Force Tempo Traveller has always been the favourite mini-bus among the people for a long trip with friends, corporate employees, school/college transportation, etc. Force Tempo Travellers are the best mini bus for long-distance & short-distance travel specially for group travelling because of their comfort and boot space.
           </p>
@@ -118,71 +147,95 @@ export default function Page() {
         </div>
       </section>
 
-      {/* Other Cabs Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-800 mb-12 text-center">Other Cabs available for booking</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <img src="/path/to/ertiga-image.jpg" alt="Ertiga" className="w-full h-auto mb-4" />
-              <button className="w-full bg-blue-600 text-white py-2 rounded-lg">Book Ertiga</button>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <img src="/path/to/innova-image.jpg" alt="Innova" className="w-full h-auto mb-4" />
-              <button className="w-full bg-blue-600 text-white py-2 rounded-lg">Book Innova</button>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <img src="/path/to/innova-crysta-image.jpg" alt="Innova Crysta" className="w-full h-auto mb-4" />
-              <button className="w-full bg-blue-600 text-white py-2 rounded-lg">Book Innova Crysta</button>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <img src="/path/to/swift-dzire-image.jpg" alt="Swift Dzire" className="w-full h-auto mb-4" />
-              <button className="w-full bg-blue-600 text-white py-2 rounded-lg">Book Maruti Suzuki Swift Dzire</button>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <img src="/path/to/tata-sumo-image.jpg" alt="Tata Sumo Gold" className="w-full h-auto mb-4" />
-              <button className="w-full bg-blue-600 text-white py-2 rounded-lg">Book Tata Sumo Gold</button>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <img src="/path/to/toyota-etios-image.jpg" alt="Toyota Etios" className="w-full h-auto mb-4" />
-              <button className="w-full bg-blue-600 text-white py-2 rounded-lg">Book Toyota Etios</button>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <img src="/path/to/volvo-bus-image.jpg" alt="Volvo Buses" className="w-full h-auto mb-4" />
-              <button className="w-full bg-blue-600 text-white py-2 rounded-lg">Book Volvo Buses</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* FAQ Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-800 mb-12 text-center">Frequently Asked Questions</h2>
-          <div className="max-w-3xl mx-auto">
-            <div className="mb-6 border-b pb-4">
-              <button className="flex justify-between items-center w-full text-left">
-                <h3 className="text-lg font-semibold text-gray-800">Why choose our Force Tempo Travellers booking service?</h3>
-                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <section className="py-8 sm:py-12 md:py-16 bg-gray-50">
+        <div className="container mx-auto px-4 sm:px-6">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4 sm:mb-6 text-center">
+            Frequently Asked Questions
+          </h2>
+          <div className="max-w-3xl mx-auto space-y-3 sm:space-y-4 px-4 sm:px-6">
+            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+              <button
+                className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50"
+                onClick={() => toggleFaq(0)}
+              >
+                <h3 className="text-xl font-semibold">
+                  Why hire tempo traveller in Noida from Yashika Tour & Travels?
+                </h3>
+                <svg
+                  className={`w-6 h-6 transform transition-transform ${
+                    openFaq === 0 ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
+              {openFaq === 0 && (
+                <div className="px-6 pb-4">
+                  <p className="text-gray-600">
+                    When you hire a tempo traveller from Yashik Tour & Travels, you get transparent billing, low prices, and 24×7 customer support along with our pan India reach. You can rent tempo traveller for one as well as round trips for local or outstation visits. If you have any special requirements like deluxe/luxury or AC tempo travellers you can always contact us. We provide you a variety of tempo travellers ranging from 9 seaters, 10 seaters, 11 seaters, 12 seaters, 13 seaters, 14 seaters, 15 seaters, 16 seaters, 17 seaters, 18 seaters, 19 seaters, 20 seaters, 22 seaters, 24 seaters, 26 seaters, 27 seaters Tempo Travellers on Hire in our fleet in Noida, Greater Noida & Ghaziabad.
+                  </p>
+                </div>
+              )}
             </div>
-            <div className="mb-6 border-b pb-4">
-              <button className="flex justify-between items-center w-full text-left">
-                <h3 className="text-lg font-semibold text-gray-800">In which cities are Yashika Tour & Travels' Tempo Traveller Rental Service available?</h3>
-                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+              <button
+                className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50"
+                onClick={() => toggleFaq(1)}
+              >
+                <h3 className="text-xl font-semibold">
+                  In which cities are Yashika Tour & Travel's Tempo Traveller Rental Service available?
+                </h3>
+                <svg
+                  className={`w-6 h-6 transform transition-transform ${
+                    openFaq === 1 ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
+              {openFaq === 1 && (
+                <div className="px-6 pb-4">
+                  <p className="text-gray-600">
+                    We are in the tour and travels business since 1995, and we proudly say that we are one of the best tempo traveller service providers in Noida, Greater Noida & Ghaziabad. As of now, we provide tempo traveller rental services in Noida, Greater Noida & Ghaziabad.
+                  </p>
+                </div>
+              )}
             </div>
-            <div className="mb-6 border-b pb-4">
-              <button className="flex justify-between items-center w-full text-left">
-                <h3 className="text-lg font-semibold text-gray-800">How to book Force Tempo Traveller in Noida?</h3>
-                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+              <button
+                className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50"
+                onClick={() => toggleFaq(2)}
+              >
+                <h3 className="text-xl font-semibold">
+                  How do I book a tempo traveller in Noida?
+                </h3>
+                <svg
+                  className={`w-6 h-6 transform transition-transform ${
+                    openFaq === 2 ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
+              {openFaq === 2 && (
+                <div className="px-6 pb-4">
+                  <p className="text-gray-600">
+                    You can book a tempo traveller in Noida by simply searching tempo traveller near me or through Yashika Tour & Travel's official website. Once you choose your pick-up & drop-off locations, and preferred tempo traveller booking services, you can pay by any of the following methods, via a credit card, debit card, wallets, net banking, and so on. Call us and we will do an online tempo traveller booking for you.
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>

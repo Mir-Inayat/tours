@@ -1,12 +1,22 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Navbar } from "@/components/ui/navbar";
 import { Footer } from "@/components/ui/footer";
 import { Copyright } from "@/components/ui/copyright";
 import { BusBookingForm } from "@/components/ui/bus-booking-form";
 
 export default function Page() {
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  const toggleFaq = (index: number) => {
+    if (openFaq === index) {
+      setOpenFaq(null);
+    } else {
+      setOpenFaq(index);
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -18,8 +28,35 @@ export default function Page() {
               Hire Local Taxis in Noida, Greater Noida & Ghaziabad
             </h2>
             <p className="mb-6">
-              Yashika Tour & Travels is providing the best local taxi hiring service since 1995, in Noida, Greater Noida and Ghaziabad with a 100% Customer Satisfaction Rate. We have the largest fleet of GPS-enabled taxis. You can hire Ertiga, Toyota Innova, Innova Crysta, Swift Dzire, Sumo Gold, Tempo Traveller, Volvo Buses, and Etios.
+              Yashika Tour & Travels is providing the best local taxi hiring service since 1995, in Noida, Greater Noida and Ghaziabad with a 100% Customer Satisfaction Rate. We have the largest fleet of GPS-enabled taxis.
             </p>
+            <h3 className="text-xl font-semibold mb-4 text-white">You can hire our vehicles:</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+              <a href="/fleetertiga" className="bg-emerald-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-emerald-600 transition-all shadow-sm">
+                Ertiga
+              </a>
+              <a href="/fleetnova" className="bg-sky-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-sky-600 transition-all shadow-sm">
+                Toyota Innova
+              </a>
+              <a href="/fleetcrysta" className="bg-violet-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-violet-600 transition-all shadow-sm">
+                Innova Crysta
+              </a>
+              <a href="/fleetswift" className="bg-rose-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-rose-600 transition-all shadow-sm">
+                Swift Dzire
+              </a>
+              <a href="/fleetsumo" className="bg-amber-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-amber-600 transition-all shadow-sm">
+                Sumo Gold
+              </a>
+              <a href="/fleettempo" className="bg-indigo-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-indigo-600 transition-all shadow-sm">
+                Tempo Traveller
+              </a>
+              <a href="/fleetvolvo" className="bg-fuchsia-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-fuchsia-600 transition-all shadow-sm">
+                Volvo Buses
+              </a>
+              <a href="/fleetetios" className="bg-orange-500 text-white px-3 py-1.5 rounded text-sm text-center hover:bg-orange-600 transition-all shadow-sm">
+                Etios
+              </a>
+            </div>
             <p className="mb-6">
               Hire Taxi in Noida Now
             </p>
@@ -30,19 +67,6 @@ export default function Page() {
             <div className="max-w-sm mx-auto">
               <BusBookingForm />
             </div>
-            <p className="mt-4 text-sm text-gray-300">
-              Skip to content
-              Yashika Tour and Travels logo - taxi, tempo traveller booking company in noida, greater noida, Ghaziabad
-              Home
-              About
-              Services
-              Popular Destinations
-              Our Fleet
-              Blogs
-              Contact
-              Call us
-            </p>
-            <img src="/path/to/local-taxi-image.jpg" alt="Local Taxi" className="mt-4 w-full h-auto" />
           </div>
         </div>
       </section>
@@ -51,7 +75,12 @@ export default function Page() {
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-8 md:mb-0">
-            <img src="/path/to/local-taxi-image.jpg" alt="Local Taxi" className="w-full h-auto rounded-lg shadow-md" />
+            <img 
+              src="https://droptaxiinoneway.com/gleensic/2024/02/Outstation-Cab-Booking-1024x1024.jpg" 
+              alt="Local Taxi Service" 
+              className="w-full max-w-md mx-auto h-auto rounded-lg shadow-md"
+              loading="lazy"
+            />
           </div>
           <div className="md:w-1/2 md:pl-8">
             <h2 className="text-3xl font-bold text-gray-800 mb-6">
@@ -113,31 +142,92 @@ export default function Page() {
       {/* FAQ Section */}
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-800 mb-12 text-center">Frequently Asked Questions</h2>
-          <div className="max-w-3xl mx-auto">
-            <div className="mb-6 border-b pb-4">
-              <button className="flex justify-between items-center w-full text-left">
-                <h3 className="text-lg font-semibold text-gray-800">Why hire local cabs in Noida from Yashika Tour & Travels?</h3>
-                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
+            Frequently Asked Questions
+          </h2>
+          <div className="max-w-3xl mx-auto space-y-4">
+            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+              <button
+                className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50"
+                onClick={() => toggleFaq(0)}
+              >
+                <h3 className="text-xl font-semibold">
+                  Why hire local cabs in Noida from Yashika Tour & Travels?
+                </h3>
+                <svg
+                  className={`w-6 h-6 transform transition-transform ${
+                    openFaq === 0 ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
+              {openFaq === 0 && (
+                <div className="px-6 pb-4">
+                  <p className="text-gray-600">
+                    When you hire a local cab from Yashik Tour & Travels, you get transparent billing, professional drivers, low prices, and 24×7 customer support along with our pan India reach. You can rent local cabs for one-way as well as round trips. If you have any special requirements like deluxe/luxury or AC cabs you can always contact us. We provide you a variety of local taxis ranging from hatchbacks & sedans to SUVs on Hire in our fleet in Noida, Greater Noida & Ghaziabad.
+                  </p>
+                </div>
+              )}
             </div>
-            <div className="mb-6 border-b pb-4">
-              <button className="flex justify-between items-center w-full text-left">
-                <h3 className="text-lg font-semibold text-gray-800">In which cities are Yashika Tour & Travel's local taxi/cab Booking Service available?</h3>
-                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+              <button
+                className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50"
+                onClick={() => toggleFaq(1)}
+              >
+                <h3 className="text-xl font-semibold">
+                  In which cities are Yashika Tour & Travel's local taxi/cab Booking Service available?
+                </h3>
+                <svg
+                  className={`w-6 h-6 transform transition-transform ${
+                    openFaq === 1 ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
+              {openFaq === 1 && (
+                <div className="px-6 pb-4">
+                  <p className="text-gray-600">
+                    We are in the tour and travels business since 1995, and we proudly say that we are one of the best local taxi & cab booking service providers in Noida, Greater Noida & Ghaziabad. As of now, we provide local car rental services in Noida, Greater Noida & Ghaziabad.
+                  </p>
+                </div>
+              )}
             </div>
-            <div className="mb-6 border-b pb-4">
-              <button className="flex justify-between items-center w-full text-left">
-                <h3 className="text-lg font-semibold text-gray-800">How do I book a local taxi or cab in Noida?</h3>
-                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+              <button
+                className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50"
+                onClick={() => toggleFaq(2)}
+              >
+                <h3 className="text-xl font-semibold">
+                  How do I book a local taxi or cab in Noida?
+                </h3>
+                <svg
+                  className={`w-6 h-6 transform transition-transform ${
+                    openFaq === 2 ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
+              {openFaq === 2 && (
+                <div className="px-6 pb-4">
+                  <p className="text-gray-600">
+                    You can book a local taxi/cab in Noida through Yashika Tour & Travel's official website. Once you choose your pick-up & drop-off locations, and preferred local cab booking service, you can pay by any of the following methods, via a credit card, debit card, wallets, net banking, and so on. Call us and we will do an online local car rental booking for you.
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>
