@@ -1,4 +1,6 @@
 import { NextResponse } from 'next/server';
+import fs from 'fs/promises';
+import path from 'path';
 
 // Define the data structure for bookings
 export interface BookingData {
@@ -16,14 +18,18 @@ export interface BookingData {
   status: "new" | "processed" | "completed" | "cancelled";
 }
 
-// Store bookings in memory for development (in production you'd use a database)
-if (!(global as any).bookings) {
-  (global as any).bookings = [];
-}
+const bookingsFilePath = path.join(process.cwd(), 'data', 'bookings.json');
 
 export async function GET() {
   try {
-    return NextResponse.json((global as any).bookings);
+    let bookings = [];
+    try {
+      const content = await fs.readFile(bookingsFilePath, 'utf8');
+      bookings = JSON.parse(content);
+    } catch (error) {
+      // File doesn't exist yet, that's okay
+    }
+    return NextResponse.json(bookings);
   } catch (error) {
     console.error('Error fetching bookings:', error);
     return NextResponse.json(
@@ -35,6 +41,15 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
+    // Read existing bookings
+    let bookings = [];
+    try {
+      const content = await fs.readFile(bookingsFilePath, 'utf8');
+      bookings = JSON.parse(content);
+    } catch (error) {
+      // File doesn't exist yet, that's okay
+    }
+    
     const booking = await request.json();
     
     // Validate required fields
@@ -65,7 +80,6 @@ export async function POST(request: Request) {
       );
     }
     
-    // Create a new booking with a unique ID
     const newBooking: BookingData = {
       ...booking,
       id: `booking-${Date.now()}`,
@@ -73,15 +87,20 @@ export async function POST(request: Request) {
       status: booking.status || 'new'
     };
     
-    // Add to our in-memory storage
-    (global as any).bookings.push(newBooking);
+    // Add new booking
+    bookings.push(newBooking);
+    
+    // Make sure directory exists
+    await fs.mkdir(path.dirname(bookingsFilePath), { recursive: true });
+    
+    // Write updated bookings back to file
+    await fs.writeFile(bookingsFilePath, JSON.stringify(bookings, null, 2), 'utf8');
     
     return NextResponse.json({ 
       success: true, 
       message: 'Booking received successfully',
       booking: newBooking 
     });
-    
   } catch (error) {
     console.error('Error processing booking:', error);
     return NextResponse.json(
