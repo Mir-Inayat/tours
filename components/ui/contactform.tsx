@@ -13,8 +13,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import Script from "next/script"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 
 const formSchema = z.object({
   fullName: z.string().min(2, {
@@ -32,7 +31,9 @@ const formSchema = z.object({
 })
 
 export function ContactForm() {
-  const recaptchaRef = useRef<HTMLDivElement>(null)
+  const [recaptchaLoaded, setRecaptchaLoaded] = useState(false);
+  const [recaptchaError, setRecaptchaError] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -44,37 +45,42 @@ export function ContactForm() {
     },
   })
 
-  useEffect(() => {
-    // Load reCAPTCHA when component mounts
-    const script = document.createElement("script")
-    script.src = "https://www.google.com/recaptcha/api.js"
-    script.async = true
-    script.defer = true
-    document.body.appendChild(script)
-
-    return () => {
-      // Cleanup script when component unmounts
-      document.body.removeChild(script)
-    }
-  }, [])
-
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const recaptchaValue = (window as any).grecaptcha?.getResponse()
-    
-    if (!recaptchaValue) {
-      alert("Please complete the reCAPTCHA verification")
-      return
-    }
+    setIsSubmitting(true);
 
     try {
-      // Add your form submission logic here
-      console.log({ ...values, recaptchaValue })
+      // Map form field names to match your API expectations
+      const formData = {
+        name: values.fullName,
+        email: values.emailAddress,
+        phone: values.phoneNumber,
+        message: values.query,
+        formType: "contact"
+      };
       
-      // Reset form and reCAPTCHA after successful submission
-      form.reset()
-      ;(window as any).grecaptcha?.reset()
+      // Submit to API endpoint
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
+      
+      // Show success message
+      alert("Form submitted successfully! We'll get back to you soon.");
+      
+      // Reset form after successful submission
+      form.reset();
     } catch (error) {
-      console.error("Error submitting form:", error)
+      console.error("Error submitting form:", error);
+      alert("Error submitting form. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -153,23 +159,28 @@ export function ContactForm() {
             )}
           />
 
-          {/* reCAPTCHA */}
-          <div className="flex justify-center my-2">
-            <div 
-              ref={recaptchaRef}
-              className="g-recaptcha transform scale-75 origin-left" 
-              data-sitekey="6LcPHGopAAAAAFKRrc8hXRqGwWnGxQvLXv4hZA-e"
-            ></div>
+          {/* Replaced reCAPTCHA with simple checkbox */}
+          <div className="flex items-center my-2">
+            <input 
+              type="checkbox" 
+              id="not-robot" 
+              className="mr-2"
+              required
+            />
+            <label htmlFor="not-robot" className="text-sm text-gray-600">
+              I'm not a robot
+            </label>
           </div>
 
           <Button 
             type="submit" 
             className="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-1.5 px-4 rounded-md text-sm transition duration-200"
+            disabled={isSubmitting}
           >
-            Submit
+            {isSubmitting ? "Submitting..." : "Submit"}
           </Button>
         </form>
       </Form>
     </div>
   )
-} 
+}

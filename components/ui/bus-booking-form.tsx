@@ -110,7 +110,7 @@ export function BusBookingForm() {
             placeholder="Full Name"
             value={formData.fullName}
             onChange={handleChange}
-            className="pl-9 w-full h-10 rounded-md border border-gray-300 p-2 bg-white"
+            className="pl-9 w-full h-10 rounded-md border border-gray-300 p-2 bg-white text-gray-800"
             required
           />
           <span className="absolute left-2.5 top-1/2 -translate-y-1/2">
@@ -128,7 +128,7 @@ export function BusBookingForm() {
             placeholder="Phone Number"
             value={formData.phoneNumber}
             onChange={handleChange}
-            className="pl-9 w-full h-10 rounded-md border border-gray-300 p-2 bg-white"
+            className="pl-9 w-full h-10 rounded-md border border-gray-300 p-2 bg-white text-gray-800"
             required
           />
           <span className="absolute left-2.5 top-1/2 -translate-y-1/2">
@@ -145,7 +145,7 @@ export function BusBookingForm() {
             placeholder="Pick-up Location"
             value={formData.pickupLocation}
             onChange={handleChange}
-            className="pl-9 w-full h-10 rounded-md border border-gray-300 p-2 bg-white"
+            className="pl-9 w-full h-10 rounded-md border border-gray-300 p-2 bg-white text-gray-800"
             required
           />
           <span className="absolute left-2.5 top-1/2 -translate-y-1/2">
@@ -163,7 +163,7 @@ export function BusBookingForm() {
             placeholder="Drop-off Location"
             value={formData.dropoffLocation}
             onChange={handleChange}
-            className="pl-9 w-full h-10 rounded-md border border-gray-300 p-2 bg-white"
+            className="pl-9 w-full h-10 rounded-md border border-gray-300 p-2 bg-white text-gray-800"
             required
           />
           <span className="absolute left-2.5 top-1/2 -translate-y-1/2">
@@ -203,7 +203,7 @@ export function BusBookingForm() {
           name="vehicleType"
           value={formData.vehicleType}
           onChange={handleChange}
-          className="w-full h-10 rounded-md border border-gray-300 bg-white text-gray-500 p-2"
+          className="w-full h-10 rounded-md border border-gray-300 bg-white text-gray-800 p-2"
           required
         >
           <option value="">Choose Your Ride</option>
@@ -218,46 +218,46 @@ export function BusBookingForm() {
           <option value="Bus">Bus</option>
         </select>
 
-        <input 
-          type="number"
-          name="numberOfPeople"
-          placeholder="No. of People"
-          min="1"
-          value={formData.numberOfPeople}
-          onChange={handleChange}
-          className="w-full h-10 rounded-md border border-gray-300 p-2 bg-white"
-          required
-        />
+        <div className="relative">
+          <input 
+            type="number"
+            name="numberOfPeople"
+            placeholder="No. of People"
+            min="1"
+            value={formData.numberOfPeople}
+            onChange={handleChange}
+            className="w-full h-10 rounded-md border border-gray-300 p-2 bg-white text-gray-800"
+            required
+          />
+        </div>
 
         <div className="relative">
+          <label className="block text-sm text-gray-600 mb-1">
+            Departure Date
+          </label>
           <input 
             type="date"
             name="departureDate"
-            placeholder="Departure Date"
             value={formData.departureDate}
             onChange={handleChange}
-            className="w-full h-10 rounded-md border border-gray-300 p-2 bg-white"
+            className="w-full h-10 rounded-md border border-gray-300 p-2 bg-white text-gray-800"
             required
           />
-          <label className="absolute text-xs text-gray-500 -top-2 left-2 bg-white px-1">
-            Departure Date (dd-mm-yyyy)
-          </label>
         </div>
 
         {formData.tripType === "Round Trip" && (
           <div className="relative">
+            <label className="block text-sm text-gray-600 mb-1">
+              Return Date
+            </label>
             <input 
               type="date"
               name="returnDate"
-              placeholder="Return Date"
               value={formData.returnDate}
               onChange={handleChange}
-              className="w-full h-10 rounded-md border border-gray-300 p-2 bg-white"
+              className="w-full h-10 rounded-md border border-gray-300 p-2 bg-white text-gray-800"
               required={formData.tripType === "Round Trip"}
             />
-            <label className="absolute text-xs text-gray-500 -top-2 left-2 bg-white px-1">
-              Return Date (dd-mm-yyyy)
-            </label>
           </div>
         )}
 

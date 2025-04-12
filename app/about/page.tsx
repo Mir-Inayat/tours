@@ -7,6 +7,33 @@ import { Facebook, Instagram, Linkedin, Shield, Star, Clock, Check, Award } from
 import { Navbar } from "@/components/ui/navbar"
 import { Footer } from "@/components/ui/footer"
 import { Copyright } from "@/components/ui/copyright"
+import { useEffect, useState } from 'react'
+
+interface CountUpProps {
+  end: number
+  duration?: number
+}
+
+function CountUp({ end, duration = 2000 }: CountUpProps) {
+  const [count, setCount] = useState(0)
+
+  useEffect(() => {
+    let start = 0
+    const step = end / (duration / 16)
+    const timer = setInterval(() => {
+      start += step
+      if (start < end) {
+        setCount(Math.floor(start))
+      } else {
+        setCount(end)
+        clearInterval(timer)
+      }
+    }, 16)
+    return () => clearInterval(timer)
+  }, []) // Empty dependency array means it only runs once when mounted
+
+  return <span>{count}+</span>
+}
 
 export default function AboutPage() {
   return (
@@ -14,58 +41,59 @@ export default function AboutPage() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative bg-blue-500 py-16">
-        <div className="absolute right-0 top-0 h-full w-1/3 bg-orange-500 clip-path-curve"></div>
+
+      <section className="relative bg-[#2563EB] py-24">
+        <div className="absolute right-0 top-0 h-full w-1/2 bg-[#FF4A17] clip-path-curve"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="flex flex-col md:flex-row items-center">
             <div className="w-full md:w-1/2 text-white mb-10 md:mb-0">
-              <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
+              <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-6">
                 Meet the best taxi rental service in Noida, Greater Noida & Ghaziabad!
               </h1>
-              <p className="mb-6">
+              <p className="text-xl mb-8">
                 Yashika Tour & Travels, since 1995, is the best and the most reliable
               </p>
               {/* Service Links */}
-              <div className="flex flex-wrap gap-2 mb-6">
+              <div className="flex flex-wrap gap-3 mb-8">
                 <Link 
                   href="/servicelocaltaxi" 
-                  className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-full text-sm transition-colors"
+                  className="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-full text-sm transition-colors"
                 >
                   Local Taxi Rental
                 </Link>
                 <Link 
                   href="/serviceout" 
-                  className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-full text-sm transition-colors"
+                  className="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-full text-sm transition-colors"
                 >
                   Outstation Taxi Rental
                 </Link>
                 <Link 
                   href="/serviceTempo" 
-                  className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-full text-sm transition-colors"
+                  className="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-full text-sm transition-colors"
                 >
                   Tempo-Traveller Rental
                 </Link>
                 <Link 
                   href="/servicebus" 
-                  className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-full text-sm transition-colors"
+                  className="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-full text-sm transition-colors"
                 >
                   Bus Rental
                 </Link>
                 <Link 
                   href="/serviceCorporateCab" 
-                  className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-full text-sm transition-colors"
+                  className="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-full text-sm transition-colors"
                 >
                   Corporate Car Rental
                 </Link>
                 <Link 
                   href="/serviceSchoolCollege" 
-                  className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-full text-sm transition-colors"
+                  className="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-full text-sm transition-colors"
                 >
                   School/College Transport
                 </Link>
                 <Link 
                   href="/servicecabForevents" 
-                  className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-full text-sm transition-colors"
+                  className="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-full text-sm transition-colors"
                 >
                   Wedding Transport
                 </Link>
@@ -73,15 +101,21 @@ export default function AboutPage() {
               <p className="text-lg">
                 Company in Noida, Greater Noida & Ghaziabad, with 24*7 availability.
               </p>
+              <Link href="/servicelocaltaxi" passHref>
+              <Button className="mt-8 bg-white text-[#2563EB] hover:bg-gray-100 px-8 py-3">
+                Book Taxi Now
+              </Button>
+            </Link>
             </div>
-            <div className="w-full md:w-1/2">
-              <div className="rounded-lg overflow-hidden shadow-xl">
+            <div className="w-full md:w-1/2 pl-0 md:pl-12">
+              <div className="rounded-2xl overflow-hidden shadow-2xl">
                 <Image
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-04-03%20214621-hzrjUDbk1mH0WyzstwxKA6wHsbvQTO.png"
-                  alt="Yashika Tour & Travels Fleet"
+                  src="/image1.jpg"
+                  alt="Yashika Tour & Travels Fleet and Drivers"
                   width={600}
                   height={400}
                   className="w-full h-auto object-cover"
+                  priority // Add this to prioritize loading this hero image
                 />
               </div>
             </div>
@@ -96,7 +130,7 @@ export default function AboutPage() {
             <div className="w-full md:w-1/2">
               <div className="rounded-lg overflow-hidden shadow-xl">
                 <Image
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-04-03%20214631-8PdXAgtAv8zwl3aYQqa6iNfvKFr6BE.png"
+                  src="/image2.jpg"
                   alt="Yashika Tour & Travels Team"
                   width={600}
                   height={400}
@@ -152,7 +186,7 @@ export default function AboutPage() {
             <div className="w-full md:w-1/2">
               <div className="rounded-lg overflow-hidden shadow-xl">
                 <Image
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-04-03%20214638-xV2voCehrBYvMfD2qWyMBOajtZmpDt.png"
+                  src="/image3.jpg"
                   alt="Yashika Tour & Travels Fleet"
                   width={600}
                   height={400}
@@ -308,110 +342,64 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold mb-12 text-center text-gray-800">Meet Our Team</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* Team Member 1 */}
-            <div className="bg-white rounded-lg shadow-md overflow-hidden">
-              <div className="h-64 relative">
-                <Image src="/placeholder.svg?height=300&width=300" alt="Rajesh Kumar" fill className="object-cover" />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-1 text-gray-800">Rajesh Kumar</h3>
-                <p className="text-orange-500 font-medium mb-3">Founder & CEO</p>
-                <p className="text-gray-600 mb-4">
-                  Founded Yashika Tour & Travels in 1995 with a vision to provide reliable transportation services in
-                  Noida.
-                </p>
-                <div className="flex space-x-3">
-                  <a href="#" className="text-blue-500 hover:text-blue-700">
-                    <Facebook className="h-5 w-5" />
-                  </a>
-                  <a href="#" className="text-pink-500 hover:text-pink-700">
-                    <Instagram className="h-5 w-5" />
-                  </a>
-                  <a href="#" className="text-blue-700 hover:text-blue-900">
-                    <Linkedin className="h-5 w-5" />
-                  </a>
-                </div>
-              </div>
-            </div>
+      {/* Video Background Section */}
+      <section className="relative h-screen w-full overflow-hidden">
+        <iframe 
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+          style={{ width: '140vw', height: '120vh', marginLeft: '-20vw' }}
+          src="https://www.youtube.com/embed/fJJPET8HXCE?controls=0&rel=0&playsinline=1&mute=1&loop=1&autoplay=1&playlist=fJJPET8HXCE&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0" 
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          title="Background video"
+        ></iframe>
+        <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+        <div className="absolute inset-0 flex flex-col justify-between">
+          <div className="container mx-auto px-16 pt-24">
+            <p className="text-white text-sm font-medium tracking-wider mb-5">100% CUSTOMER SATISFACTION</p>
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 max-w-4xl leading-tight">
+              No matter where you travel,
+              <br />
+              we've got a ride for you.
+            </h1>
+            <p className="text-white text-base max-w-3xl mb-10 leading-relaxed opacity-90">
+              Be it a taxi rental service, tempo-traveller rental service, corporate taxi service,
+              school/college transport service, or bus rental service, we've got everything covered.
+              <br /><br />
+              Whether it is your first time renting a taxi with us or the tenth, we look forward to your
+              booking with the same enthusiasm.
+            </p>
+            <Button className="bg-[#FF4A17] hover:bg-[#FF5E33] text-white px-8 py-3 text-base font-medium rounded mb-16">
+              Book Your Ride Now!
+            </Button>
+          </div>
 
-            {/* Team Member 2 */}
-            <div className="bg-white rounded-lg shadow-md overflow-hidden">
-              <div className="h-64 relative">
-                <Image src="/placeholder.svg?height=300&width=300" alt="Priya Sharma" fill className="object-cover" />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-1 text-gray-800">Priya Sharma</h3>
-                <p className="text-orange-500 font-medium mb-3">Operations Manager</p>
-                <p className="text-gray-600 mb-4">
-                  With 15 years of experience, Priya ensures smooth operations and exceptional service quality.
-                </p>
-                <div className="flex space-x-3">
-                  <a href="#" className="text-blue-500 hover:text-blue-700">
-                    <Facebook className="h-5 w-5" />
-                  </a>
-                  <a href="#" className="text-pink-500 hover:text-pink-700">
-                    <Instagram className="h-5 w-5" />
-                  </a>
-                  <a href="#" className="text-blue-700 hover:text-blue-900">
-                    <Linkedin className="h-5 w-5" />
-                  </a>
+          {/* Statistics Section */}
+          <div className="w-full border-t border-white/10">
+            <div className="container mx-auto px-16 py-6">
+              <div className="grid grid-cols-4">
+                <div>
+                  <h3 className="text-4xl md:text-5xl font-bold text-white mb-2">
+                    <CountUp end={150000} />
+                  </h3>
+                  <p className="text-[11px] text-white/70 uppercase tracking-wider">RIDES</p>
                 </div>
-              </div>
-            </div>
-
-            {/* Team Member 3 */}
-            <div className="bg-white rounded-lg shadow-md overflow-hidden">
-              <div className="h-64 relative">
-                <Image src="/placeholder.svg?height=300&width=300" alt="Amit Patel" fill className="object-cover" />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-1 text-gray-800">Amit Patel</h3>
-                <p className="text-orange-500 font-medium mb-3">Fleet Manager</p>
-                <p className="text-gray-600 mb-4">
-                  Responsible for maintaining our fleet of vehicles and ensuring they meet our high standards of safety
-                  and comfort.
-                </p>
-                <div className="flex space-x-3">
-                  <a href="#" className="text-blue-500 hover:text-blue-700">
-                    <Facebook className="h-5 w-5" />
-                  </a>
-                  <a href="#" className="text-pink-500 hover:text-pink-700">
-                    <Instagram className="h-5 w-5" />
-                  </a>
-                  <a href="#" className="text-blue-700 hover:text-blue-900">
-                    <Linkedin className="h-5 w-5" />
-                  </a>
+                <div>
+                  <h3 className="text-4xl md:text-5xl font-bold text-white mb-2">
+                    <CountUp end={52} duration={1500} />
+                  </h3>
+                  <p className="text-[11px] text-white/70 uppercase tracking-wider">CORPORATE CLIENTS</p>
                 </div>
-              </div>
-            </div>
-
-            {/* Team Member 4 */}
-            <div className="bg-white rounded-lg shadow-md overflow-hidden">
-              <div className="h-64 relative">
-                <Image src="/placeholder.svg?height=300&width=300" alt="Neha Gupta" fill className="object-cover" />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-1 text-gray-800">Neha Gupta</h3>
-                <p className="text-orange-500 font-medium mb-3">Customer Relations</p>
-                <p className="text-gray-600 mb-4">
-                  Dedicated to ensuring customer satisfaction and handling feedback to continuously improve our
-                  services.
-                </p>
-                <div className="flex space-x-3">
-                  <a href="#" className="text-blue-500 hover:text-blue-700">
-                    <Facebook className="h-5 w-5" />
-                  </a>
-                  <a href="#" className="text-pink-500 hover:text-pink-700">
-                    <Instagram className="h-5 w-5" />
-                  </a>
-                  <a href="#" className="text-blue-700 hover:text-blue-900">
-                    <Linkedin className="h-5 w-5" />
-                  </a>
+                <div>
+                  <h3 className="text-4xl md:text-5xl font-bold text-white mb-2">
+                    <CountUp end={1000} duration={1800} />
+                  </h3>
+                  <p className="text-[11px] text-white/70 uppercase tracking-wider">HAPPY CLIENTS</p>
+                </div>
+                <div>
+                  <h3 className="text-4xl md:text-5xl font-bold text-white mb-2">
+                    <CountUp end={131} duration={1200} />
+                  </h3>
+                  <p className="text-[11px] text-white/70 uppercase tracking-wider">REVIEWS</p>
                 </div>
               </div>
             </div>
@@ -420,21 +408,93 @@ export default function AboutPage() {
       </section>
 
       {/* Our Clients Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold mb-12 text-center text-gray-800">Our Clients</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((item) => (
-              <div key={item} className="bg-white p-6 rounded-lg shadow-md flex items-center justify-center">
-                <Image
-                  src={`/placeholder.svg?height=80&width=120&text=Client ${item}`}
-                  alt={`Client ${item}`}
-                  width={120}
-                  height={80}
-                  className="max-h-16 w-auto"
-                />
+          <div className="flex flex-col md:flex-row items-center">
+            <div className="w-full md:w-1/3 mb-8 md:mb-0">
+              <h2 className="text-3xl md:text-4xl font-bold text-center md:text-left">Our Clients</h2>
+            </div>
+            <div className="w-full md:w-2/3 overflow-hidden">
+              <div className="flex animate-carousel">
+                {/* Corporate Client 1 */}
+                <div className="flex-none w-1/2 md:w-1/4 px-4">
+                  <div className="bg-white p-4 rounded-lg shadow-sm">
+                    <Image 
+                      src="https://yashikatourandtravel.com/wp-content/uploads/2021/08/6.png" 
+                      alt="Corporate Transport Service" 
+                      width={120} 
+                      height={80} 
+                      className="mx-auto"
+                    />
+                  </div>
+                </div>
+                
+                {/* School */}
+                <div className="flex-none w-1/2 md:w-1/4 px-4">
+                  <div className="bg-white p-4 rounded-lg shadow-sm">
+                    <Image 
+                      src="https://yashikatourandtravel.com/wp-content/uploads/2021/08/1.png" 
+                      alt="Transport Service for Schools" 
+                      width={120} 
+                      height={80} 
+                      className="mx-auto"
+                    />
+                  </div>
+                </div>
+                
+                {/* College */}
+                <div className="flex-none w-1/2 md:w-1/4 px-4">
+                  <div className="bg-white p-4 rounded-lg shadow-sm">
+                    <Image 
+                      src="https://yashikatourandtravel.com/wp-content/uploads/2021/08/2.png" 
+                      alt="Transport Service for Colleges" 
+                      width={120} 
+                      height={80} 
+                      className="mx-auto"
+                    />
+                  </div>
+                </div>
+                
+                {/* IT Companies */}
+                <div className="flex-none w-1/2 md:w-1/4 px-4">
+                  <div className="bg-white p-4 rounded-lg shadow-sm">
+                    <Image 
+                      src="https://yashikatourandtravel.com/wp-content/uploads/2021/08/3.png" 
+                      alt="Transport Service for IT Companies" 
+                      width={120} 
+                      height={80} 
+                      className="mx-auto"
+                    />
+                  </div>
+                </div>
+                
+                {/* Call Centers */}
+                <div className="flex-none w-1/2 md:w-1/4 px-4">
+                  <div className="bg-white p-4 rounded-lg shadow-sm">
+                    <Image 
+                      src="https://yashikatourandtravel.com/wp-content/uploads/2021/08/4.png" 
+                      alt="Transport Service for Call Centers" 
+                      width={120} 
+                      height={80} 
+                      className="mx-auto"
+                    />
+                  </div>
+                </div>
+                
+                {/* BPOs */}
+                <div className="flex-none w-1/2 md:w-1/4 px-4">
+                  <div className="bg-white p-4 rounded-lg shadow-sm">
+                    <Image 
+                      src="https://yashikatourandtravel.com/wp-content/uploads/2021/08/5.png" 
+                      alt="Transport Service for BPOs" 
+                      width={120} 
+                      height={80} 
+                      className="mx-auto"
+                    />
+                  </div>
+                </div>
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
@@ -458,13 +518,7 @@ export default function AboutPage() {
               </p>
               <div className="flex items-center">
                 <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
-                  <Image
-                    src="/placeholder.svg?height=50&width=50"
-                    alt="Vishal Singh"
-                    width={50}
-                    height={50}
-                    className="w-full h-full object-cover"
-                  />
+                 
                 </div>
                 <div>
                   <h4 className="font-bold text-gray-800">Vishal Singh</h4>
@@ -486,13 +540,7 @@ export default function AboutPage() {
               </p>
               <div className="flex items-center">
                 <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
-                  <Image
-                    src="/placeholder.svg?height=50&width=50"
-                    alt="Sunil Dixit"
-                    width={50}
-                    height={50}
-                    className="w-full h-full object-cover"
-                  />
+               
                 </div>
                 <div>
                   <h4 className="font-bold text-gray-800">Sunil Dixit</h4>
@@ -515,13 +563,7 @@ export default function AboutPage() {
               </p>
               <div className="flex items-center">
                 <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
-                  <Image
-                    src="/placeholder.svg?height=50&width=50"
-                    alt="Jaanvi Sharma"
-                    width={50}
-                    height={50}
-                    className="w-full h-full object-cover"
-                  />
+               
                 </div>
                 <div>
                   <h4 className="font-bold text-gray-800">Jaanvi Sharma</h4>
@@ -534,18 +576,27 @@ export default function AboutPage() {
       </section>
 
       {/* CTA Section */}
+
       <section className="py-16 bg-blue-500 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Experience Our Service?</h2>
-          <p className="text-xl mb-8 max-w-3xl mx-auto">
-            Book a ride with us today and experience the best taxi service in Noida, Greater Noida & Ghaziabad.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 text-lg">Book Now</Button>
-            <Button className="bg-white hover:bg-gray-100 text-blue-500 px-8 py-3 text-lg">Contact Us</Button>
-          </div>
-        </div>
-      </section>
+  <div className="container mx-auto px-4 text-center">
+    <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Experience Our Service?</h2>
+    <p className="text-xl mb-8 max-w-3xl mx-auto">
+      Book a ride with us today and experience the best taxi service in Noida, Greater Noida & Ghaziabad.
+    </p>
+    <div className="flex flex-col sm:flex-row justify-center gap-4">
+      <Link href="/servicelocaltaxi" passHref>
+        <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 text-lg">
+          Book Now
+        </Button>
+      </Link>
+      <Link href="/contact" passHref>
+        <Button className="bg-white hover:bg-gray-100 text-blue-500 px-8 py-3 text-lg">
+          Contact Us
+        </Button>
+      </Link>
+    </div>
+  </div>
+</section>
 
       <Footer />
       <Copyright />
@@ -564,7 +615,7 @@ export default function AboutPage() {
             strokeLinecap="round"
             strokeLinejoin="round"
           >
-            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0  0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
           </svg>
         </div>
       </div>
