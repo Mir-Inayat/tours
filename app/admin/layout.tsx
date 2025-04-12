@@ -1,16 +1,39 @@
 "use client";
 
+import { useState, useEffect } from "react";
+import { SessionProvider, useSession } from "next-auth/react";
+import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
-import { useSession, SessionProvider } from "next-auth/react";
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { signOut } from "next-auth/react";
+import {
+  LayoutDashboard,
+  FileText,
+  Map,
+  MessageSquare,
+  Settings,
+  LogOut,
+  Bell,
+  Car
+} from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <SessionProvider>
+      <AdminLayoutContent>{children}</AdminLayoutContent>
+    </SessionProvider>
+  );
+}
 
 function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   const { data: session, status } = useSession();
   const router = useRouter();
   const pathname = usePathname();
+  
+  // Sample notification counts (would come from API in real app)
+  const [notificationCounts, setNotificationCounts] = useState({
+    comments: 3,
+    bookings: 5
+  });
   
   useEffect(() => {
     if (status === "unauthenticated" && pathname !== "/admin/login") {
@@ -37,55 +60,87 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
         <div className="p-4">
           <h2 className="text-xl font-bold">Admin Panel</h2>
         </div>
-        <nav className="mt-6">
-          <Link href="/admin/dashboard" className="block px-4 py-2 hover:bg-gray-700">
+        <nav className="mt-6 space-y-1">
+          <Link href="/admin/dashboard" className={`flex items-center px-4 py-2 text-sm font-medium rounded-md ${pathname === "/admin/dashboard" ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`}>
+            <LayoutDashboard className="h-5 w-5 mr-3 text-gray-500" />
             Dashboard
           </Link>
-          <Link href="/admin/tours" className="block px-4 py-2 hover:bg-gray-700">
-            Manage Tours
+          
+          <Link href="/admin/tours" className={`flex items-center px-4 py-2 text-sm font-medium rounded-md ${pathname === "/admin/tours" ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`}>
+            <Map className="h-5 w-5 mr-3 text-gray-500" />
+            Tours
           </Link>
-          <Link href="/admin/blogs" className="block px-4 py-2 hover:bg-gray-700">
-            Manage Blogs
+          
+          <Link href="/admin/blogs" className={`flex items-center px-4 py-2 text-sm font-medium rounded-md ${pathname === "/admin/blogs" ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`}>
+            <FileText className="h-5 w-5 mr-3 text-gray-500" />
+            Blogs
           </Link>
-          <Link href="/admin/testimonials" className="block px-4 py-2 hover:bg-gray-700">
-            Testimonials
+          
+          <Link href="/admin/comments" className={`flex items-center px-4 py-2 text-sm font-medium rounded-md ${pathname === "/admin/comments" ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`}>
+            <MessageSquare className="h-5 w-5 mr-3 text-gray-500" />
+            Comments
+            {notificationCounts.comments > 0 && (
+              <Badge className="ml-auto bg-red-500 text-white">
+                {notificationCounts.comments}
+              </Badge>
+            )}
           </Link>
-          <Link href="/admin/settings" className="block px-4 py-2 hover:bg-gray-700">
-            Settings
+          
+          <Link href="/admin/bookings" className={`flex items-center px-4 py-2 text-sm font-medium rounded-md ${pathname === "/admin/bookings" ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`}>
+            <Car className="h-5 w-5 mr-3 text-gray-500" />
+            Bookings
+            {notificationCounts.bookings > 0 && (
+              <Badge className="ml-auto bg-red-500 text-white">
+                {notificationCounts.bookings}
+              </Badge>
+            )}
           </Link>
-          <Link href="/admin/comments" className="block px-4 py-2 hover:bg-gray-700">
-            Manage Comments
-          </Link>
-          <Button 
-            variant="ghost" 
-            className="w-full justify-start px-4 py-2 text-white hover:bg-gray-700"
-            onClick={() => signOut({ callbackUrl: '/admin/login' })}
+          
+          <button
+            onClick={() => router.push('/api/auth/signout')}
+            className="flex w-full items-center px-4 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white"
           >
-            Logout
-          </Button>
+            <LogOut className="h-5 w-5 mr-3 text-gray-500" />
+            <span>Log Out</span>
+          </button>
         </nav>
       </div>
-      
-      {/* Main content */}
-      <div className="flex-1 bg-gray-100">
-        <header className="bg-white p-4 shadow">
-          <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold">Yashika Tour & Travels Admin</h1>
-            <div className="flex items-center gap-4">
-              <span>Welcome, {session?.user?.name}</span>
+
+      {/* Main Content */}
+      <div className="flex-1 overflow-auto">
+        <header className="bg-white shadow">
+          <div className="px-6 py-4 flex justify-between items-center">
+            <h1 className="text-xl font-semibold text-gray-800">
+              {pathname === "/admin/dashboard" && "Dashboard"}
+              {pathname === "/admin/tours" && "Tours Management"}
+              {pathname === "/admin/blogs" && "Blog Management"}
+              {pathname === "/admin/comments" && "Comments Management"}
+              {pathname === "/admin/bookings" && "Booking Management"}
+            </h1>
+            
+            <div className="flex items-center space-x-4">
+              <div className="relative">
+                <Bell className="h-6 w-6 text-gray-600 cursor-pointer" />
+                {(notificationCounts.comments + notificationCounts.bookings) > 0 && (
+                  <Badge className="absolute -top-2 -right-2 bg-red-500 text-white h-5 w-5 flex items-center justify-center p-0 rounded-full">
+                    {notificationCounts.comments + notificationCounts.bookings}
+                  </Badge>
+                )}
+              </div>
+              <div className="flex items-center">
+                <div className="h-8 w-8 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 font-semibold">
+                  {session?.user?.name?.charAt(0) || 'A'}
+                </div>
+                <span className="ml-2 text-gray-700">{session?.user?.name || 'Admin'}</span>
+              </div>
             </div>
           </div>
         </header>
-        <main className="p-6">{children}</main>
+        
+        <main className="p-6">
+          {children}
+        </main>
       </div>
     </div>
-  );
-}
-
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <SessionProvider>
-      <AdminLayoutContent>{children}</AdminLayoutContent>
-    </SessionProvider>
   );
 }

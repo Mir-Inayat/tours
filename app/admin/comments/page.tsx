@@ -1,166 +1,218 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Comment } from "@/types/blog";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, XCircle } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { CheckCircle, XCircle, Trash2, AlertCircle } from "lucide-react";
+import { toast } from "@/components/ui/use-toast";
 
-interface BlogWithComments {
-  id: string;
-  title: string;
-  comments: Comment[];
-}
+// Sample blog and comments data
+const initialBlogs = [
+  {
+    id: 1,
+    title: "Top 10 Tourist Destinations Near Noida",
+    comments: [
+      {
+        id: 1,
+        author: "Rahul Singh",
+        content: "Great list! I especially love Agra and Jaipur.",
+        date: "2023-10-15",
+        approved: true,
+        isNew: false
+      },
+      {
+        id: 2,
+        author: "Priya Sharma",
+        content: "You should add Rishikesh to this list.",
+        date: "2023-10-16",
+        approved: false,
+        isNew: true
+      }
+    ]
+  },
+  {
+    id: 2,
+    title: "Why Choose Tempo Traveller for Group Travel",
+    comments: [
+      {
+        id: 1,
+        author: "Amit Kumar",
+        content: "We hired a tempo traveller for our family trip and it was amazing!",
+        date: "2023-10-14",
+        approved: true,
+        isNew: false
+      },
+      {
+        id: 2,
+        author: "Neha Gupta",
+        content: "What's the seating capacity of your largest tempo traveller?",
+        date: "2023-10-17",
+        approved: false,
+        isNew: true
+      },
+      {
+        id: 3,
+        author: "Vijay Patel",
+        content: "Do you provide tempo travellers with push-back seats?",
+        date: "2023-10-18",
+        approved: false,
+        isNew: true
+      }
+    ]
+  }
+];
 
 export default function AdminComments() {
-  const [blogComments, setBlogComments] = useState<BlogWithComments[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [blogs, setBlogs] = useState(initialBlogs);
+  const [filter, setFilter] = useState("all"); // all, approved, pending, new
   
-  useEffect(() => {
-    async function fetchComments() {
-      try {
-        // Get all blogs
-        const response = await fetch("/api/blogs");
-        const blogs = await response.json();
-        
-        // Filter blogs with comments
-        const blogsWithComments = blogs
-          .map(blog => ({
-            id: blog.id,
-            title: blog.title,
-            comments: blog.comments || []
-          }))
-          .filter(blog => blog.comments.length > 0);
-        
-        setBlogComments(blogsWithComments);
-      } catch (error) {
-        console.error("Error fetching comments:", error);
-      } finally {
-        setLoading(false);
-      }
-    }
+  // Count new comments
+  const newCommentsCount = blogs.reduce((count, blog) => {
+    return count + blog.comments.filter(comment => comment.isNew).length;
+  }, 0);
+  
+  // Handle approving/unapproving comments
+  const handleApproveComment = (blogId, commentId, approve) => {
+    setBlogs(prevBlogs => 
+      prevBlogs.map(blog => {
+        if (blog.id === blogId) {
+          return {
+            ...blog,
+            comments: blog.comments.map(comment => {
+              if (comment.id === commentId) {
+                return { 
+                  ...comment, 
+                  approved: approve,
+                  isNew: false // Mark as seen
+                };
+              }
+              return comment;
+            })
+          };
+        }
+        return blog;
+      })
+    );
     
-    fetchComments();
-  }, []);
-  
-  const handleApproveComment = async (blogId: string, commentId: string, approve: boolean) => {
-    try {
-      const response = await fetch(`/api/blogs/${blogId}/comments/${commentId}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ approved: approve }),
-      });
-      
-      if (!response.ok) throw new Error("Failed to update comment");
-      
-      // Update local state
-      setBlogComments(prev => 
-        prev.map(blog => {
-          if (blog.id === blogId) {
-            return {
-              ...blog,
-              comments: blog.comments.map(comment => {
-                if (comment.id === commentId) {
-                  return { ...comment, approved: approve };
-                }
-                return comment;
-              })
-            };
-          }
-          return blog;
-        })
-      );
-    } catch (error) {
-      console.error("Error updating comment:", error);
-    }
+    toast({
+      title: approve ? "Comment Approved" : "Comment Unapproved",
+      description: `The comment has been ${approve ? 'approved' : 'unpublished'} successfully.`
+    });
   };
   
-  const handleDeleteComment = async (blogId: string, commentId: string) => {
-    if (!confirm("Are you sure you want to delete this comment?")) return;
+  // Handle deleting comments
+  const handleDeleteComment = (blogId, commentId) => {
+    setBlogs(prevBlogs => 
+      prevBlogs.map(blog => {
+        if (blog.id === blogId) {
+          return {
+            ...blog,
+            comments: blog.comments.filter(comment => comment.id !== commentId)
+          };
+        }
+        return blog;
+      })
+    );
     
-    try {
-      const response = await fetch(`/api/blogs/${blogId}/comments/${commentId}`, {
-        method: "DELETE",
-      });
-      
-      if (!response.ok) throw new Error("Failed to delete comment");
-      
-      // Update local state
-      setBlogComments(prev => 
-        prev.map(blog => {
-          if (blog.id === blogId) {
-            return {
-              ...blog,
-              comments: blog.comments.filter(comment => comment.id !== commentId)
-            };
-          }
-          return blog;
-        }).filter(blog => blog.comments.length > 0)
-      );
-    } catch (error) {
-      console.error("Error deleting comment:", error);
-    }
+    toast({
+      title: "Comment Deleted",
+      description: "The comment has been deleted successfully."
+    });
   };
-
-  if (loading) {
-    return <div className="flex justify-center items-center h-64">Loading comments...</div>;
-  }
   
-  if (blogComments.length === 0) {
-    return <div className="text-center py-12">No comments found across all blogs.</div>;
-  }
+  // Filter comments based on current filter
+  const filteredBlogs = blogs.map(blog => ({
+    ...blog,
+    comments: blog.comments.filter(comment => {
+      if (filter === "all") return true;
+      if (filter === "approved") return comment.approved;
+      if (filter === "pending") return !comment.approved;
+      if (filter === "new") return comment.isNew;
+      return true;
+    })
+  })).filter(blog => blog.comments.length > 0);
 
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Manage Comments</h1>
+        <h1 className="text-3xl font-bold">Comments Management</h1>
+        
+        <div className="flex items-center gap-2">
+          {newCommentsCount > 0 && (
+            <Badge className="bg-red-500">
+              {newCommentsCount} new
+            </Badge>
+          )}
+          <div className="flex bg-gray-100 rounded-lg">
+            <Button 
+              variant={filter === "all" ? "default" : "ghost"}
+              className={filter === "all" ? "rounded-l-lg" : "rounded-l-lg bg-gray-100 text-gray-900 hover:bg-gray-200"}
+              onClick={() => setFilter("all")}
+            >
+              All
+            </Button>
+            <Button 
+              variant={filter === "approved" ? "default" : "ghost"}
+              className={filter === "approved" ? "" : "bg-gray-100 text-gray-900 hover:bg-gray-200"}
+              onClick={() => setFilter("approved")}
+            >
+              Approved
+            </Button>
+            <Button 
+              variant={filter === "pending" ? "default" : "ghost"}
+              className={filter === "pending" ? "" : "bg-gray-100 text-gray-900 hover:bg-gray-200"}
+              onClick={() => setFilter("pending")}
+            >
+              Pending
+            </Button>
+            <Button 
+              variant={filter === "new" ? "default" : "ghost"}
+              className={filter === "new" ? "rounded-r-lg" : "rounded-r-lg bg-gray-100 text-gray-900 hover:bg-gray-200"}
+              onClick={() => setFilter("new")}
+            >
+              New
+              {newCommentsCount > 0 && (
+                <Badge className="ml-2 bg-red-500">
+                  {newCommentsCount}
+                </Badge>
+              )}
+            </Button>
+          </div>
+        </div>
       </div>
-
-      {blogComments.map(blog => (
-        <div key={blog.id} className="mb-10">
-          <h2 className="text-xl font-semibold mb-4">Comments on: {blog.title}</h2>
-          <div className="bg-white rounded-md shadow">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Author</th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Comment</th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                  <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+      
+      {filteredBlogs.length === 0 ? (
+        <div className="bg-gray-50 rounded-lg p-8 text-center">
+          <AlertCircle className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-gray-900 mb-2">No comments found</h3>
+          <p className="text-gray-500">
+            There are no comments matching your current filter.
+          </p>
+        </div>
+      ) : (
+        <div className="space-y-8">
+          {filteredBlogs.map(blog => (
+            <div key={blog.id} className="bg-white rounded-lg shadow overflow-hidden">
+              <div className="border-b border-gray-200 bg-gray-50 px-6 py-4">
+                <h2 className="text-xl font-semibold">{blog.title}</h2>
+              </div>
+              
+              <div className="divide-y divide-gray-200">
                 {blog.comments.map(comment => (
-                  <tr key={comment.id} className={comment.approved ? "" : "bg-yellow-50"}>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">{comment.name}</div>
-                      <div className="text-xs text-gray-500">{comment.email}</div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="text-sm text-gray-900 line-clamp-2">{comment.content}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">{new Date(comment.date).toLocaleDateString()}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${comment.approved ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>
-                        {comment.approved ? 'Approved' : 'Pending'}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      {!comment.approved ? (
-                        <Button 
-                          variant="outline" 
-                          size="sm" 
-                          onClick={() => handleApproveComment(blog.id, comment.id, true)}
-                          className="mr-2 text-green-600 border-green-600 hover:bg-green-50"
-                        >
-                          <CheckCircle className="h-4 w-4 mr-1" />
-                          Approve
-                        </Button>
-                      ) : (
+                  <div key={comment.id} className={`p-6 flex flex-col md:flex-row ${comment.isNew ? 'bg-blue-50' : ''}`}>
+                    <div className="flex-grow mb-4 md:mb-0">
+                      <div className="flex items-center mb-2">
+                        <h3 className="font-medium text-gray-900">{comment.author}</h3>
+                        {comment.isNew && (
+                          <Badge className="ml-2 bg-blue-500">New</Badge>
+                        )}
+                        <span className="ml-2 text-sm text-gray-500">{comment.date}</span>
+                      </div>
+                      <p className="text-gray-600">{comment.content}</p>
+                    </div>
+                    
+                    <div className="flex md:flex-col gap-2 md:w-40 md:items-end justify-end">
+                      {comment.approved ? (
                         <Button 
                           variant="outline" 
                           size="sm" 
@@ -170,6 +222,16 @@ export default function AdminComments() {
                           <XCircle className="h-4 w-4 mr-1" />
                           Unpublish
                         </Button>
+                      ) : (
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          onClick={() => handleApproveComment(blog.id, comment.id, true)}
+                          className="mr-2 text-green-600 border-green-600 hover:bg-green-50"
+                        >
+                          <CheckCircle className="h-4 w-4 mr-1" />
+                          Approve
+                        </Button>
                       )}
                       <Button 
                         variant="outline" 
@@ -177,16 +239,17 @@ export default function AdminComments() {
                         onClick={() => handleDeleteComment(blog.id, comment.id)}
                         className="text-red-600 border-red-600 hover:bg-red-50"
                       >
+                        <Trash2 className="h-4 w-4 mr-1" />
                         Delete
                       </Button>
-                    </td>
-                  </tr>
+                    </div>
+                  </div>
                 ))}
-              </tbody>
-            </table>
-          </div>
+              </div>
+            </div>
+          ))}
         </div>
-      ))}
+      )}
     </div>
   );
 }

@@ -63,8 +63,8 @@ export default function Page() {
           </div>
 
           {/* Integrated Form Component */}
-          <div className="w-full md:w-1/2 px-4 md:pl-8">
-            <div className="max-w-sm mx-auto lg:mr-0">
+          <div className="md:w-1/2 md:pl-8">
+            <div className="max-w-sm mx-auto">
               <BusBookingForm />
             </div>
           </div>
