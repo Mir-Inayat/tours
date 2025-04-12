@@ -33,6 +33,7 @@ const formSchema = z.object({
 export function ContactForm() {
   const [recaptchaLoaded, setRecaptchaLoaded] = useState(false);
   const [recaptchaError, setRecaptchaError] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -44,11 +45,31 @@ export function ContactForm() {
     },
   })
 
-  // Alternative approach without using the external reCAPTCHA
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsSubmitting(true);
+
     try {
-      // Add your form submission logic here without reCAPTCHA
-      console.log(values);
+      // Map form field names to match your API expectations
+      const formData = {
+        name: values.fullName,
+        email: values.emailAddress,
+        phone: values.phoneNumber,
+        message: values.query,
+        formType: "contact"
+      };
+      
+      // Submit to API endpoint
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
       
       // Show success message
       alert("Form submitted successfully! We'll get back to you soon.");
@@ -58,6 +79,8 @@ export function ContactForm() {
     } catch (error) {
       console.error("Error submitting form:", error);
       alert("Error submitting form. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -152,8 +175,9 @@ export function ContactForm() {
           <Button 
             type="submit" 
             className="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-1.5 px-4 rounded-md text-sm transition duration-200"
+            disabled={isSubmitting}
           >
-            Submit
+            {isSubmitting ? "Submitting..." : "Submit"}
           </Button>
         </form>
       </Form>

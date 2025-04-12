@@ -42,17 +42,14 @@ export function ContactForm({
     setIsSubmitting(true);
     
     try {
-      // In a real application, this would be an API call
-      const response = await fetch('/api/submissions', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           ...formData,
-          type: formType,
-          date: new Date().toISOString(),
-          status: "new"
+          formType
         }),
       });
       
@@ -73,7 +70,7 @@ export function ContactForm({
       
       toast({
         title: "Success!",
-        description: "Your form has been submitted successfully!",
+        description: "Your message has been submitted successfully! We'll get back to you soon.",
       });
     } catch (error) {
       console.error("Form submission error:", error);

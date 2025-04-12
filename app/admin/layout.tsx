@@ -7,12 +7,12 @@ import Link from "next/link";
 import {
   LayoutDashboard,
   FileText,
-  Map,
   MessageSquare,
   Settings,
   LogOut,
   Bell,
-  Car
+  Car,
+  Mail
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
@@ -29,11 +29,47 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
   
-  // Sample notification counts (would come from API in real app)
-  const [notificationCounts, setNotificationCounts] = useState({
-    comments: 3,
-    bookings: 5
+  // State for notifications
+  const [notifications, setNotifications] = useState({
+    comments: 0,
+    bookings: 0,
+    contacts: 0
   });
+  
+  // Fetch notification counts
+  useEffect(() => {
+    const fetchNotificationCounts = async () => {
+      try {
+        // Fetch bookings
+        const bookingsResponse = await fetch('/api/bookings');
+        const bookings = await bookingsResponse.json();
+        const newBookings = bookings.filter(booking => booking.status === 'new').length;
+        
+        // Fetch contacts
+        const contactsResponse = await fetch('/api/contact');
+        const contacts = await contactsResponse.json();
+        const newContacts = contacts.filter(contact => contact.status === 'new').length;
+        
+        // Set notification counts
+        setNotifications({
+          comments: 0, // Will implement later
+          bookings: newBookings,
+          contacts: newContacts
+        });
+      } catch (error) {
+        console.error('Error fetching notification counts:', error);
+      }
+    };
+    
+    if (status === 'authenticated') {
+      fetchNotificationCounts();
+      
+      // Set up interval to refresh notification counts
+      const interval = setInterval(fetchNotificationCounts, 60000); // Refresh every minute
+      
+      return () => clearInterval(interval);
+    }
+  }, [status]);
   
   useEffect(() => {
     if (status === "unauthenticated" && pathname !== "/admin/login") {
@@ -52,6 +88,8 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   if (!session && pathname !== "/admin/login") {
     return null; // Will redirect in useEffect
   }
+  
+  const totalNotifications = notifications.comments + notifications.bookings + notifications.contacts;
 
   return (
     <div className="flex min-h-screen">
@@ -66,11 +104,6 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
             Dashboard
           </Link>
           
-          <Link href="/admin/tours" className={`flex items-center px-4 py-2 text-sm font-medium rounded-md ${pathname === "/admin/tours" ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`}>
-            <Map className="h-5 w-5 mr-3 text-gray-500" />
-            Tours
-          </Link>
-          
           <Link href="/admin/blogs" className={`flex items-center px-4 py-2 text-sm font-medium rounded-md ${pathname === "/admin/blogs" ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`}>
             <FileText className="h-5 w-5 mr-3 text-gray-500" />
             Blogs
@@ -79,9 +112,19 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
           <Link href="/admin/comments" className={`flex items-center px-4 py-2 text-sm font-medium rounded-md ${pathname === "/admin/comments" ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`}>
             <MessageSquare className="h-5 w-5 mr-3 text-gray-500" />
             Comments
-            {notificationCounts.comments > 0 && (
+            {notifications.comments > 0 && (
               <Badge className="ml-auto bg-red-500 text-white">
-                {notificationCounts.comments}
+                {notifications.comments}
+              </Badge>
+            )}
+          </Link>
+          
+          <Link href="/admin/contacts" className={`flex items-center px-4 py-2 text-sm font-medium rounded-md ${pathname === "/admin/contacts" ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`}>
+            <Mail className="h-5 w-5 mr-3 text-gray-500" />
+            Contact Forms
+            {notifications.contacts > 0 && (
+              <Badge className="ml-auto bg-red-500 text-white">
+                {notifications.contacts}
               </Badge>
             )}
           </Link>
@@ -89,9 +132,9 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
           <Link href="/admin/bookings" className={`flex items-center px-4 py-2 text-sm font-medium rounded-md ${pathname === "/admin/bookings" ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`}>
             <Car className="h-5 w-5 mr-3 text-gray-500" />
             Bookings
-            {notificationCounts.bookings > 0 && (
+            {notifications.bookings > 0 && (
               <Badge className="ml-auto bg-red-500 text-white">
-                {notificationCounts.bookings}
+                {notifications.bookings}
               </Badge>
             )}
           </Link>
@@ -112,18 +155,18 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
           <div className="px-6 py-4 flex justify-between items-center">
             <h1 className="text-xl font-semibold text-gray-800">
               {pathname === "/admin/dashboard" && "Dashboard"}
-              {pathname === "/admin/tours" && "Tours Management"}
               {pathname === "/admin/blogs" && "Blog Management"}
               {pathname === "/admin/comments" && "Comments Management"}
+              {pathname === "/admin/contacts" && "Contact Form Management"}
               {pathname === "/admin/bookings" && "Booking Management"}
             </h1>
             
             <div className="flex items-center space-x-4">
               <div className="relative">
                 <Bell className="h-6 w-6 text-gray-600 cursor-pointer" />
-                {(notificationCounts.comments + notificationCounts.bookings) > 0 && (
+                {totalNotifications > 0 && (
                   <Badge className="absolute -top-2 -right-2 bg-red-500 text-white h-5 w-5 flex items-center justify-center p-0 rounded-full">
-                    {notificationCounts.comments + notificationCounts.bookings}
+                    {totalNotifications}
                   </Badge>
                 )}
               </div>

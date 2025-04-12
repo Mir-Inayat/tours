@@ -10,14 +10,12 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://yashikatourandtravel.com'),
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body suppressHydrationWarning className={inter.className}>
+        {children}
+      </body>
     </html>
   )
 }
