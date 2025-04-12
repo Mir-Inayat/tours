@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
 
-export function BookingForm() {
+export function BusBookingForm() {
   const [formData, setFormData] = useState({
     fullName: "",
     phoneNumber: "",
