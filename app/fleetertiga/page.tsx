@@ -58,11 +58,11 @@ export default function Page() {
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-8 md:mb-0">
             <img 
-              src="/images/ertiga.jpg" 
+              src="/ertiga.jpg" 
               alt="Maruti Suzuki Ertiga" 
-              className="w-full h-auto rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300"
-              width={600}
-              height={400} 
+              className="w-4/5 mx-auto h-auto rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300"
+              width={400}
+              height={267} 
             />
           </div>
           <div className="md:w-1/2 md:pl-8">
@@ -119,44 +119,58 @@ export default function Page() {
           <h2 className="text-3xl font-bold text-gray-800 mb-12 text-center">Other Cabs available for booking</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
             <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <img src="/images/innova.jpg" alt="Innova" className="w-full h-auto mb-4" />
-              <a href="/fleetnova" className="w-full inline-block bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+              <div className="aspect-[4/3] overflow-hidden mb-4">
+                <img src="/ennova.jpeg" alt="Innova" className="w-full h-full object-cover" />
+              </div>
+              <a href="/fleetnova" className="w-full inline-block bg-blue-600 text-white py-1.5 px-3 rounded text-sm hover:bg-blue-700 transition-colors">
                 Book Innova
               </a>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <img src="/images/innova-crysta.jpg" alt="Innova Crysta" className="w-full h-auto mb-4" />
-              <a href="/fleetcrysta" className="w-full inline-block bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+              <div className="aspect-[4/3] overflow-hidden mb-4">
+                <img src="/crysta.jpeg" alt="Innova Crysta" className="w-full h-full object-cover" />
+              </div>
+              <a href="/fleetcrysta" className="w-full inline-block bg-blue-600 text-white py-1.5 px-3 rounded text-sm hover:bg-blue-700 transition-colors">
                 Book Innova Crysta
               </a>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <img src="/images/swift-dzire.jpg" alt="Swift Dzire" className="w-full h-auto mb-4" />
-              <a href="/fleetswift" className="w-full inline-block bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+              <div className="aspect-[4/3] overflow-hidden mb-4">
+                <img src="/swift.jpeg" alt="Swift Dzire" className="w-full h-full object-cover" />
+              </div>
+              <a href="/fleetswift" className="w-full inline-block bg-blue-600 text-white py-1.5 px-3 rounded text-sm hover:bg-blue-700 transition-colors">
                 Book Maruti Suzuki Swift Dzire
               </a>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <img src="/images/tata-sumo.jpg" alt="Tata Sumo Gold" className="w-full h-auto mb-4" />
-              <a href="/fleetsumo" className="w-full inline-block bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+              <div className="aspect-[4/3] overflow-hidden mb-4">
+                <img src="tatasumo.jpg" alt="Tata Sumo Gold" className="w-full h-full object-cover" />
+              </div>
+              <a href="/fleetsumo" className="w-full inline-block bg-blue-600 text-white py-1.5 px-3 rounded text-sm hover:bg-blue-700 transition-colors">
                 Book Tata Sumo Gold
               </a>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <img src="/images/tempo-traveller.jpg" alt="Force Tempo Traveller" className="w-full h-auto mb-4" />
-              <a href="/fleettempo" className="w-full inline-block bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+              <div className="aspect-[4/3] overflow-hidden mb-4">
+                <img src="/tempo.jpg" alt="Force Tempo Traveller" className="w-full h-full object-cover" />
+              </div>
+              <a href="/fleettempo" className="w-full inline-block bg-blue-600 text-white py-1.5 px-3 rounded text-sm hover:bg-blue-700 transition-colors">
                 Book Force Tempo Traveller
               </a>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <img src="/images/toyota-etios.jpg" alt="Toyota Etios" className="w-full h-auto mb-4" />
-              <a href="/fleetetios" className="w-full inline-block bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+              <div className="aspect-[4/3] overflow-hidden mb-4">
+                <img src="/etois.jpeg" alt="Toyota Etios" className="w-full h-full object-cover" />
+              </div>
+              <a href="/fleetetios" className="w-full inline-block bg-blue-600 text-white py-1.5 px-3 rounded text-sm hover:bg-blue-700 transition-colors">
                 Book Toyota Etios
               </a>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <img src="/images/volvo-bus.jpg" alt="Volvo Buses" className="w-full h-auto mb-4" />
-              <a href="/fleetvolvo" className="w-full inline-block bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+              <div className="aspect-[4/3] overflow-hidden mb-4">
+                <img src="/volvo.jpeg" alt="Volvo Buses" className="w-full h-full object-cover" />
+              </div>
+              <a href="/fleetvolvo" className="w-full inline-block bg-blue-600 text-white py-1.5 px-3 rounded text-sm hover:bg-blue-700 transition-colors">
                 Book Volvo Buses
               </a>
             </div>

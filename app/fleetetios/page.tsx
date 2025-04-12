@@ -25,7 +25,7 @@ export default function Page() {
             </p>
 
             {/* Service Buttons */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
               <a href="/servicelocaltaxi" className="text-sm bg-emerald-500 text-white py-1.5 px-3 rounded hover:bg-white hover:text-emerald-500 transition-all duration-300 text-center font-medium shadow-sm">
                 Local Travel
               </a>
@@ -57,7 +57,13 @@ export default function Page() {
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-8 md:mb-0">
-            <img src="/path/to/toyota-etios-image.jpg" alt="Toyota Etios" className="w-full h-auto rounded-lg shadow-md" />
+            <div className="max-w-md mx-auto">
+              <img 
+                src="etois.jpeg" 
+                alt="Toyota Etios" 
+                className="w-4/5 mx-auto h-auto rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300" 
+              />
+            </div>
           </div>
           <div className="md:w-1/2 md:pl-8">
             <h2 className="text-3xl font-bold text-gray-800 mb-6">
@@ -130,35 +136,77 @@ export default function Page() {
       {/* Other Cabs Section */}
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-800 mb-12 text-center">Other Vehicles available for booking</h2>
+          <h2 className="text-3xl font-bold text-gray-800 mb-12 text-center">Other Cabs available for booking</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <img src="/path/to/ertiga-image.jpg" alt="Ertiga" className="w-full h-auto mb-4" />
-              <button className="w-full bg-blue-600 text-white py-2 rounded-lg">Book Ertiga</button>
+            <div className="bg-white p-4 rounded-lg shadow-md text-center flex flex-col h-full">
+              <div className="aspect-[4/3] overflow-hidden mb-4 h-48">
+                <img src="/ennova.jpeg" alt="Innova" className="w-full h-full object-cover" />
+              </div>
+              <div className="mt-auto">
+                <a href="/fleetnova" className="block w-full bg-blue-600 text-white py-2 px-4 rounded text-sm hover:bg-blue-700 transition-colors">
+                  Book Innova
+                </a>
+              </div>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <img src="/path/to/innova-image.jpg" alt="Innova" className="w-full h-auto mb-4" />
-              <button className="w-full bg-blue-600 text-white py-2 rounded-lg">Book Innova</button>
+            <div className="bg-white p-4 rounded-lg shadow-md text-center flex flex-col h-full">
+              <div className="aspect-[4/3] overflow-hidden mb-4 h-48">
+                <img src="/crysta.jpeg" alt="Innova Crysta" className="w-full h-full object-cover" />
+              </div>
+              <div className="mt-auto">
+                <a href="/fleetcrysta" className="block w-full bg-blue-600 text-white py-2 px-4 rounded text-sm hover:bg-blue-700 transition-colors">
+                  Book Innova Crysta
+                </a>
+              </div>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <img src="/path/to/innova-crysta-image.jpg" alt="Innova Crysta" className="w-full h-auto mb-4" />
-              <button className="w-full bg-blue-600 text-white py-2 rounded-lg">Book Innova Crysta</button>
+            <div className="bg-white p-4 rounded-lg shadow-md text-center flex flex-col h-full">
+              <div className="aspect-[4/3] overflow-hidden mb-4 h-48">
+                <img src="/swift.jpeg" alt="Swift Dzire" className="w-full h-full object-cover" />
+              </div>
+              <div className="mt-auto">
+                <a href="/fleetswift" className="block w-full bg-blue-600 text-white py-2 px-4 rounded text-sm hover:bg-blue-700 transition-colors">
+                  Book Maruti Suzuki Swift Dzire
+                </a>
+              </div>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <img src="/path/to/swift-dzire-image.jpg" alt="Swift Dzire" className="w-full h-auto mb-4" />
-              <button className="w-full bg-blue-600 text-white py-2 rounded-lg">Book Maruti Suzuki Swift Dzire</button>
+            <div className="bg-white p-4 rounded-lg shadow-md text-center flex flex-col h-full">
+              <div className="aspect-[4/3] overflow-hidden mb-4 h-48">
+                <img src="tatasumo.jpg" alt="Tata Sumo Gold" className="w-full h-full object-cover" />
+              </div>
+              <div className="mt-auto">
+                <a href="/fleetsumo" className="block w-full bg-blue-600 text-white py-2 px-4 rounded text-sm hover:bg-blue-700 transition-colors">
+                  Book Tata Sumo Gold
+                </a>
+              </div>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <img src="/path/to/tata-sumo-image.jpg" alt="Tata Sumo Gold" className="w-full h-auto mb-4" />
-              <button className="w-full bg-blue-600 text-white py-2 rounded-lg">Book Tata Sumo Gold</button>
+            <div className="bg-white p-4 rounded-lg shadow-md text-center flex flex-col h-full">
+              <div className="aspect-[4/3] overflow-hidden mb-4 h-48">
+                <img src="/tempo.jpg" alt="Force Tempo Traveller" className="w-full h-full object-cover" />
+              </div>
+              <div className="mt-auto">
+                <a href="/fleettempo" className="block w-full bg-blue-600 text-white py-2 px-4 rounded text-sm hover:bg-blue-700 transition-colors">
+                  Book Force Tempo Traveller
+                </a>
+              </div>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <img src="/path/to/tempo-traveller-image.jpg" alt="Force Tempo Traveller" className="w-full h-auto mb-4" />
-              <button className="w-full bg-blue-600 text-white py-2 rounded-lg">Book Force Tempo Traveller</button>
+            <div className="bg-white p-4 rounded-lg shadow-md text-center flex flex-col h-full">
+              <div className="aspect-[4/3] overflow-hidden mb-4 h-48">
+                <img src="/ertiga.jpg" alt="Maruti Suzuki Ertiga" className="w-full h-full object-cover" />
+              </div>
+              <div className="mt-auto">
+                <a href="/fleetertiga" className="block w-full bg-blue-600 text-white py-2 px-4 rounded text-sm hover:bg-blue-700 transition-colors">
+                  Book Maruti Suzuki Ertiga
+                </a>
+              </div>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <img src="/path/to/volvo-bus-image.jpg" alt="Volvo Buses" className="w-full h-auto mb-4" />
-              <button className="w-full bg-blue-600 text-white py-2 rounded-lg">Book Volvo Buses</button>
+            <div className="bg-white p-4 rounded-lg shadow-md text-center flex flex-col h-full">
+              <div className="aspect-[4/3] overflow-hidden mb-4 h-48">
+                <img src="/volvo.jpeg" alt="Volvo Buses" className="w-full h-full object-cover" />
+              </div>
+              <div className="mt-auto">
+                <a href="/fleetvolvo" className="block w-full bg-blue-600 text-white py-2 px-4 rounded text-sm hover:bg-blue-700 transition-colors">
+                  Book Volvo Buses
+                </a>
+              </div>
             </div>
           </div>
         </div>
