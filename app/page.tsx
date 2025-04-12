@@ -77,7 +77,7 @@ export default function Home() {
                 
                 <div className="hidden md:block">
                   <a 
-                    href="/about-us" 
+                    href="/about" 
                     className="group bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-md inline-flex items-center transition duration-300 transform hover:translate-x-1"
                   >
                     <span className="mr-2">About Us</span>

@@ -40,14 +40,14 @@ export default function ContactPage() {
 
               <div className="flex gap-6">
                 <Button asChild size="lg" className="bg-white text-blue-600 hover:bg-gray-100 text-lg px-8">
-                  <Link href="/book">Book Now!</Link>
+                  <Link href="/servicelocaltaxi">Book Now!</Link>
                 </Button>
                 <Button 
                   asChild 
                   size="lg"
                   className="bg-orange-500 hover:bg-orange-600 text-white text-lg px-8 group border-2 border-orange-500 hover:border-orange-600"
                 >
-                  <Link href="/learn-more" className="flex items-center">
+                  <Link href="/about" className="flex items-center">
                     Learn More 
                     <ArrowRight className="ml-2 h-5 w-5 transform group-hover:translate-x-1 transition-transform" />
                   </Link>

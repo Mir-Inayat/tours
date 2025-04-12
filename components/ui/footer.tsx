@@ -17,13 +17,13 @@ export function Footer() {
             <p className="mb-2">+91 9312244228, 8750333222, 0120-4261411</p>
             <p className="mb-4">contact@yashikatourandtravel.com</p>
             <div className="flex space-x-4">
-              <Link href="#" className="text-gray-600 hover:text-blue-500">
+              <Link href="https://www.facebook.com/yashikatravels7/" className="text-gray-600 hover:text-blue-500">
                 <Facebook className="h-6 w-6" />
               </Link>
-              <Link href="#" className="text-gray-600 hover:text-pink-500">
+              <Link href="https://www.instagram.com/yashikatravels_noida" className="text-gray-600 hover:text-pink-500">
                 <Instagram className="h-6 w-6" />
               </Link>
-              <Link href="#" className="text-gray-600 hover:text-blue-700">
+              <Link href="https://www.linkedin.com/company/yashika-tour-travels" className="text-gray-600 hover:text-blue-700">
                 <Linkedin className="h-6 w-6" />
               </Link>
             </div>
@@ -52,7 +52,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/gallery" className="text-gray-600 hover:text-orange-500">
+                <Link href="/about" className="text-gray-600 hover:text-orange-500">
                   Our Gallery
                 </Link>
               </li>
