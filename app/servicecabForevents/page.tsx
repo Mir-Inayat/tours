@@ -61,9 +61,11 @@ export default function EventTransport() {
             </div>
           </div>
 
-          {/* Booking Form */}
+          {/* Integrated Form Component */}
           <div className="md:w-1/2 md:pl-8">
-            <BusBookingForm />
+            <div className="max-w-sm mx-auto">
+              <BusBookingForm />
+            </div>
           </div>
         </div>
       </section>

@@ -103,3 +103,21 @@ body {
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 100% 50%);
 }
 
+.animate-carousel {
+  display: flex;
+  animation: carousel 20s linear infinite;
+}
+
+.animate-carousel > div {
+  flex-shrink: 0;
+}
+
+@keyframes carousel {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
