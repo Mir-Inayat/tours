@@ -1,15 +1,32 @@
 "use client"
 
+import React, { useEffect, useState } from "react"
+import Head from "next/head"
+import Image from "next/image"
+import CountUp from "react-countup"
 import { Navbar } from "@/components/ui/navbar"
 import { Footer } from "@/components/ui/footer"
-import { Button } from "@/components/ui/button"
-import { Star, MapPin, Shield, Users, Clock } from "lucide-react"
 import { BusBookingForm } from "@/components/ui/bus-booking-form"
-import Image from "next/image"
-import Link from "next/link"
-import Head from "next/head"
+import { Car, Clock, CheckCircle, MapPin, CreditCard, Users } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 export default function Home() {
+  // State for parallax effect
+  const [offset, setOffset] = useState(0);
+  
+  // Handle scroll for parallax effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setOffset(window.pageYOffset);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <>
       <Head>
@@ -17,119 +34,121 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Yashika Tour & Travels - Taxi, Tempo Traveller, Bus rental service provider in Noida</title>
         <meta name="description" content="Yashika Tour & Travels is the largest Taxi, Tempo Traveller, Deluxe Bus & cab booking Services in Noida, Greater Noida & Ghaziabad. Since, 1995 we are the #1 tour and travel company in Noida." />
-        <meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large" />
-        <link rel="canonical" href="https://yashikatourandtravel.com/" />
-        <meta property="og:locale" content="en_US" />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="Yashika Tour & Travels - Taxi, Tempo Traveller, Bus rental service provider in Noida" />
-        <meta property="og:description" content="Yashika Tour & Travels is the largest Taxi, Tempo Traveller, Deluxe Bus & cab booking Services in Noida, Greater Noida & Ghaziabad. Since, 1995 we are the #1 tour and travel company in Noida." />
-        <meta property="og:url" content="https://yashikatourandtravel.com/" />
-        <meta property="og:site_name" content="Yashika Your & Travels" />
-        <meta property="og:updated_time" content="2024-08-31T18:58:53+05:30" />
-        <meta property="og:image" content="https://yashikatourandtravel.com/wp-content/uploads/2024/02/Yashika-Tour-Travels.png" />
-        <meta property="og:image:secure_url" content="https://yashikatourandtravel.com/wp-content/uploads/2024/02/Yashika-Tour-Travels.png" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="628" />
-        <meta property="og:image:alt" content="Yashika Tour & Travels - Taxi service in noida" />
-        <meta property="og:image:type" content="image/png" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Yashika Tour & Travels - Taxi, Tempo Traveller, Bus rental service provider in Noida" />
-        <meta name="twitter:description" content="Yashika Tour & Travels is the largest Taxi, Tempo Traveller, Deluxe Bus & cab booking Services in Noida, Greater Noida & Ghaziabad. Since, 1995 we are the #1 tour and travel company in Noida." />
-        <meta name="twitter:image" content="https://yashikatourandtravel.com/wp-content/uploads/2024/02/Yashika-Tour-Travels.png" />
-        <meta name="twitter:label1" content="Written by" />
-        <meta name="twitter:data1" content="dixit.sakshamdixit" />
-        <meta name="twitter:label2" content="Time to read" />
-        <meta name="twitter:data2" content="5 minutes" />
-        <meta name="google-site-verification" content="1ibCMejMn_9cnqmKOpbpdLB26sbIMuwTzdUH12zv2WA" />
+        {/* Other meta tags */}
       </Head>
       <div className="flex flex-col min-h-screen">
         <Navbar />
-
-        {/* Hero Section with Shape Divider */}
-        <section className="relative bg-blue-600"></section>
-          <div className="relative z-10 container mx-auto px-4 py-16 flex flex-col md:flex-row items-center justify-between">
-        {/* Left Content */}
-        <div className="w-full md:w-1/2 text-white mb-10 md:mb-0">
-          <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
-            Largest Outstation & Local Taxi Services in Noida, Greater Noida & Ghaziabad
-          </h1>
-          <div className="mb-6">
-            <p className="mb-4">
-          We are Yashika Tour & Travels, the best taxi service provider in Noida, Greater Noida & Ghaziabad,
-          providing customers with reliable and premium Local and Outstation taxi services.
-            </p>
-            <p>
-          Since 1995, we have been providing luxury car, tempo traveller, and bus rental services for local and outstation.
-            </p>
+        
+        {/* Hero Section with Enhanced Motion Effects */}
+        <section className="relative py-16 min-h-[70vh] overflow-hidden">
+          {/* Background Image with Motion Effect */}
+          <div className="absolute inset-0 w-full h-full">
+            <div 
+              className="absolute inset-0 w-[140%] h-full transition-transform duration-1000 ease-out"
+              style={{
+                backgroundImage: 'url(https://yashikatourandtravel.com/wp-content/uploads/2023/10/7.webp)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                transform: `translateX(-${36 + offset * 0.1}px)`,
+              }}
+            ></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/40"></div>
           </div>
-          <div className="flex items-center gap-4">
-            <Button variant="default" className="bg-orange-500 hover:bg-orange-600 text-white flex items-center gap-2 px-6 py-3">
-          Book Now <span>→</span>
-            </Button>
-            <Link href="/contact-us">
-          <Button variant="outline" className="bg-transparent border-white text-white hover:bg-white hover:text-blue-600 px-6 py-3">
-            Contact Us
-          </Button>
-            </Link>
-          </div>
-        </div>
-
-        {/* Right Content - Image */}
-        <div className="w-full md:w-1/2">
-          <Image
-            src="https://yashikatourandtravel.com/wp-content/uploads/2024/02/hero-car.png"
-            alt="Yashika Tour & Travels Taxi Service"
-            width={600}
-            height={400}
-            className="w-full h-auto"
-          />
-        </div>
-          </div>
-
-          {/* Shape Divider */}
-          <div className="absolute bottom-0 left-0 w-full overflow-hidden">
-        <svg className="relative block w-full h-[100px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-          <path d="M0,6V0h1000v100L0,6z" className="fill-white"></path>
-        </svg>
-          </div>
-
-        {/* Image Carousel Section */}
-        <section className="w-full">
-          <div className="container mx-auto">
-        <div className="relative overflow-hidden">
-          <div className="flex overflow-x-hidden">
-            <div className="flex animate-slide">
-          {[1,2,3,4,5,6,7,8,9].map((num) => (
-            <div key={num} className="flex-none w-1/3 px-2">
-              <a href={`https://yashikatourandtravel.com/wp-content/uploads/2023/10/${num}.webp`} className="block">
-            <figure>
-              <Image
-                src={`https://yashikatourandtravel.com/wp-content/uploads/2023/10/${num}.webp`}
-                alt={`Slide ${num}`}
-                width={400}
-                height={300}
-                className="w-full"
-              />
-            </figure>
-              </a>
+          
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="flex flex-col md:flex-row items-start">
+              {/* Left Column with Animation */}
+              <div className="w-full md:w-1/2 text-white mb-10 md:mb-0 pr-0 md:pr-8 animate-fade-in-up">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-6">
+                  Largest Outstation & Local Taxi Services in Noida, Greater Noida & Ghaziabad
+                </h1>
+                
+                <div className="inline-block bg-orange-500 px-4 py-2 rounded-md mb-6 hover:bg-orange-600 transition-colors duration-300">
+                  <h2 className="text-white font-medium">
+                    <a href="tel:+919312244228">For Enquiry Call Now   +91 9312244228</a>
+                  </h2>
+                </div>
+                
+                <div className="mb-8">
+                  <p className="mb-4">
+                    We are <strong>Yashika Tour & Travels</strong>, the best <strong>local taxi rental</strong>/<strong>outstation taxi rental</strong>/<strong>bus rental</strong>/<strong>tempo-traveller rental</strong>/<strong>corporate car rental</strong> service provider in Noida, Greater Noida & Ghaziabad <strong>since 1995</strong>, providing customers with reliable and premium Local and Outstation <strong>transport rental services</strong>.
+                  </p>
+                </div>
+                
+                <div className="hidden md:block">
+                  <a 
+                    href="/about-us" 
+                    className="group bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-md inline-flex items-center transition duration-300 transform hover:translate-x-1"
+                  >
+                    <span className="mr-2">About Us</span>
+                    <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                    </svg>
+                  </a>
+                </div>
+                
+                <div className="block md:hidden">
+                  <a 
+                    href="tel:7065492268" 
+                    className="group bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-md inline-flex items-center transition duration-300"
+                  >
+                    <span className="mr-2">Call Us</span>
+                    <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              
+              {/* Right Column - Booking Form with Animation */}
+              <div className="w-full md:w-1/2 md:pl-8 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+                <div className="max-w-md mx-auto transform transition-all duration-500 hover:shadow-2xl">
+                  <BusBookingForm />
+                </div>
+              </div>
             </div>
-          ))}
-            </div>
-          </div>
-        </div>
           </div>
         </section>
 
-        {/* Booking Form Section */}
-        <section className="py-16">
-          <div className="container mx-auto px-4">
-        <div className="max-w-lg mx-auto">
-          <BusBookingForm />
-        </div>
+        {/* Enhanced Image Carousel Section */}
+        <section className="w-full overflow-hidden">
+          <div className="container mx-auto py-8">
+            <div className="relative">
+              {/* Auto-scrolling carousel */}
+              <div className="flex carousel-container">
+                <div className="carousel-track flex">
+                  {/* First set of images */}
+                  {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
+                    <div key={num} className="carousel-slide">
+                      <Image 
+                        src={`https://yashikatourandtravel.com/wp-content/uploads/2023/10/${num}.webp`}
+                        alt={`Yashika Tour & Travels Vehicle ${num}`}
+                        width={400}
+                        height={300}
+                        className="h-64 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+                  ))}
+                  
+                  {/* Duplicate set for seamless loop */}
+                  {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
+                    <div key={`dup-${num}`} className="carousel-slide">
+                      <Image 
+                        src={`https://yashikatourandtravel.com/wp-content/uploads/2023/10/${num}.webp`}
+                        alt={`Yashika Tour & Travels Vehicle ${num}`}
+                        width={400}
+                        height={300}
+                        className="h-64 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
-        {/* Clients Carousel Section */}
+        {/* Our Clients Section */}
         <section className="py-12 bg-gray-50">
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row items-center">
@@ -220,7 +239,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-
+        
         {/* Why Choose Us Section - New Version */}
         <section className="py-16">
           <div className="container mx-auto px-4">
@@ -327,7 +346,7 @@ export default function Home() {
                       <li className="flex items-center">
                         <span className="bg-orange-100 p-2 rounded-full mr-3 text-orange-500">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512" fill="currentColor">
-                            <path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S393.4 0 256 0zM371.8 211.8l-128 128C238.3 345.3 231.2 348 224 348s-14.34-2.719-19.81-8.188l-64-64c-10.91-10.94-10.91-28.69 0-39.63c10.94-10.94 28.69-10.94 39.63 0L224 280.4l108.2-108.2c10.94-10.94 28.69-10.94 39.63 0C382.7 183.1 382.7 200.9 371.8 211.8z"/>
+                            <path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-111 256-256S393.4 0 256 0zM371.8 211.8l-128 128C238.3 345.3 231.2 348 224 348s-14.34-2.719-19.81-8.188l-64-64c-10.91-10.94-10.91-28.69 0-39.63c10.94-10.94 28.69-10.94 39.63 0L224 280.4l108.2-108.2c10.94-10.94 28.69-10.94 39.63 0C382.7 183.1 382.7 200.9 371.8 211.8z"/>
                           </svg>
                         </span>
                         <span className="text-gray-800 font-medium">Guaranteed Customer Satisfaction</span>
@@ -357,7 +376,8 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Features Section with Tilt Divider */}
+
+        {/* Enhanced Features Section with Tilt Divider */}
         <section className="relative py-16 bg-gray-50">
           {/* Top Shape Divider */}
           <div className="absolute top-0 left-0 w-full overflow-hidden">
@@ -368,44 +388,43 @@ export default function Home() {
           
           {/* Container */}
           <div className="container mx-auto px-4 pt-16">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold mb-4">Why Choose Us</h2>
+              <p className="max-w-2xl mx-auto text-gray-600">We deliver exceptional travel experiences with reliable service, professional drivers, and competitive pricing.</p>
+            </div>
+            
             {/* First Row of Features */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
               {/* Feature 1 */}
-              <div className="text-center">
-                <div className="bg-blue-600 text-white w-16 h-16 rounded-md flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/>
-                  </svg>
+              <div className="text-center transform transition duration-500 hover:-translate-y-2 hover:shadow-xl rounded-lg p-6 bg-white group">
+                <div className="bg-blue-600 text-white w-16 h-16 rounded-md flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-700 transition-colors">
+                  <CheckCircle className="w-8 h-8" />
                 </div>
-                <h3 className="text-xl font-bold mb-3">Clean Cars</h3>
+                <h3 className="text-xl font-bold mb-3">Clean Vehicles</h3>
                 <p className="text-gray-600">
-                  We take extra care to sanitize and air our cabs before and after every ride.
+                  We take extra care to sanitize and maintain our vehicles before and after every ride.
                 </p>
               </div>
               
               {/* Feature 2 */}
-              <div className="text-center">
-                <div className="bg-blue-600 text-white w-16 h-16 rounded-md flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 640 512" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
-                  </svg>
+              <div className="text-center transform transition duration-500 hover:-translate-y-2 hover:shadow-xl rounded-lg p-6 bg-white group">
+                <div className="bg-blue-600 text-white w-16 h-16 rounded-md flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-700 transition-colors">
+                  <Users className="w-8 h-8" />
                 </div>
-                <h3 className="text-xl font-bold mb-3">Driver Expertise</h3>
+                <h3 className="text-xl font-bold mb-3">Expert Drivers</h3>
                 <p className="text-gray-600">
-                  Our drivers possess an intimate knowledge of routes, to make ride worth it.
+                  Our professional drivers possess excellent knowledge of routes to make your ride safe and comfortable.
                 </p>
               </div>
               
               {/* Feature 3 */}
-              <div className="text-center">
-                <div className="bg-blue-600 text-white w-16 h-16 rounded-md flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm61.8-104.4l-84.9-61.7c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v141.7l66.8 48.6c5.4 3.9 6.5 11.4 2.6 16.8L334.6 349c-3.9 5.3-11.4 6.5-16.8 2.6z"/>
-                  </svg>
+              <div className="text-center transform transition duration-500 hover:-translate-y-2 hover:shadow-xl rounded-lg p-6 bg-white group">
+                <div className="bg-blue-600 text-white w-16 h-16 rounded-md flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-700 transition-colors">
+                  <Clock className="w-8 h-8" />
                 </div>
                 <h3 className="text-xl font-bold mb-3">Punctual Service</h3>
                 <p className="text-gray-600">
-                  We have excellent track record of on-time taxi service. Our team stays in touch with you ensuring there are no delays.
+                  We have an excellent track record of on-time service. Our team stays in touch with you ensuring there are no delays.
                 </p>
               </div>
             </div>
@@ -413,349 +432,102 @@ export default function Home() {
             {/* Second Row of Features */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Feature 4 */}
-              <div className="text-center">
-                <div className="bg-blue-600 text-white w-16 h-16 rounded-md flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M408 120c0 54.6-73.1 151.9-105.2 192c-7.7 9.6-22 9.6-29.6 0C241.1 271.9 168 174.6 168 120C168 53.7 221.7 0 288 0s120 53.7 120 120zm8 80.4c3.5-6.9 6.7-13.8 9.6-20.6c.5-1.2 1-2.5 1.5-3.7l116-46.4C558.9 123.4 576 135 576 152V422.8c0 9.8-6 18.6-15.1 22.3L416 503V200.4zM137.6 138.3c2.4 14.1 7.2 28.3 12.8 41.5c2.9 6.8 6.1 13.7 9.6 20.6V451.8L32.9 502.7C17.1 509 0 497.4 0 480.4V209.6c0-9.8 6-18.6 15.1-22.3l122.6-49zM327.8 332c13.9-17.4 35.7-45.7 56.2-77V504.3L192 449.4V255c20.5 31.3 42.3 59.6 56.2 77c20.5 25.6 59.1 25.6 79.6 0zM288 152a40 40 0 1 0 0-80 40 40 0 1 0 0 80z"/>
-                  </svg>
+              <div className="text-center transform transition duration-500 hover:-translate-y-2 hover:shadow-xl rounded-lg p-6 bg-white group">
+                <div className="bg-blue-600 text-white w-16 h-16 rounded-md flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-700 transition-colors">
+                  <MapPin className="w-8 h-8" />
                 </div>
                 <h3 className="text-xl font-bold mb-3">GPS Enabled Vehicles</h3>
                 <p className="text-gray-600">
-                  All our vehicles are GPS enabled. In case there are any issues during the journey, we're just a call away. We take immense pride in being the leading taxi rental service provider in Noida, Greater Noida & Ghaziabad.
+                  All our vehicles are GPS enabled for safety and efficiency. We're just a call away if you need assistance.
                 </p>
               </div>
               
               {/* Feature 5 */}
-              <div className="text-center">
-                <div className="bg-blue-600 text-white w-16 h-16 rounded-md flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 640 512" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M535 41c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l64 64c4.5 4.5 7 10.6 7 17s-2.5 12.5-7 17l-64 64c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l23-23L384 112c-13.3 0-24-10.7-24-24s10.7-24 24-24l174.1 0L535 41zM105 377l-23 23L256 400c13.3 0 24 10.7 24 24s-10.7 24-24 24L81.9 448l23 23c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0L7 441c-4.5-4.5-7-10.6-7-17s2.5-12.5 7-17l64-64c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9zM96 64H337.9c-3.7 7.2-5.9 15.3-5.9 24c0 28.7 23.3 52 52 52l117.4 0c-4 17 .6 35.5 13.8 48.8c20.3 20.3 53.2 20.3 73.5 0L608 169.5V384c0 35.3-28.7 64-64 64H302.1c3.7-7.2 5.9-15.3 5.9-24c0-28.7-23.3-52-52-52l-117.4 0c4-17-.6-35.5-13.8-48.8c-20.3-20.3-53.2-20.3-73.5 0L32 342.5V128c0-35.3 28.7-64 64-64zm64 64H96v64c35.3 0 64-28.7 64-64zM544 384c0-35.3-28.7-64-64-64v64h64zM320 352a96 96 0 1 0 0-192 96 96 0 1 0 0 192z"/>
-                  </svg>
+              <div className="text-center transform transition duration-500 hover:-translate-y-2 hover:shadow-xl rounded-lg p-6 bg-white group">
+                <div className="bg-blue-600 text-white w-16 h-16 rounded-md flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-700 transition-colors">
+                  <CreditCard className="w-8 h-8" />
                 </div>
                 <h3 className="text-xl font-bold mb-3">Transparent Billing</h3>
                 <p className="text-gray-600">
-                  We know GST, toll fees and inter-state tax are confusing and that's why our invoices are clear and precise. There are no hidden costs and charges.
+                  Our invoices are clear and precise with no hidden costs. We handle all GST, toll fees, and interstate taxes for you.
                 </p>
               </div>
               
               {/* Feature 6 */}
-              <div className="text-center">
-                <div className="bg-blue-600 text-white w-16 h-16 rounded-md flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M216 64c-13.3 0-24 10.7-24 24s10.7 24 24 24h16v33.3C119.6 157.2 32 252.4 32 368H480c0-115.6-87.6-210.8-200-222.7V112h16c13.3 0 24-10.7 24-24s-10.7-24-24-24H256 216zM24 400c-13.3 0-24 10.7-24 24s10.7 24 24 24H488c13.3 0 24-10.7 24-24s-10.7-24-24-24H24z"/>
-                  </svg>
+              <div className="text-center transform transition duration-500 hover:-translate-y-2 hover:shadow-xl rounded-lg p-6 bg-white group">
+                <div className="bg-blue-600 text-white w-16 h-16 rounded-md flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-700 transition-colors">
+                  <Car className="w-8 h-8" />
                 </div>
-                <h3 className="text-xl font-bold mb-3">Multiple Options to choose from</h3>
+                <h3 className="text-xl font-bold mb-3">Diverse Fleet Options</h3>
                 <p className="text-gray-600">
-                  We have a variety of options ranging from taxis, to bus and tempo travellers. Don't worry we've got your ride covered!
+                  Choose from a variety of options ranging from taxis to buses and tempo travellers. We've got your travel needs covered!
                 </p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Testimonial Section - New Design */}
-        <section className="py-16 bg-gray-800 text-white relative">
-          <div className="absolute inset-0 bg-opacity-70 bg-gray-900"></div>
-          <div className="container mx-auto px-4 relative z-10">
-            {/* Rating Header */}
-            <div className="flex flex-col md:flex-row items-center justify-between mb-12">
-              <div className="md:w-2/3 flex items-center mb-6 md:mb-0">
-                <div className="text-6xl font-bold text-white mr-6">4.8</div>
-                <div className="flex flex-col">
-                  <div className="flex mb-1">
-                    {[1, 2, 3, 4].map((star) => (
-                      <svg key={star} className="w-6 h-6 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                    ))}
-                    <svg className="w-6 h-6 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                      <defs>
-                        <linearGradient id="partialFill">
-                          <stop offset="80%" stopColor="currentColor" />
-                          <stop offset="80%" stopColor="rgba(255,255,255,0.3)" />
-                        </linearGradient>
-                      </defs>
-                      <path fill="url(#partialFill)" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  </div>
-                  <a 
-                    href="https://goo.gl/maps/vb15kqVV22gqUdoD8" 
-                    target="_blank"
-                    rel="nofollow noopener"
-                    className="text-gray-300 hover:text-white text-sm"
-                  >
-                    Based on 131 reviews on Google My Business
-                  </a>
-                </div>
-              </div>
-            </div>
 
-            {/* Testimonial Grid - First Row */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-              {/* Testimonial 1 */}
-              <div className="bg-gray-700 bg-opacity-50 p-6 rounded-lg">
-                <div className="flex mb-2">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <svg key={star} className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-                <p className="text-gray-200 mb-4">
-                  Driver Sh. Anoop Kumar is very professional...and he is very familiar with the routes.
-                  Yashika Tour & Travel provides very good services at affordable prices.
-                  Overall rating from my side 5 out of 5...
-                </p>
-                <a 
-                  href="https://goo.gl/maps/fkCzcGheFKYQNWBD7" 
-                  target="_blank" 
-                  rel="nofollow noopener"
-                  className="font-medium text-white hover:text-yellow-300"
-                >
-                  Rakesh Joshi
-                </a>
-              </div>
-
-              {/* Testimonial 2 */}
-              <div className="bg-gray-700 bg-opacity-50 p-6 rounded-lg">
-                <div className="flex mb-2">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <svg key={star} className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-                <p className="text-gray-200 mb-4">
-                  I just loved travelling with yashika tour and travels. I am really looking forward to travel again with the same agency and would recommend everyone. It's the best of course and you would really like their services and all. Taxi drivers are very humble. Really one should go for this service.
-                </p>
-                <a 
-                  href="https://goo.gl/maps/Gp4oNwqxrPXe3qqR8" 
-                  target="_blank" 
-                  rel="nofollow noopener"
-                  className="font-medium text-white hover:text-yellow-300"
-                >
-                  Jaanvi Sharma
-                </a>
-              </div>
-            </div>
-
-            {/* Testimonial Grid - Second Row */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-              {/* Testimonial 3 */}
-              <div className="bg-gray-700 bg-opacity-50 p-6 rounded-lg">
-                <div className="flex mb-2">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <svg key={star} className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-                <p className="text-gray-200 mb-4">
-                  Best in town when it comes to providing commuting services. large variety of options available, you name it they have it.
-                  A very professional staff and assist throughout your choice of service. Customer satisfaction and safety is their priority.
-                </p>
-                <a 
-                  href="https://goo.gl/maps/xCUhqDrrS25XQubX6" 
-                  target="_blank" 
-                  rel="nofollow noopener"
-                  className="font-medium text-white hover:text-yellow-300"
-                >
-                  Shreyash Singh
-                </a>
-              </div>
-
-              {/* Testimonial 4 */}
-              <div className="bg-gray-700 bg-opacity-50 p-6 rounded-lg">
-                <div className="flex mb-2">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <svg key={star} className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-                <p className="text-gray-200 mb-4">
-                  Don't tell me how educated you are, tell me how much you have travelled. I have great experience to Travel with Yashika Tour and Travels. I think everyone should go with this travel agency.
-                </p>
-                <a 
-                  href="https://goo.gl/maps/GdZnTrwoa3TJvr8h7" 
-                  target="_blank" 
-                  rel="nofollow noopener"
-                  className="font-medium text-white hover:text-yellow-300"
-                >
-                  Vikram Rai
-                </a>
-              </div>
-            </div>
-
-            {/* Testimonial Grid - Third Row */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* Testimonial 5 */}
-              <div className="bg-gray-700 bg-opacity-50 p-6 rounded-lg">
-                <div className="flex mb-2">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <svg key={star} className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-                <p className="text-gray-200 mb-4">
-                  Very good facility with a lot of other perks like they can also guide you for your travel and also can help you in many other ways. And also service is very cheap compared to market so I think that you can give it a chance.
-                </p>
-                <a 
-                  href="https://goo.gl/maps/SuKeVYaZUibPGsEF9" 
-                  target="_blank" 
-                  rel="nofollow noopener"
-                  className="font-medium text-white hover:text-yellow-300"
-                >
-                  Vishal Singh
-                </a>
-              </div>
-
-              {/* Testimonial 6 */}
-              <div className="bg-gray-700 bg-opacity-50 p-6 rounded-lg">
-                <div className="flex mb-2">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <svg key={star} className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-                <p className="text-gray-200 mb-4">
-                  Best taxi service with professional drivers and on time services for corporate IT companies. Clean & Sanitized cars, buses & tempo travellers.
-                </p>
-                <a 
-                  href="https://goo.gl/maps/J5ZnoYEmKwWSuxJb9" 
-                  target="_blank" 
-                  rel="nofollow noopener"
-                  className="font-medium text-white hover:text-yellow-300"
-                >
-                  Sunil Dixit
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Statistics Section */}
-        <section className="py-12 bg-blue-600 text-white">
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-              <div>
-                <h3 className="text-4xl md:text-5xl font-bold mb-2">150000+</h3>
-                <p className="uppercase text-sm">RIDES</p>
-              </div>
-              <div>
-                <h3 className="text-4xl md:text-5xl font-bold mb-2">52+</h3>
-                <p className="uppercase text-sm">CORPORATE CLIENTS</p>
-              </div>
-              <div>
-                <h3 className="text-4xl md:text-5xl font-bold mb-2">1000+</h3>
-                <p className="uppercase text-sm">HAPPY CLIENTS</p>
-              </div>
-              <div>
-                <h3 className="text-4xl md:text-5xl font-bold mb-2">131+</h3>
-                <p className="uppercase text-sm">REVIEWS</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Call To Action */}
-        <section className="relative py-16">
-          <div className="absolute inset-0 z-0">
-            <Image
-              src="https://yashikatourandtravel.com/wp-content/uploads/2024/02/cta-background.jpg"
-              alt="Book Your Ride"
-              fill
-              className="object-cover brightness-50"
-            />
-          </div>
-          <div className="relative z-10 container mx-auto px-4 text-white">
-            <div className="max-w-3xl">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                No matter where you travel, we've got a ride for you.
-              </h2>
-              <p className="mb-8">
-                Be it a taxi rental service, tempo-traveller rental service, corporate taxi service, school/college
-                transport service, or bus rental service, we've got everything covered. Whether it is your first time
-                renting a taxi with us or the tenth, we look forward to your booking with the same enthusiasm.
+        {/* Video Background Section */}
+        <section className="relative h-screen w-full overflow-hidden">
+          <iframe 
+            className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+            style={{ width: '140vw', height: '120vh', marginLeft: '-20vw' }}
+            src="https://www.youtube.com/embed/fJJPET8HXCE?controls=0&rel=0&playsinline=1&mute=1&loop=1&autoplay=1&playlist=fJJPET8HXCE&showinfo=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0" 
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            title="Background video"
+          ></iframe>
+          <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+          <div className="absolute inset-0 flex flex-col justify-between">
+            <div className="container mx-auto px-16 pt-24">
+              <p className="text-white text-sm font-medium tracking-wider mb-5">100% CUSTOMER SATISFACTION</p>
+              <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 max-w-4xl leading-tight">
+                No matter where you travel,
+                <br />
+                we've got a ride for you.
+              </h1>
+              <p className="text-white text-base max-w-3xl mb-10 leading-relaxed opacity-90">
+                Be it a taxi rental service, tempo-traveller rental service, corporate taxi service,
+                school/college transport service, or bus rental service, we've got everything covered.
+                <br /><br />
+                Whether it is your first time renting a taxi with us or the tenth, we look forward to your
+                booking with the same enthusiasm.
               </p>
-              <Link href="/contact-us">
-                <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 text-lg">
-                  Book Your Ride Now!
-                </Button>
-              </Link>
+              <Button className="bg-[#FF4A17] hover:bg-[#FF5E33] text-white px-8 py-3 text-base font-medium rounded mb-16">
+                Book Your Ride Now!
+              </Button>
             </div>
-          </div>
-        </section>
 
-        {/* Our Clients */}
-        <section className="py-16">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold">Our Clients</h2>
-              <p className="text-gray-600 mt-4 max-w-3xl mx-auto">
-                We provide services to a wide range of clients including schools, colleges, and corporate organizations.
-              </p>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="border p-4 flex items-center justify-center">
-                <div className="flex flex-col items-center">
-                  <Image src="https://yashikatourandtravel.com/wp-content/uploads/2024/02/school-icon.png" alt="Schools" width={50} height={50} />
-                  <p className="text-center mt-2">Schools</p>
-                </div>
-              </div>
-              <div className="border p-4 flex items-center justify-center">
-                <div className="flex flex-col items-center">
-                  <Image src="https://yashikatourandtravel.com/wp-content/uploads/2024/02/college-icon.png" alt="Colleges" width={50} height={50} />
-                  <p className="text-center mt-2">Colleges</p>
-                </div>
-              </div>
-              <div className="border p-4 flex items-center justify-center">
-                <div className="flex flex-col items-center">
-                  <Image src="https://yashikatourandtravel.com/wp-content/uploads/2024/02/it-firms-icon.png" alt="IT Firms" width={50} height={50} />
-                  <p className="text-center mt-2">IT Firms</p>
-                </div>
-              </div>
-              <div className="border p-4 flex items-center justify-center">
-                <div className="flex flex-col items-center">
-                  <Image src="https://yashikatourandtravel.com/wp-content/uploads/2024/02/call-centers-icon.png" alt="Call Centers" width={50} height={50} />
-                  <p className="text-center mt-2">Call Centers</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Rating Section */}
-        <section className="py-8 bg-gray-50">
-          <div className="container mx-auto px-4">
-            <div className="flex flex-col md:flex-row items-center justify-between">
-              <div className="flex items-center mb-6 md:mb-0">
-                <h2 className="text-6xl font-bold text-gray-800 mr-4">4.8</h2>
-                <div>
-                  <div className="flex">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <Star key={star} className="h-6 w-6 fill-yellow-400 text-yellow-400" />
-                    ))}
+            {/* Statistics Section */}
+            <div className="w-full border-t border-white/10">
+              <div className="container mx-auto px-16 py-6">
+                <div className="grid grid-cols-4">
+                  <div>
+                    <h3 className="text-4xl md:text-5xl font-bold text-white mb-2">
+                      <CountUp end={150000} />
+                    </h3>
+                    <p className="text-[11px] text-white/70 uppercase tracking-wider">RIDES</p>
                   </div>
-                  <p className="text-gray-600">Based on 131+ reviews</p>
+                  <div>
+                    <h3 className="text-4xl md:text-5xl font-bold text-white mb-2">
+                      <CountUp end={52} duration={1500} />
+                    </h3>
+                    <p className="text-[11px] text-white/70 uppercase tracking-wider">CORPORATE CLIENTS</p>
+                  </div>
+                  <div>
+                    <h3 className="text-4xl md:text-5xl font-bold text-white mb-2">
+                      <CountUp end={1000} duration={1800} />
+                    </h3>
+                    <p className="text-[11px] text-white/70 uppercase tracking-wider">HAPPY CLIENTS</p>
+                  </div>
+                  <div>
+                    <h3 className="text-4xl md:text-5xl font-bold text-white mb-2">
+                      <CountUp end={131} duration={1200} />
+                    </h3>
+                    <p className="text-[11px] text-white/70 uppercase tracking-wider">REVIEWS</p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex space-x-4">
-                <Image 
-                  src="https://yashikatourandtravel.com/wp-content/uploads/2024/02/google-reviews.png" 
-                  alt="Google Reviews" 
-                  width={120} 
-                  height={60} 
-                />
-                <Image 
-                  src="https://yashikatourandtravel.com/wp-content/uploads/2024/02/justdial-reviews.png" 
-                  alt="JustDial Reviews" 
-                  width={120} 
-                  height={60} 
-                />
               </div>
             </div>
           </div>

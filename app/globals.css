@@ -103,15 +103,6 @@ body {
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 100% 50%);
 }
 
-.animate-carousel {
-  display: flex;
-  animation: carousel 20s linear infinite;
-}
-
-.animate-carousel > div {
-  flex-shrink: 0;
-}
-
 @keyframes carousel {
   0% {
     transform: translateX(0);
@@ -121,3 +112,146 @@ body {
   }
 }
 
+.animate-carousel {
+  display: flex;
+  animation: carousel 20s linear infinite;
+}
+
+.animate-carousel > div {
+  flex-shrink: 0;
+}
+
+/* For responsive iframe */
+.video-background {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.video-background iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 56.25vw; /* 16:9 aspect ratio */
+  min-height: 100%;
+  min-width: 177.77vh; /* 16:9 aspect ratio */
+  transform: translate(-50%, -50%);
+}
+
+.chaty-tooltip:hover .on-hover-text {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-100%) translateY(-50%);
+}
+
+.on-hover-text {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  background-color: white;
+  color: #333;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-90%) translateY(-50%);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Add these animations after your existing CSS */
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease-out forwards;
+}
+
+/* Count up animation */
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-count-up {
+  opacity: 0;
+  animation: countUp 1s ease-out forwards;
+}
+
+/* Carousel styles */
+.carousel-container {
+  overflow: hidden;
+  width: 100%;
+}
+
+.carousel-track {
+  animation: scroll 30s linear infinite;
+  width: calc(400px * 18); /* 9 slides x 2 (duplicated) * slide width */
+}
+
+.carousel-slide {
+  flex: 0 0 calc(33.333% - 16px); /* Show 3 slides at a time with gap */
+  margin: 0 8px;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-400px * 9)); /* 9 slides * slide width */
+  }
+}
+
+/* Client carousel */
+.client-carousel {
+  animation: scrollClients 25s linear infinite;
+  width: calc(200px * 12); /* 6 clients x 2 (duplicated) * width */
+}
+
+@keyframes scrollClients {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-200px * 6)); /* 6 clients * width */
+  }
+}
+
+/* Bounce animation */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce {
+  animation: bounce 2s infinite;
+}

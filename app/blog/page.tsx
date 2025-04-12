@@ -3,7 +3,6 @@ import Image from "next/image";
 import { Blog } from "@/types/blog";
 import fs from "fs/promises";
 import path from "path";
-import { Navbar } from "@/components/ui/navbar";
 
 async function getBlogs(): Promise<Blog[]> {
   const dataDirectory = path.join(process.cwd(), 'data', 'blogs');
@@ -68,9 +67,19 @@ export default async function BlogPage() {
     blogsByTopic[tag] = blogs.filter(blog => blog.tags.includes(tag)).slice(0, 4);
   });
 
+  // Default image for missing/SVG placeholders
+  const defaultImage = "https://yashikatourandtravel.com/wp-content/uploads/2024/02/Yashika-Tour-Travels.png";
+
+  // Helper function to check if an image is a real image URL or a placeholder SVG
+  const getImageSrc = (imageUrl: string) => {
+    if (!imageUrl || imageUrl.includes('svg+xml') || imageUrl.startsWith('data:')) {
+      return defaultImage;
+    }
+    return imageUrl;
+  };
+
   return (
     <div>
-      <Navbar />
       <div className="container mx-auto py-12 px-4">
         <h1 className="text-4xl font-bold mb-12 text-center">Travel Blog</h1>
         
@@ -88,18 +97,19 @@ export default async function BlogPage() {
                   <div className="bg-white rounded-xl overflow-hidden shadow-lg h-full">
                     <div className="relative h-96">
                       <Image
-                        src={mainBlog.coverImage}
+                        src={getImageSrc(mainBlog.coverImage)}
                         alt={mainBlog.title}
                         fill
                         className="object-cover"
                         priority
+                        unoptimized={true}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
                       <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                         <div className="flex gap-2 mb-2">
                           {mainBlog.tags.slice(0, 2).map(tag => (
                             <span key={tag} className="bg-orange-500 text-white text-xs px-3 py-1 rounded-full">
-                              {tag}
+                              {tag.replace(/-/g, ' ')}
                             </span>
                           ))}
                         </div>
@@ -131,10 +141,11 @@ export default async function BlogPage() {
                     <div className="bg-white rounded-xl overflow-hidden shadow-md flex h-24 hover:shadow-lg transition">
                       <div className="relative w-1/3">
                         <Image
-                          src={blog.coverImage}
+                          src={getImageSrc(blog.coverImage)}
                           alt={blog.title}
                           fill
                           className="object-cover"
+                          unoptimized={true}
                         />
                       </div>
                       <div className="p-3 w-2/3">
@@ -159,17 +170,18 @@ export default async function BlogPage() {
                     <div className="bg-white rounded-xl overflow-hidden shadow-md transition hover:shadow-lg h-full flex flex-col">
                       <div className="relative h-48">
                         <Image
-                          src={blog.coverImage}
+                          src={getImageSrc(blog.coverImage)}
                           alt={blog.title}
                           fill
                           className="object-cover group-hover:scale-105 transition duration-300"
+                          unoptimized={true}
                         />
                       </div>
                       <div className="p-5 flex-grow flex flex-col">
                         <div className="flex gap-2 mb-2">
                           {blog.tags.slice(0, 1).map(tag => (
                             <span key={tag} className="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded-full">
-                              {tag}
+                              {tag.replace(/-/g, ' ')}
                             </span>
                           ))}
                         </div>
@@ -193,7 +205,7 @@ export default async function BlogPage() {
               <div key={tag} className="mb-16">
                 <h2 className="text-2xl font-bold mb-6 flex items-center">
                   <span className={`bg-emerald-500 w-2 h-6 mr-3`}></span>
-                  {tag.charAt(0).toUpperCase() + tag.slice(1)}
+                  {tag.replace(/-/g, ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                   {blogsByTopic[tag].map(blog => (
@@ -201,10 +213,11 @@ export default async function BlogPage() {
                       <div className="bg-white rounded-xl overflow-hidden shadow-sm transition hover:shadow-md h-full flex flex-col">
                         <div className="relative h-40">
                           <Image
-                            src={blog.coverImage}
+                            src={getImageSrc(blog.coverImage)}
                             alt={blog.title}
                             fill
                             className="object-cover"
+                            unoptimized={true}
                           />
                         </div>
                         <div className="p-4">
@@ -219,7 +232,7 @@ export default async function BlogPage() {
                 </div>
                 <div className="text-center mt-6">
                   <Link href={`/blog/topics/${tag}`} className="text-blue-500 text-sm hover:underline">
-                    View all articles about {tag} →
+                    View all articles about {tag.replace(/-/g, ' ')} →
                   </Link>
                 </div>
               </div>
