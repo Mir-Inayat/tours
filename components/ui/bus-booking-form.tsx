@@ -1,9 +1,13 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { Button } from "@/components/ui/button"
+import { toast } from "@/components/ui/use-toast" // Import toast if you have it, or we can use a simple alert
 
 export function BusBookingForm() {
+  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     phoneNumber: "",
@@ -24,11 +28,74 @@ export function BusBookingForm() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // In a real app, you would handle the form submission here
-    console.log("Form submitted:", formData);
-    alert("Booking request received! We'll contact you soon.");
+    setIsSubmitting(true);
+    
+    try {
+      // Basic validation
+      if (!formData.fullName || !formData.phoneNumber || !formData.pickupLocation || 
+          !formData.dropoffLocation || !formData.vehicleType || !formData.numberOfPeople || 
+          !formData.departureDate || (formData.tripType === "Round Trip" && !formData.returnDate)) {
+        throw new Error("Please fill all required fields");
+      }
+
+      // In a real app, we would send this to the backend
+      console.log("Form submitted:", formData);
+      
+      // Submit to API
+      const response = await fetch('/api/bookings', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          date: new Date().toISOString(),
+          status: "new"
+        }),
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to submit booking');
+      }
+      
+      // Show success message
+      if (typeof toast !== 'undefined') {
+        toast({
+          title: "Booking Received!",
+          description: "We'll contact you shortly to confirm your booking details.",
+        });
+      } else {
+        alert("Booking request received! We'll contact you soon.");
+      }
+      
+      // Reset form after successful submission
+      setFormData({
+        fullName: "",
+        phoneNumber: "",
+        pickupLocation: "",
+        dropoffLocation: "",
+        tripType: "One-Way Trip",
+        vehicleType: "",
+        numberOfPeople: "",
+        departureDate: "",
+        returnDate: ""
+      });
+    } catch (error) {
+      console.error("Form submission error:", error);
+      if (typeof toast !== 'undefined') {
+        toast({
+          title: "Error",
+          description: error.message || "There was an error submitting your booking. Please try again.",
+          variant: "destructive"
+        });
+      } else {
+        alert(error.message || "There was an error submitting your booking. Please try again.");
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -43,7 +110,8 @@ export function BusBookingForm() {
             placeholder="Full Name"
             value={formData.fullName}
             onChange={handleChange}
-            className="pl-9 w-full h-10 rounded-md border border-gray-200 p-2"
+            className="pl-9 w-full h-10 rounded-md border border-gray-300 p-2 bg-white"
+            required
           />
           <span className="absolute left-2.5 top-1/2 -translate-y-1/2">
             <svg className="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -60,7 +128,8 @@ export function BusBookingForm() {
             placeholder="Phone Number"
             value={formData.phoneNumber}
             onChange={handleChange}
-            className="pl-9 w-full h-10 rounded-md border border-gray-200 p-2"
+            className="pl-9 w-full h-10 rounded-md border border-gray-300 p-2 bg-white"
+            required
           />
           <span className="absolute left-2.5 top-1/2 -translate-y-1/2">
             <svg className="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -76,7 +145,8 @@ export function BusBookingForm() {
             placeholder="Pick-up Location"
             value={formData.pickupLocation}
             onChange={handleChange}
-            className="pl-9 w-full h-10 rounded-md border border-gray-200 p-2"
+            className="pl-9 w-full h-10 rounded-md border border-gray-300 p-2 bg-white"
+            required
           />
           <span className="absolute left-2.5 top-1/2 -translate-y-1/2">
             <svg className="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -93,7 +163,8 @@ export function BusBookingForm() {
             placeholder="Drop-off Location"
             value={formData.dropoffLocation}
             onChange={handleChange}
-            className="pl-9 w-full h-10 rounded-md border border-gray-200 p-2"
+            className="pl-9 w-full h-10 rounded-md border border-gray-300 p-2 bg-white"
+            required
           />
           <span className="absolute left-2.5 top-1/2 -translate-y-1/2">
             <svg className="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -111,6 +182,7 @@ export function BusBookingForm() {
               value="One-Way Trip"
               checked={formData.tripType === "One-Way Trip"} 
               onChange={handleChange}
+              className="accent-orange-500"
             />
             <span className="text-sm text-gray-600">One-Way Trip</span>
           </label>
@@ -121,6 +193,7 @@ export function BusBookingForm() {
               value="Round Trip"
               checked={formData.tripType === "Round Trip"} 
               onChange={handleChange}
+              className="accent-orange-500"
             />
             <span className="text-sm text-gray-600">Round Trip</span>
           </label>
@@ -130,7 +203,8 @@ export function BusBookingForm() {
           name="vehicleType"
           value={formData.vehicleType}
           onChange={handleChange}
-          className="w-full h-10 rounded-md border border-gray-200 bg-white text-gray-500 p-2"
+          className="w-full h-10 rounded-md border border-gray-300 bg-white text-gray-500 p-2"
+          required
         >
           <option value="">Choose Your Ride</option>
           <option value="Wagon R">Wagon R</option>
@@ -148,9 +222,11 @@ export function BusBookingForm() {
           type="number"
           name="numberOfPeople"
           placeholder="No. of People"
+          min="1"
           value={formData.numberOfPeople}
           onChange={handleChange}
-          className="w-full h-10 rounded-md border border-gray-200 p-2"
+          className="w-full h-10 rounded-md border border-gray-300 p-2 bg-white"
+          required
         />
 
         <div className="relative">
@@ -160,8 +236,12 @@ export function BusBookingForm() {
             placeholder="Departure Date"
             value={formData.departureDate}
             onChange={handleChange}
-            className="w-full h-10 rounded-md border border-gray-200 p-2"
+            className="w-full h-10 rounded-md border border-gray-300 p-2 bg-white"
+            required
           />
+          <label className="absolute text-xs text-gray-500 -top-2 left-2 bg-white px-1">
+            Departure Date (dd-mm-yyyy)
+          </label>
         </div>
 
         {formData.tripType === "Round Trip" && (
@@ -172,16 +252,21 @@ export function BusBookingForm() {
               placeholder="Return Date"
               value={formData.returnDate}
               onChange={handleChange}
-              className="w-full h-10 rounded-md border border-gray-200 p-2"
+              className="w-full h-10 rounded-md border border-gray-300 p-2 bg-white"
+              required={formData.tripType === "Round Trip"}
             />
+            <label className="absolute text-xs text-gray-500 -top-2 left-2 bg-white px-1">
+              Return Date (dd-mm-yyyy)
+            </label>
           </div>
         )}
 
         <Button 
           type="submit" 
           className="w-full h-10 bg-orange-500 hover:bg-orange-600 text-white rounded-md font-medium"
+          disabled={isSubmitting}
         >
-          Book Now
+          {isSubmitting ? "Processing..." : "Book Now"}
         </Button>
       </form>
     </div>

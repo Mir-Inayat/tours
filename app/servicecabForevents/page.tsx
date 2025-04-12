@@ -2,7 +2,7 @@
 
 import React, { useState } from "react"
 import { MapPin, Shield, Users, Clock, Calendar } from "lucide-react"
-import { BusBookingForm } from "@/components/ui/form" // Updated import
+import { BusBookingForm } from "@/components/ui/bus-booking-form" // Updated import
 import { Navbar } from "@/components/ui/navbar"
 import { Footer } from "@/components/ui/footer"
 import { Copyright } from "@/components/ui/copyright"

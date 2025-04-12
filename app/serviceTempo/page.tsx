@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Navbar } from "@/components/ui/navbar";
 import { Footer } from "@/components/ui/footer";
 import { Copyright } from "@/components/ui/copyright";
-import { BookingForm } from "@/components/ui/booking-form";
+import { BusBookingForm } from "@/components/ui/bus-booking-form";
 
 export default function Page() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -62,11 +62,9 @@ export default function Page() {
             </p>
           </div>
 
-          {/* Integrated Form Component */}
+          {/* Booking Form */}
           <div className="md:w-1/2 md:pl-8">
-            <div className="max-w-sm mx-auto">
-              <BookingForm />
-            </div>
+            <BusBookingForm />
           </div>
         </div>
       </section>

@@ -52,11 +52,9 @@ export default function Page() {
             </p>
           </div>
 
-          {/* Integrated Form Component */}
+          {/* Booking Form */}
           <div className="md:w-1/2 md:pl-8">
-            <div className="max-w-sm mx-auto">
-              <BusBookingForm />
-            </div>
+            <BusBookingForm />
           </div>
         </div>
       </section>

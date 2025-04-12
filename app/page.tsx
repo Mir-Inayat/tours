@@ -4,6 +4,7 @@ import { Navbar } from "@/components/ui/navbar"
 import { Footer } from "@/components/ui/footer"
 import { Button } from "@/components/ui/button"
 import { Star, MapPin, Shield, Users, Clock } from "lucide-react"
+import { BusBookingForm } from "@/components/ui/bus-booking-form"
 import Image from "next/image"
 import Link from "next/link"
 import Head from "next/head"
@@ -92,6 +93,11 @@ export default function Home() {
               <path d="M0,6V0h1000v100L0,6z" className="fill-white"></path>
             </svg>
           </div>
+        </section>
+
+        {/* Booking Form Section */}
+        <section className="py-16">
+          <BusBookingForm />
         </section>
 
         {/* Features Section */}
