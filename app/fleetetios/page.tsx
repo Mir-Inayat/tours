@@ -1,12 +1,18 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Navbar } from "@/components/ui/navbar";
 import { Footer } from "@/components/ui/footer";
 import { Copyright } from "@/components/ui/copyright";
 import { BusBookingForm } from "@/components/ui/bus-booking-form";
 
 export default function Page() {
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  const toggleFaq = (index: number) => {
+    setOpenFaq(openFaq === index ? null : index);
+  };
+
   return (
     <>
       <Navbar />
@@ -162,38 +168,102 @@ export default function Page() {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-gray-800 mb-12 text-center">Frequently Asked Questions</h2>
-          <div className="max-w-3xl mx-auto">
-            <div className="mb-6 border-b pb-4">
-              <button className="flex justify-between items-center w-full text-left">
+          <div className="max-w-3xl mx-auto space-y-4">
+            <div className="border rounded-lg overflow-hidden">
+              <button 
+                className="flex justify-between items-center w-full text-left p-4 bg-white hover:bg-gray-50"
+                onClick={() => toggleFaq(0)}
+              >
                 <h3 className="text-lg font-semibold text-gray-800">Why choose our Toyota Etios booking service?</h3>
-                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg 
+                  className={`w-5 h-5 text-gray-500 transform transition-transform ${openFaq === 0 ? 'rotate-180' : ''}`} 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
+              {openFaq === 0 && (
+                <div className="p-4 bg-gray-50 border-t">
+                  <p className="text-gray-600">
+                  Yashika Tour & Travels is in this business since 1995 and is one of the best Toyota Etios Cab booking provider in Noida. Whether it’s a business trip or event, employee transportation service, local or outstation tour, etc. we have got a ride for everything! All our Toyota Etios Taxis are GPS enabled so you don’t have to worry about security. 
+                  </p>
+                </div>
+              )}
             </div>
-            <div className="mb-6 border-b pb-4">
-              <button className="flex justify-between items-center w-full text-left">
+
+            <div className="border rounded-lg overflow-hidden">
+              <button 
+                className="flex justify-between items-center w-full text-left p-4 bg-white hover:bg-gray-50"
+                onClick={() => toggleFaq(1)}
+              >
                 <h3 className="text-lg font-semibold text-gray-800">In which cities are Yashika Tour & Travels' Toyota Etios Rental Service available?</h3>
-                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg 
+                  className={`w-5 h-5 text-gray-500 transform transition-transform ${openFaq === 1 ? 'rotate-180' : ''}`} 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
+              {openFaq === 1 && (
+                <div className="p-4 bg-gray-50 border-t">
+                  <p className="text-gray-600">
+                  We are in the tour and travels business for more than 20 years, and we proudly say that we are one of the best Toyota Etios Cab booking service providers in Noida, Greater Noida & Ghaziabad.
+                  As of now, we provide Deluxe Volvo Bus booking in Noida, Greater Noida & Ghaziabad.
+                  </p>
+                </div>
+              )}
             </div>
-            <div className="mb-6 border-b pb-4">
-              <button className="flex justify-between items-center w-full text-left">
+
+            <div className="border rounded-lg overflow-hidden">
+              <button 
+                className="flex justify-between items-center w-full text-left p-4 bg-white hover:bg-gray-50"
+                onClick={() => toggleFaq(2)}
+              >
                 <h3 className="text-lg font-semibold text-gray-800">What is the seating capacity of Toyota Etios?</h3>
-                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg 
+                  className={`w-5 h-5 text-gray-500 transform transition-transform ${openFaq === 2 ? 'rotate-180' : ''}`} 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
+              {openFaq === 2 && (
+                <div className="p-4 bg-gray-50 border-t">
+                  <p className="text-gray-600">
+                  Toyota Etios is a 5 seater compact sedan. It’s basically a 4+1 seater car as one seat is for the driver and the rest 4 are passenger seats.
+                  </p>
+                </div>
+              )}
             </div>
-            <div className="mb-6 border-b pb-4">
-              <button className="flex justify-between items-center w-full text-left">
+
+            <div className="border rounded-lg overflow-hidden">
+              <button 
+                className="flex justify-between items-center w-full text-left p-4 bg-white hover:bg-gray-50"
+                onClick={() => toggleFaq(3)}
+              >
                 <h3 className="text-lg font-semibold text-gray-800">How to book Toyota Etios in Noida?</h3>
-                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg 
+                  className={`w-5 h-5 text-gray-500 transform transition-transform ${openFaq === 3 ? 'rotate-180' : ''}`} 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
+              {openFaq === 3 && (
+                <div className="p-4 bg-gray-50 border-t">
+                  <p className="text-gray-600">
+                  You can easily book Toyota Etios in Noida by filling the form on the homepage of our website, Yashika Tour & Travels or you can call us 24*7 for booking Toyota Etios Cabs in Noida for local and outstation travels or for any other purpose. 
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>
