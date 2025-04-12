@@ -21,8 +21,27 @@ export default function Page() {
               Yashika Tour & Travels provides the best Cab Booking Service since 1995, in Noida, Greater Noida and Ghaziabad with 100% Customer Satisfaction Rate. We have the largest fleet of GPS enabled Deluxe Volvo Buses & Coaches in Noida. You can hire Volvo Buses in Noida for local travel, outstation travel, employee transport facilities, events, corporate cab rental, etc.
             </p>
             <p className="mb-6">
-              Book Volvo Deluxe bus in Noida Now
+              Book Volvo Deluxe bus in Noida Now for
             </p>
+
+            {/* Service Buttons */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-6">
+              <a href="/servicelocaltaxi" className="text-sm bg-emerald-500 text-white py-1.5 px-3 rounded hover:bg-white hover:text-emerald-500 transition-all duration-300 text-center font-medium shadow-sm">
+                Local Travel
+              </a>
+              <a href="/serviceout" className="text-sm bg-sky-500 text-white py-1.5 px-3 rounded hover:bg-white hover:text-sky-500 transition-all duration-300 text-center font-medium shadow-sm">
+                Outstation Travel
+              </a>
+              <a href="/serviceCorporateCab" className="text-sm bg-violet-500 text-white py-1.5 px-3 rounded hover:bg-white hover:text-violet-500 transition-all duration-300 text-center font-medium shadow-sm">
+                Employee Transport
+              </a>
+              <a href="/servicecabForevents" className="text-sm bg-rose-500 text-white py-1.5 px-3 rounded hover:bg-white hover:text-rose-500 transition-all duration-300 text-center font-medium shadow-sm">
+                Event Transport
+              </a>
+              <a href="/serviceCorporateCab" className="text-sm bg-amber-500 text-white py-1.5 px-3 rounded hover:bg-white hover:text-amber-500 transition-all duration-300 text-center font-medium shadow-sm">
+                Corporate Rental
+              </a>
+            </div>
           </div>
 
           {/* Integrated Form Component */}
@@ -30,19 +49,6 @@ export default function Page() {
             <div className="max-w-sm mx-auto">
               <BusBookingForm />
             </div>
-            <p className="mt-4 text-sm text-gray-300">
-              Skip to content
-              Yashika Tour and Travels logo - taxi, tempo traveller booking company in noida, greater noida, Ghaziabad
-              Home
-              About
-              Services
-              Popular Destinations
-              Our Fleet
-              Blogs
-              Contact
-              Call us
-            </p>
-            <img src="/path/to/volvo-bus-image.jpg" alt="Volvo Bus" className="mt-4 w-full h-auto" />
           </div>
         </div>
       </section>
@@ -127,31 +133,51 @@ export default function Page() {
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
             <div className="bg-white p-6 rounded-lg shadow-md text-center">
               <img src="/path/to/ertiga-image.jpg" alt="Ertiga" className="w-full h-auto mb-4" />
-              <button className="w-full bg-blue-600 text-white py-2 rounded-lg">Book Ertiga</button>
+              <a href="/fleetertiga" className="w-full inline-block bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                Book Ertiga
+              </a>
             </div>
+
             <div className="bg-white p-6 rounded-lg shadow-md text-center">
               <img src="/path/to/innova-image.jpg" alt="Innova" className="w-full h-auto mb-4" />
-              <button className="w-full bg-blue-600 text-white py-2 rounded-lg">Book Innova</button>
+              <a href="/fleetnova" className="w-full inline-block bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                Book Innova
+              </a>
             </div>
+
             <div className="bg-white p-6 rounded-lg shadow-md text-center">
               <img src="/path/to/innova-crysta-image.jpg" alt="Innova Crysta" className="w-full h-auto mb-4" />
-              <button className="w-full bg-blue-600 text-white py-2 rounded-lg">Book Innova Crysta</button>
+              <a href="/fleetcrysta" className="w-full inline-block bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                Book Innova Crysta
+              </a>
             </div>
+
             <div className="bg-white p-6 rounded-lg shadow-md text-center">
               <img src="/path/to/swift-dzire-image.jpg" alt="Swift Dzire" className="w-full h-auto mb-4" />
-              <button className="w-full bg-blue-600 text-white py-2 rounded-lg">Book Maruti Suzuki Swift Dzire</button>
+              <a href="/fleetswift" className="w-full inline-block bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                Book Maruti Suzuki Swift Dzire
+              </a>
             </div>
+
             <div className="bg-white p-6 rounded-lg shadow-md text-center">
               <img src="/path/to/tata-sumo-image.jpg" alt="Tata Sumo Gold" className="w-full h-auto mb-4" />
-              <button className="w-full bg-blue-600 text-white py-2 rounded-lg">Book Tata Sumo Gold</button>
+              <a href="/fleetsumo" className="w-full inline-block bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                Book Tata Sumo Gold
+              </a>
             </div>
+
             <div className="bg-white p-6 rounded-lg shadow-md text-center">
               <img src="/path/to/tempo-traveller-image.jpg" alt="Force Tempo Traveller" className="w-full h-auto mb-4" />
-              <button className="w-full bg-blue-600 text-white py-2 rounded-lg">Book Force Tempo Traveller</button>
+              <a href="/fleettempo" className="w-full inline-block bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                Book Force Tempo Traveller
+              </a>
             </div>
+
             <div className="bg-white p-6 rounded-lg shadow-md text-center">
               <img src="/path/to/toyota-etios-image.jpg" alt="Toyota Etios" className="w-full h-auto mb-4" />
-              <button className="w-full bg-blue-600 text-white py-2 rounded-lg">Book Toyota Etios</button>
+              <a href="/fleetetios" className="w-full inline-block bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                Book Toyota Etios
+              </a>
             </div>
           </div>
         </div>

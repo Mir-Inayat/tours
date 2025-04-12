@@ -21,8 +21,27 @@ export default function Page() {
               Yashika Tour & Travels provides the best Cab Booking Service since 1995, in Noida, Greater Noida and Ghaziabad with a 100% Customer Satisfaction Rate. We have the largest fleet of GPS-enabled Toyota Etios in Noida. You can hire Toyota Etios 5 seater Sedan in Noida for local travel, outstation travel, employee transport facilities, events, corporate cab rental, etc.
             </p>
             <p className="mb-6">
-              Book Toyota Etios in Noida Now
+              Book Toyota Etios in Noida Now for
             </p>
+
+            {/* Service Buttons */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-6">
+              <a href="/servicelocaltaxi" className="text-sm bg-emerald-500 text-white py-1.5 px-3 rounded hover:bg-white hover:text-emerald-500 transition-all duration-300 text-center font-medium shadow-sm">
+                Local Travel
+              </a>
+              <a href="/serviceout" className="text-sm bg-sky-500 text-white py-1.5 px-3 rounded hover:bg-white hover:text-sky-500 transition-all duration-300 text-center font-medium shadow-sm">
+                Outstation Travel
+              </a>
+              <a href="/serviceCorporateCab" className="text-sm bg-violet-500 text-white py-1.5 px-3 rounded hover:bg-white hover:text-violet-500 transition-all duration-300 text-center font-medium shadow-sm">
+                Employee Transport
+              </a>
+              <a href="/servicecabForevents" className="text-sm bg-rose-500 text-white py-1.5 px-3 rounded hover:bg-white hover:text-rose-500 transition-all duration-300 text-center font-medium shadow-sm">
+                Event Transport
+              </a>
+              <a href="/serviceCorporateCab" className="text-sm bg-amber-500 text-white py-1.5 px-3 rounded hover:bg-white hover:text-amber-500 transition-all duration-300 text-center font-medium shadow-sm">
+                Corporate Rental
+              </a>
+            </div>
           </div>
 
           {/* Integrated Form Component */}
@@ -30,19 +49,6 @@ export default function Page() {
             <div className="max-w-sm mx-auto">
               <BusBookingForm />
             </div>
-            <p className="mt-4 text-sm text-gray-300">
-              Skip to content
-              Yashika Tour and Travels logo - taxi, tempo traveller booking company in noida, greater noida, Ghaziabad
-              Home
-              About
-              Services
-              Popular Destinations
-              Our Fleet
-              Blogs
-              Contact
-              Call us
-            </p>
-            <img src="/path/to/toyota-etios-image.jpg" alt="Toyota Etios" className="mt-4 w-full h-auto" />
           </div>
         </div>
       </section>
