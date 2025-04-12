@@ -443,12 +443,12 @@ export function BusBookingForm() {
             />
           )}
 
-          <Button 
+          <button 
             type="submit" 
-            className="w-full h-12 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-medium"
+            className="w-full h-12 mt-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-300"
           >
             Book Now
-          </Button>
+          </button>
         </form>
       </Form>
     </div>

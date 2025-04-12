@@ -1,11 +1,12 @@
 "use client"
 
+import { Navbar } from "@/components/ui/navbar"
+import { Footer } from "@/components/ui/footer"
+import { BookingForm } from "@/components/ui/bus-booking-form"
+import { Button } from "@/components/ui/button"
+import { MapPin, Shield, Users, Clock, Star } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { Calendar as CalendarIcon, Clock, Facebook, Instagram, Linkedin, MapPin, Shield, Star, Users } from "lucide-react"
-import { Navbar } from "@/components/ui/navbar"
-import { Button } from "@/components/ui/button"
-import { BusBookingForm } from "@/components/ui/bus-booking-form"
 
 export default function Home() {
   return (
@@ -16,8 +17,8 @@ export default function Home() {
       <section className="relative">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/placeholder.svg?height=800&width=1600"
-            alt="Background"
+            src="https://yashikatourandtravel.com/wp-content/uploads/2024/02/hero-image.jpg"
+            alt="Yashika Tour & Travels - Taxi service in Noida"
             fill
             className="object-cover brightness-50"
             priority
@@ -33,24 +34,21 @@ export default function Home() {
 
             <div className="mb-6">
               <p className="mb-2">
-                We are <span className="font-bold">Yashika Tour & Travels</span>, the best{" "}
-                <span className="font-bold">
-                  local taxi rental/outstation taxi rental/bus rental/tempo-traveller rental/corporate car rental
-                </span>{" "}
-                service provider in Noida, Greater Noida & Ghaziabad <span className="font-bold">since 1995</span>,
-                providing customers with reliable and premium Local and Outstation{" "}
-                <span className="font-bold">transport rental services</span>.
+                We are Yashika Tour & Travels, the best taxi service provider in Noida, Greater Noida & Ghaziabad,
+                providing customers with reliable and premium Local and Outstation taxi services.
               </p>
             </div>
 
-            <Button variant="default" className="bg-orange-500 hover:bg-orange-600 flex items-center gap-2 px-6">
-              About Us <span>→</span>
-            </Button>
+            <Link href="/about">
+              <Button variant="default" className="bg-orange-500 hover:bg-orange-600 flex items-center gap-2 px-6">
+                About Us <span>→</span>
+              </Button>
+            </Link>
           </div>
 
           {/* Right Content - Booking Form */}
           <div className="w-full md:w-5/12">
-            <BusBookingForm />
+            <BookingForm />
           </div>
         </div>
       </section>
@@ -111,79 +109,29 @@ export default function Home() {
             <div className="w-full md:w-1/2">
               <h2 className="text-4xl font-bold mb-6">Why Choose Yashika Tour & Travels?</h2>
               <p className="text-gray-600 mb-4">
-                We have been in the tour and travels business for more than <strong>20 years</strong>. We are uniquely
-                placed as{" "}
-                <strong>
-                  the best & the largest chauffeur-driven taxi/bus/tempo-traveller rental company in Noida, Greater
-                  Noida and Ghaziabad
-                </strong>{" "}
-                in terms of geographical reach. We've been rated <strong>4.8/5 (131 Reviews)</strong> on Google My
-                Business and <strong>4.6/5</strong> on Just Dial.
+                We have been in the tour and travels business for more than 28 years. We are uniquely
+                placed as one of the oldest taxi rental service companies in Noida & Greater Noida
+                in terms of geographical reach. We've been rated 4.8 stars on Google My
+                Business and 4.9 on Just Dial.
               </p>
               <p className="text-gray-600 mb-4">
-                Yashika Tour & Travels provides safe, reliable local and outstation
-                <strong> taxi service in Noida, Greater Noida & Ghaziabad</strong>. Our drivers are highly experienced
+                Yashika Tour & Travels provides safe, reliable local and outstation taxi service. Our drivers are highly experienced
                 and have been appropriately trained. We offer pick-up services in Noida, Greater Noida, Ghaziabad and
                 from Airport, Railway Station, etc.
               </p>
               <p className="text-gray-600">
-                We strive to provide you best, reliable, and affordable
-                <strong>
-                  {" "}
-                  local taxi rental service, outstation taxi rental service, bus rental service, tempo traveller rental
-                  service, corporate car rental service, School/College Transport service
-                </strong>
+                We strive to provide you best, reliable, and affordable taxi and bus rental service
                 in Noida, Greater Noida, and Ghaziabad.
               </p>
             </div>
-            <div className="w-full md:w-1/2 bg-blue-500 rounded-lg p-8 relative">
-              <div className="bg-white rounded-lg p-6 shadow-lg">
-                <div className="text-center mb-4">
-                  <h3 className="text-2xl font-bold">Customer</h3>
-                  <h3 className="text-2xl font-bold text-orange-500">Satisfaction</h3>
-                  <h3 className="text-2xl font-bold">Rate</h3>
-                </div>
-                <div className="flex justify-center mb-6">
-                  <div className="relative">
-                    <div className="text-6xl font-bold text-orange-500 text-center">100%</div>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-32 h-32 border-4 border-blue-500 rounded-full border-t-transparent animate-spin"></div>
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-4">
-                  <div className="flex items-center gap-2">
-                    <Image
-                      src="/placeholder.svg?height=40&width=40"
-                      alt="Google"
-                      width={40}
-                      height={40}
-                      className="rounded-full"
-                    />
-                    <div className="flex">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <Star key={star} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                      ))}
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Image src="/placeholder.svg?height=40&width=40" alt="JustDial" width={40} height={40} />
-                    <div className="flex">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <Star key={star} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                      ))}
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Image src="/placeholder.svg?height=40&width=40" alt="TripAdvisor" width={40} height={40} />
-                    <div className="flex">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <Star key={star} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div className="w-full md:w-1/2">
+              <Image 
+                src="https://yashikatourandtravel.com/wp-content/uploads/2024/02/why-choose-us.jpg"
+                alt="Why Choose Yashika Tour & Travels"
+                width={600} 
+                height={400}
+                className="rounded-lg shadow-lg"
+              />
             </div>
           </div>
         </div>
@@ -213,50 +161,42 @@ export default function Home() {
               </p>
             </div>
             <div className="w-full md:w-1/2">
-              <div className="bg-blue-500 rounded-lg p-8 relative">
-                <div className="bg-white rounded-lg shadow-lg p-6">
-                  <div className="flex justify-between items-center mb-4">
-                    <div className="text-gray-400">←</div>
-                    <div className="text-center">
-                      <Image src="/placeholder.svg?height=60&width=120" alt="Yashika Logo" width={120} height={60} />
-                    </div>
+              <div className="bg-white rounded-lg shadow-lg p-6">
+                <div className="text-center mb-6">
+                  <h3 className="text-2xl font-bold">
+                    Multiple Fleet Options
+                  </h3>
+                  <h3 className="text-2xl font-bold">to Choose From</h3>
+                </div>
+                <div className="grid grid-cols-2 gap-4 mb-4">
+                  <div>
+                    <Image
+                      src="https://yashikatourandtravel.com/wp-content/uploads/2024/02/taxi.jpg"
+                      alt="Car"
+                      width={300}
+                      height={200}
+                      className="rounded-lg"
+                    />
                   </div>
-                  <div className="text-center mb-6">
-                    <h3 className="text-2xl font-bold">
-                      Multiple <span className="text-orange-500">Options</span>
-                    </h3>
-                    <h3 className="text-2xl font-bold">to Choose From</h3>
+                  <div>
+                    <Image
+                      src="https://yashikatourandtravel.com/wp-content/uploads/2024/02/bus.jpg"
+                      alt="Bus"
+                      width={300}
+                      height={200}
+                      className="rounded-lg"
+                    />
                   </div>
-                  <div className="grid grid-cols-2 gap-4 mb-4">
-                    <div>
-                      <Image
-                        src="/placeholder.svg?height=100&width=200"
-                        alt="Car"
-                        width={200}
-                        height={100}
-                        className="rounded-lg"
-                      />
-                    </div>
-                    <div>
-                      <Image
-                        src="/placeholder.svg?height=100&width=200"
-                        alt="Bus"
-                        width={200}
-                        height={100}
-                        className="rounded-lg"
-                      />
-                    </div>
-                  </div>
-                  <div className="flex justify-center">
-                    <div>
-                      <Image
-                        src="/placeholder.svg?height=100&width=200"
-                        alt="Tempo Traveller"
-                        width={200}
-                        height={100}
-                        className="rounded-lg"
-                      />
-                    </div>
+                </div>
+                <div className="flex justify-center">
+                  <div>
+                    <Image
+                      src="https://yashikatourandtravel.com/wp-content/uploads/2024/02/tempo-traveller.jpg"
+                      alt="Tempo Traveller"
+                      width={300}
+                      height={200}
+                      className="rounded-lg"
+                    />
                   </div>
                 </div>
               </div>
@@ -403,17 +343,27 @@ export default function Home() {
             <div className="flex items-center mb-6 md:mb-0">
               <h2 className="text-7xl font-bold text-gray-800 mr-4">4.8</h2>
               <div>
-                <div className="flex mb-2">
+                <div className="flex">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <Star key={star} className="h-6 w-6 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
-                <p className="text-sm text-gray-600">
-                  Based on 131 reviews on
-                  <br />
-                  Google My Business
-                </p>
+                <p className="text-gray-600">Based on 131+ reviews</p>
               </div>
+            </div>
+            <div className="flex space-x-4">
+              <Image 
+                src="https://yashikatourandtravel.com/wp-content/uploads/2024/02/google-reviews.png" 
+                alt="Google Reviews" 
+                width={120} 
+                height={60} 
+              />
+              <Image 
+                src="https://yashikatourandtravel.com/wp-content/uploads/2024/02/justdial-reviews.png" 
+                alt="JustDial Reviews" 
+                width={120} 
+                height={60} 
+              />
             </div>
           </div>
         </div>
@@ -423,7 +373,7 @@ export default function Home() {
       <section className="relative py-20">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/placeholder.svg?height=600&width=1600"
+            src="https://yashikatourandtravel.com/wp-content/uploads/2024/02/cta-background.jpg"
             alt="Night Driving"
             fill
             className="object-cover brightness-50"
@@ -443,9 +393,11 @@ export default function Home() {
             transport service, or bus rental service, we've got everything covered. Whether it is your first time
             renting a taxi with us or the tenth, we look forward to your booking with the same enthusiasm.
           </p>
-          <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 text-lg">
-            Book Your Ride Now!
-          </Button>
+          <Link href="/destinations">
+            <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 text-lg">
+              Book Your Ride Now!
+            </Button>
+          </Link>
         </div>
       </section>
 
@@ -453,28 +405,28 @@ export default function Home() {
       <section className="py-8">
         <div className="grid grid-cols-4 gap-0">
           <Image
-            src="/placeholder.svg?height=200&width=400"
+            src="https://yashikatourandtravel.com/wp-content/uploads/2024/02/fleet-gallery-1.jpg"
             alt="Fleet"
             width={400}
             height={200}
             className="w-full h-full object-cover"
           />
           <Image
-            src="/placeholder.svg?height=200&width=400"
+            src="https://yashikatourandtravel.com/wp-content/uploads/2024/02/fleet-gallery-2.jpg"
             alt="Fleet"
             width={400}
             height={200}
             className="w-full h-full object-cover"
           />
           <Image
-            src="/placeholder.svg?height=200&width=400"
+            src="https://yashikatourandtravel.com/wp-content/uploads/2024/02/fleet-gallery-3.jpg"
             alt="Fleet"
             width={400}
             height={200}
             className="w-full h-full object-cover"
           />
           <Image
-            src="/placeholder.svg?height=200&width=400"
+            src="https://yashikatourandtravel.com/wp-content/uploads/2024/02/fleet-gallery-4.jpg"
             alt="Fleet"
             width={400}
             height={200}
@@ -490,130 +442,33 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="border p-4 flex items-center justify-center">
               <div className="flex flex-col items-center">
-                <Image src="/placeholder.svg?height=50&width=50" alt="School" width={50} height={50} />
-                <span className="mt-2 font-bold">SCHOOL</span>
+                <Image src="https://yashikatourandtravel.com/wp-content/uploads/2024/02/school-icon.png" alt="School" width={50} height={50} />
+                <p className="text-center mt-2">Schools</p>
               </div>
             </div>
             <div className="border p-4 flex items-center justify-center">
               <div className="flex flex-col items-center">
-                <Image src="/placeholder.svg?height=50&width=50" alt="College" width={50} height={50} />
-                <span className="mt-2 font-bold">COLLEGE</span>
+                <Image src="https://yashikatourandtravel.com/wp-content/uploads/2024/02/college-icon.png" alt="College" width={50} height={50} />
+                <p className="text-center mt-2">Colleges</p>
               </div>
             </div>
             <div className="border p-4 flex items-center justify-center">
               <div className="flex flex-col items-center">
-                <Image src="/placeholder.svg?height=50&width=50" alt="IT Firms" width={50} height={50} />
-                <span className="mt-2 font-bold">IT FIRMS</span>
+                <Image src="https://yashikatourandtravel.com/wp-content/uploads/2024/02/it-firms-icon.png" alt="IT Firms" width={50} height={50} />
+                <p className="text-center mt-2">IT Firms</p>
               </div>
             </div>
             <div className="border p-4 flex items-center justify-center">
               <div className="flex flex-col items-center">
-                <Image src="/placeholder.svg?height=50&width=50" alt="Call Centers" width={50} height={50} />
-                <span className="mt-2 font-bold">CALL CNTERS</span>
+                <Image src="https://yashikatourandtravel.com/wp-content/uploads/2024/02/call-centers-icon.png" alt="Call Centers" width={50} height={50} />
+                <p className="text-center mt-2">Call Centers</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-100 py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-              <h3 className="text-lg font-bold mb-4">Contact Information</h3>
-              <p className="mb-2">B7, 153A, near Income Tax Office, Block B, Sector 22</p>
-              <p className="mb-2">Noida, Uttar Pradesh 201301</p>
-              <p className="mb-2">+91 9312244228, 8750333222, 0120-4261411</p>
-              <p className="mb-4">contact@yashikatourandtravel.com</p>
-              <div className="flex space-x-4">
-                <Link href="#" className="text-gray-600 hover:text-blue-500">
-                  <Facebook className="h-6 w-6" />
-                </Link>
-                <Link href="#" className="text-gray-600 hover:text-pink-500">
-                  <Instagram className="h-6 w-6" />
-                </Link>
-                <Link href="#" className="text-gray-600 hover:text-blue-700">
-                  <Linkedin className="h-6 w-6" />
-                </Link>
-              </div>
-            </div>
-            <div>
-              <h3 className="text-lg font-bold mb-4">Useful Links</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="#" className="text-gray-600 hover:text-orange-500">
-                    Home
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-gray-600 hover:text-orange-500">
-                    About Us
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-gray-600 hover:text-orange-500">
-                    Contact us
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-gray-600 hover:text-orange-500">
-                    Privacy Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-gray-600 hover:text-orange-500">
-                    Our Gallery
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-gray-600 hover:text-orange-500">
-                    Terms & Conditions
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-lg font-bold mb-4">Location</h3>
-              <div className="h-64 bg-gray-200 rounded-lg relative">
-                <Image src="/placeholder.svg?height=300&width=400" alt="Map" fill className="object-cover rounded-lg" />
-                <div className="absolute bottom-2 left-2 text-xs text-gray-600">Use ctrl + scroll to zoom the map</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
-
-      {/* Copyright */}
-      <div className="bg-gray-100 border-t py-6">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-600 text-sm">
-              Copyright © 1995 - 2025 Yashika Tour and Travels. All rights reserved
-            </p>
-            <p className="text-gray-600 text-sm">Designed & Developed by Magnus Corps</p>
-          </div>
-        </div>
-      </div>
-
-      {/* WhatsApp Button */}
-      <div className="fixed bottom-6 right-6 z-50">
-        <div className="bg-green-500 rounded-full p-3 shadow-lg cursor-pointer hover:bg-green-600 transition-colors">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="32"
-            height="32"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="white"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
-          </svg>
-        </div>
-      </div>
+      <Footer />
     </div>
   )
 }
