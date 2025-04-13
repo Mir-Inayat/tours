@@ -1,9 +1,10 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { useState, useRef, useEffect } from "react"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Phone } from "lucide-react"
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -51,15 +52,22 @@ export function Navbar() {
   ]
 
   return (
-    <header className="sticky top-0 z-50 bg-gray-800/90 py-4">
+    <header className="sticky top-0 z-50 bg-gray-800/90 py-2 shadow-lg">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <div className="border border-dashed border-blue-400 p-2">
-              <div className="text-white font-bold text-2xl">YASHIKA</div>
-              <div className="text-white text-xs">TOUR & TRAVELS</div>
-            </div>
+            <Link href="/">
+              <div className="relative h-16 w-48">
+                <Image 
+                  src="/logo.png" 
+                  alt="Yashika Tour & Travels" 
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -74,27 +82,27 @@ export function Navbar() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-6">
-            <Link href="/" className="text-white hover:text-orange-400">
+            <Link href="/" className="text-white hover:text-orange-400 transition-colors duration-200">
               Home
             </Link>
-            <Link href="/about" className="text-white hover:text-orange-400">
+            <Link href="/about" className="text-white hover:text-orange-400 transition-colors duration-200">
               About
             </Link>
             <div className="relative group" ref={servicesRef}>
               <button 
-                className="text-white hover:text-orange-400 flex items-center"
+                className="text-white hover:text-orange-400 flex items-center transition-colors duration-200"
                 onClick={() => setIsServicesOpen(!isServicesOpen)}
               >
-                Services <span className="ml-1">▼</span>
+                Services <span className="ml-1 text-xs">▼</span>
               </button>
               {isServicesOpen && (
-                <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                <div className="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
                   <div className="py-1" role="menu">
                     {services.map((service) => (
                       <Link
                         key={service.href}
                         href={service.href}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-orange-500 transition-colors duration-200"
                         role="menuitem"
                       >
                         {service.name}
@@ -104,24 +112,24 @@ export function Navbar() {
                 </div>
               )}
             </div>
-            <Link href="/destinations" className="text-white hover:text-orange-400">
+            <Link href="/destinations" className="text-white hover:text-orange-400 transition-colors duration-200">
               Popular Destinations
             </Link>
             <div className="relative group" ref={fleetRef}>
               <button 
-                className="text-white hover:text-orange-400 flex items-center"
+                className="text-white hover:text-orange-400 flex items-center transition-colors duration-200"
                 onClick={() => setIsFleetOpen(!isFleetOpen)}
               >
-                Our Fleet <span className="ml-1">▼</span>
+                Our Fleet <span className="ml-1 text-xs">▼</span>
               </button>
               {isFleetOpen && (
-                <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                <div className="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
                   <div className="py-1" role="menu">
                     {fleet.map((item) => (
                       <Link
                         key={item.href}
                         href={item.href}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-orange-500 transition-colors duration-200"
                         role="menuitem"
                       >
                         {item.name}
@@ -131,46 +139,47 @@ export function Navbar() {
                 </div>
               )}
             </div>
-            <Link href="/blog" className="text-white hover:text-orange-400">
+            <Link href="/blog" className="text-white hover:text-orange-400 transition-colors duration-200">
               Blogs
             </Link>
-            <Link href="/contact" className="text-white hover:text-orange-400">
+            <Link href="/contact" className="text-white hover:text-orange-400 transition-colors duration-200">
               Contact
             </Link>
           </nav>
 
           {/* Desktop Call Button */}
           <div className="hidden md:block">
-            <Button className="bg-orange-500 hover:bg-orange-600 text-white rounded-md">
-              Call Us
+            <Button className="bg-orange-500 hover:bg-orange-600 text-white rounded-md flex items-center gap-2">
+              <Phone size={16} />
+              <span>Call Us</span>
             </Button>
           </div>
         </div>
 
-        {/* Mobile Navigation - unchanged */}
+        {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden mt-4">
+          <div className="md:hidden mt-4 pb-4">
             <nav className="flex flex-col space-y-4">
               <Link
                 href="/"
-                className="text-white hover:text-orange-400"
+                className="text-white hover:text-orange-400 transition-colors duration-200"
                 onClick={() => setIsOpen(false)}
               >
                 Home
               </Link>
               <Link
                 href="/about"
-                className="text-white hover:text-orange-400"
+                className="text-white hover:text-orange-400 transition-colors duration-200"
                 onClick={() => setIsOpen(false)}
               >
                 About
               </Link>
               <div className="relative">
                 <button 
-                  className="text-white hover:text-orange-400 flex items-center"
+                  className="text-white hover:text-orange-400 flex items-center transition-colors duration-200"
                   onClick={() => setIsServicesOpen(!isServicesOpen)}
                 >
-                  Services <span className="ml-1">▼</span>
+                  Services <span className="ml-1 text-xs">▼</span>
                 </button>
                 {isServicesOpen && (
                   <div className="pl-4 mt-2 space-y-2">
@@ -178,7 +187,7 @@ export function Navbar() {
                       <Link
                         key={service.href}
                         href={service.href}
-                        className="block text-white hover:text-orange-400 text-sm"
+                        className="block text-white hover:text-orange-400 text-sm transition-colors duration-200"
                         onClick={() => {
                           setIsServicesOpen(false)
                           setIsOpen(false)
@@ -192,17 +201,17 @@ export function Navbar() {
               </div>
               <Link
                 href="/destinations"
-                className="text-white hover:text-orange-400"
+                className="text-white hover:text-orange-400 transition-colors duration-200"
                 onClick={() => setIsOpen(false)}
               >
                 Popular Destinations
               </Link>
               <div className="relative">
                 <button 
-                  className="text-white hover:text-orange-400 flex items-center"
+                  className="text-white hover:text-orange-400 flex items-center transition-colors duration-200"
                   onClick={() => setIsFleetOpen(!isFleetOpen)}
                 >
-                  Our Fleet <span className="ml-1">▼</span>
+                  Our Fleet <span className="ml-1 text-xs">▼</span>
                 </button>
                 {isFleetOpen && (
                   <div className="pl-4 mt-2 space-y-2">
@@ -210,7 +219,7 @@ export function Navbar() {
                       <Link
                         key={item.href}
                         href={item.href}
-                        className="block text-white hover:text-orange-400 text-sm"
+                        className="block text-white hover:text-orange-400 text-sm transition-colors duration-200"
                         onClick={() => {
                           setIsFleetOpen(false)
                           setIsOpen(false)
@@ -224,20 +233,21 @@ export function Navbar() {
               </div>
               <Link
                 href="/blog"
-                className="text-white hover:text-orange-400"
+                className="text-white hover:text-orange-400 transition-colors duration-200"
                 onClick={() => setIsOpen(false)}
               >
                 Blogs
               </Link>
               <Link
                 href="/contact"
-                className="text-white hover:text-orange-400"
+                className="text-white hover:text-orange-400 transition-colors duration-200"
                 onClick={() => setIsOpen(false)}
               >
                 Contact
               </Link>
-              <Button className="bg-orange-500 hover:bg-orange-600 text-white rounded-md w-full">
-                Call Us
+              <Button className="bg-orange-500 hover:bg-orange-600 text-white rounded-md w-full flex items-center justify-center gap-2">
+                <Phone size={16} />
+                <span>Call Us</span>
               </Button>
             </nav>
           </div>
