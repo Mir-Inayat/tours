@@ -111,35 +111,40 @@ export default function Home() {
         </section>
 
         {/* Enhanced Image Carousel Section */}
-        <section className="w-full overflow-hidden">
-          <div className="container mx-auto py-8">
+        <section className="w-full overflow-hidden bg-gray-50 py-12">
+          <div className="container mx-auto px-4">
             <div className="relative">
               {/* Auto-scrolling carousel */}
-              <div className="flex carousel-container">
-                <div className="carousel-track flex">
+              <div className="flex overflow-hidden">
+                <div className="flex animate-scroll">
                   {/* First set of images */}
                   {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
-                    <div key={num} className="carousel-slide">
-                      <Image 
-                        src={`https://yashikatourandtravel.com/wp-content/uploads/2023/10/${num}.webp`}
-                        alt={`Yashika Tour & Travels Vehicle ${num}`}
-                        width={400}
-                        height={300}
-                        className="h-64 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-500"
-                      />
+                    <div key={num} className="flex-none px-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4">
+                      <div className="relative aspect-[4/3] overflow-hidden rounded-lg shadow-md group">
+                        <Image 
+                          src={`https://yashikatourandtravel.com/wp-content/uploads/2023/10/${num}.webp`}
+                          alt={`Yashika Tour & Travels Vehicle ${num}`}
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-110"
+                          sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                          priority={num <= 3}
+                        />
+                      </div>
                     </div>
                   ))}
                   
                   {/* Duplicate set for seamless loop */}
                   {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
-                    <div key={`dup-${num}`} className="carousel-slide">
-                      <Image 
-                        src={`https://yashikatourandtravel.com/wp-content/uploads/2023/10/${num}.webp`}
-                        alt={`Yashika Tour & Travels Vehicle ${num}`}
-                        width={400}
-                        height={300}
-                        className="h-64 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-500"
-                      />
+                    <div key={`dup-${num}`} className="flex-none px-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4">
+                      <div className="relative aspect-[4/3] overflow-hidden rounded-lg shadow-md group">
+                        <Image 
+                          src={`https://yashikatourandtravel.com/wp-content/uploads/2023/10/${num}.webp`}
+                          alt={`Yashika Tour & Travels Vehicle ${num}`}
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-110"
+                          sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                        />
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -377,90 +382,80 @@ export default function Home() {
         </section>
 
 
-        {/* Enhanced Features Section with Tilt Divider */}
-        <section className="relative py-16 bg-gray-50">
-          {/* Top Shape Divider */}
-          <div className="absolute top-0 left-0 w-full overflow-hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none" className="fill-white h-[70px] w-full">
-              <path d="M0,6V0h1000v100L0,6z"></path>
-            </svg>
-          </div>
-          
-          {/* Container */}
-          <div className="container mx-auto px-4 pt-16">
+        {/* Features Section */}
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4">Why Choose Us</h2>
-              <p className="max-w-2xl mx-auto text-gray-600">We deliver exceptional travel experiences with reliable service, professional drivers, and competitive pricing.</p>
+              <p className="max-w-2xl mx-auto text-gray-600">
+                We deliver exceptional travel experiences with reliable service, professional drivers, and competitive pricing.
+              </p>
             </div>
             
-            {/* First Row of Features */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {/* Feature 1 */}
-              <div className="text-center transform transition duration-500 hover:-translate-y-2 hover:shadow-xl rounded-lg p-6 bg-white group">
-                <div className="bg-blue-600 text-white w-16 h-16 rounded-md flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-700 transition-colors">
-                  <CheckCircle className="w-8 h-8" />
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-4">
+                  <CheckCircle className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-3">Clean Vehicles</h3>
+                <h3 className="text-xl font-bold mb-2">Clean Vehicles</h3>
                 <p className="text-gray-600">
                   We take extra care to sanitize and maintain our vehicles before and after every ride.
                 </p>
               </div>
               
               {/* Feature 2 */}
-              <div className="text-center transform transition duration-500 hover:-translate-y-2 hover:shadow-xl rounded-lg p-6 bg-white group">
-                <div className="bg-blue-600 text-white w-16 h-16 rounded-md flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-700 transition-colors">
-                  <Users className="w-8 h-8" />
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-4">
+                  <Users className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-3">Expert Drivers</h3>
+                <h3 className="text-xl font-bold mb-2">Expert Drivers</h3>
                 <p className="text-gray-600">
                   Our professional drivers possess excellent knowledge of routes to make your ride safe and comfortable.
                 </p>
               </div>
               
               {/* Feature 3 */}
-              <div className="text-center transform transition duration-500 hover:-translate-y-2 hover:shadow-xl rounded-lg p-6 bg-white group">
-                <div className="bg-blue-600 text-white w-16 h-16 rounded-md flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-700 transition-colors">
-                  <Clock className="w-8 h-8" />
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-4">
+                  <Clock className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-3">Punctual Service</h3>
+                <h3 className="text-xl font-bold mb-2">Punctual Service</h3>
                 <p className="text-gray-600">
-                  We have an excellent track record of on-time service. Our team stays in touch with you ensuring there are no delays.
+                  We value your time and ensure our services are always punctual and reliable.
                 </p>
               </div>
-            </div>
-            
-            {/* Second Row of Features */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              
               {/* Feature 4 */}
-              <div className="text-center transform transition duration-500 hover:-translate-y-2 hover:shadow-xl rounded-lg p-6 bg-white group">
-                <div className="bg-blue-600 text-white w-16 h-16 rounded-md flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-700 transition-colors">
-                  <MapPin className="w-8 h-8" />
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-4">
+                  <MapPin className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-3">GPS Enabled Vehicles</h3>
+                <h3 className="text-xl font-bold mb-2">GPS Enabled</h3>
                 <p className="text-gray-600">
-                  All our vehicles are GPS enabled for safety and efficiency. We're just a call away if you need assistance.
+                  All our vehicles are GPS enabled for your safety and efficient route planning.
                 </p>
               </div>
               
               {/* Feature 5 */}
-              <div className="text-center transform transition duration-500 hover:-translate-y-2 hover:shadow-xl rounded-lg p-6 bg-white group">
-                <div className="bg-blue-600 text-white w-16 h-16 rounded-md flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-700 transition-colors">
-                  <CreditCard className="w-8 h-8" />
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-4">
+                  <CreditCard className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-3">Transparent Billing</h3>
+                <h3 className="text-xl font-bold mb-2">Transparent Pricing</h3>
                 <p className="text-gray-600">
-                  Our invoices are clear and precise with no hidden costs. We handle all GST, toll fees, and interstate taxes for you.
+                  No hidden charges. We provide clear and upfront pricing for all our services.
                 </p>
               </div>
               
               {/* Feature 6 */}
-              <div className="text-center transform transition duration-500 hover:-translate-y-2 hover:shadow-xl rounded-lg p-6 bg-white group">
-                <div className="bg-blue-600 text-white w-16 h-16 rounded-md flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-700 transition-colors">
-                  <Car className="w-8 h-8" />
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-4">
+                  <Car className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-3">Diverse Fleet Options</h3>
+                <h3 className="text-xl font-bold mb-2">Diverse Fleet</h3>
                 <p className="text-gray-600">
-                  Choose from a variety of options ranging from taxis to buses and tempo travellers. We've got your travel needs covered!
+                  Choose from our wide range of vehicles to suit your travel needs.
                 </p>
               </div>
             </div>

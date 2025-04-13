@@ -17,7 +17,7 @@ export default function Page() {
     <>
       <Navbar />
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-orange-500 text-white py-12">
+      <section className="bg-blue-600 text-white py-12">
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-8 md:mb-0">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -31,20 +31,20 @@ export default function Page() {
             </p>
 
             {/* Service Buttons */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-6">
-              <a href="/servicelocaltaxi" className="text-sm bg-emerald-500 text-white py-1.5 px-3 rounded hover:bg-white hover:text-emerald-500 transition-all duration-300 text-center font-medium shadow-sm">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
+              <a href="/servicelocaltaxi" className="text-sm bg-orange-500 text-white py-1.5 px-3 rounded hover:bg-white hover:text-orange-500 transition-all duration-300 text-center font-medium shadow-sm">
                 Local Travel
               </a>
-              <a href="/serviceout" className="text-sm bg-sky-500 text-white py-1.5 px-3 rounded hover:bg-white hover:text-sky-500 transition-all duration-300 text-center font-medium shadow-sm">
+              <a href="/serviceout" className="text-sm bg-orange-500 text-white py-1.5 px-3 rounded hover:bg-white hover:text-orange-500 transition-all duration-300 text-center font-medium shadow-sm">
                 Outstation Travel
               </a>
-              <a href="/serviceCorporateCab" className="text-sm bg-violet-500 text-white py-1.5 px-3 rounded hover:bg-white hover:text-violet-500 transition-all duration-300 text-center font-medium shadow-sm">
+              <a href="/serviceCorporateCab" className="text-sm bg-orange-500 text-white py-1.5 px-3 rounded hover:bg-white hover:text-orange-500 transition-all duration-300 text-center font-medium shadow-sm">
                 Employee Transport
               </a>
-              <a href="/servicecabForevents" className="text-sm bg-rose-500 text-white py-1.5 px-3 rounded hover:bg-white hover:text-rose-500 transition-all duration-300 text-center font-medium shadow-sm">
+              <a href="/servicecabForevents" className="text-sm bg-orange-500 text-white py-1.5 px-3 rounded hover:bg-white hover:text-orange-500 transition-all duration-300 text-center font-medium shadow-sm">
                 Event Transport
               </a>
-              <a href="/serviceCorporateCab" className="text-sm bg-amber-500 text-white py-1.5 px-3 rounded hover:bg-white hover:text-amber-500 transition-all duration-300 text-center font-medium shadow-sm">
+              <a href="/serviceCorporateCab" className="text-sm bg-orange-500 text-white py-1.5 px-3 rounded hover:bg-white hover:text-orange-500 transition-all duration-300 text-center font-medium shadow-sm">
                 Corporate Rental
               </a>
             </div>
@@ -63,7 +63,7 @@ export default function Page() {
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-8 md:mb-0">
-            <img src="/path/to/innova-crysta-image.jpg" alt="Innova Crysta" className="w-full h-auto rounded-lg shadow-md" />
+            <img src="/crysta.jpeg" alt="Innova Crysta" className="w-full h-auto rounded-lg shadow-md" />
           </div>
           <div className="md:w-1/2 md:pl-8">
             <h2 className="text-3xl font-bold text-gray-800 mb-6">
@@ -130,53 +130,75 @@ export default function Page() {
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-gray-800 mb-12 text-center">Other Cabs available for booking</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <img src="/path/to/ertiga-image.jpg" alt="Ertiga" className="w-full h-auto mb-4" />
-              <a href="/fleetertiga" className="w-full inline-block bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                Book Ertiga
-              </a>
+            <div className="bg-white p-4 rounded-lg shadow-md text-center flex flex-col h-full">
+              <div className="aspect-[4/3] overflow-hidden mb-4 h-48">
+                <img src="/ennova.jpeg" alt="Innova" className="w-full h-full object-cover" />
+              </div>
+              <div className="mt-auto">
+                <a href="/fleetnova" className="block w-full bg-orange-500 text-white py-2 px-4 rounded text-sm hover:bg-orange-600 transition-colors">
+                  Book Innova
+                </a>
+              </div>
             </div>
-            
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <img src="/path/to/innova-image.jpg" alt="Innova" className="w-full h-auto mb-4" />
-              <a href="/fleetnova" className="w-full inline-block bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                Book Innova
-              </a>
+            <div className="bg-white p-4 rounded-lg shadow-md text-center flex flex-col h-full">
+              <div className="aspect-[4/3] overflow-hidden mb-4 h-48">
+                <img src="/crysta.jpeg" alt="Innova Crysta" className="w-full h-full object-cover" />
+              </div>
+              <div className="mt-auto">
+                <a href="/fleetcrysta" className="block w-full bg-orange-500 text-white py-2 px-4 rounded text-sm hover:bg-orange-600 transition-colors">
+                  Book Innova Crysta
+                </a>
+              </div>
             </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <img src="/path/to/swift-dzire-image.jpg" alt="Swift Dzire" className="w-full h-auto mb-4" />
-              <a href="/fleetswift" className="w-full inline-block bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                Book Maruti Suzuki Swift Dzire
-              </a>
+            <div className="bg-white p-4 rounded-lg shadow-md text-center flex flex-col h-full">
+              <div className="aspect-[4/3] overflow-hidden mb-4 h-48">
+                <img src="/swift.jpeg" alt="Swift Dzire" className="w-full h-full object-cover" />
+              </div>
+              <div className="mt-auto">
+                <a href="/fleetswift" className="block w-full bg-orange-500 text-white py-2 px-4 rounded text-sm hover:bg-orange-600 transition-colors">
+                  Book Maruti Suzuki Swift Dzire
+                </a>
+              </div>
             </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <img src="/path/to/tata-sumo-image.jpg" alt="Tata Sumo Gold" className="w-full h-auto mb-4" />
-              <a href="/fleetsumo" className="w-full inline-block bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                Book Tata Sumo Gold
-              </a>
+            <div className="bg-white p-4 rounded-lg shadow-md text-center flex flex-col h-full">
+              <div className="aspect-[4/3] overflow-hidden mb-4 h-48">
+                <img src="tatasumo.jpg" alt="Tata Sumo Gold" className="w-full h-full object-cover" />
+              </div>
+              <div className="mt-auto">
+                <a href="/fleetsumo" className="block w-full bg-orange-500 text-white py-2 px-4 rounded text-sm hover:bg-orange-600 transition-colors">
+                  Book Tata Sumo Gold
+                </a>
+              </div>
             </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <img src="/path/to/tempo-traveller-image.jpg" alt="Force Tempo Traveller" className="w-full h-auto mb-4" />
-              <a href="/fleettempo" className="w-full inline-block bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                Book Force Tempo Traveller
-              </a>
+            <div className="bg-white p-4 rounded-lg shadow-md text-center flex flex-col h-full">
+              <div className="aspect-[4/3] overflow-hidden mb-4 h-48">
+                <img src="/tempo.jpg" alt="Force Tempo Traveller" className="w-full h-full object-cover" />
+              </div>
+              <div className="mt-auto">
+                <a href="/fleettempo" className="block w-full bg-orange-500 text-white py-2 px-4 rounded text-sm hover:bg-orange-600 transition-colors">
+                  Book Force Tempo Traveller
+                </a>
+              </div>
             </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <img src="/path/to/toyota-etios-image.jpg" alt="Toyota Etios" className="w-full h-auto mb-4" />
-              <a href="/fleetetios" className="w-full inline-block bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                Book Toyota Etios
-              </a>
+            <div className="bg-white p-4 rounded-lg shadow-md text-center flex flex-col h-full">
+              <div className="aspect-[4/3] overflow-hidden mb-4 h-48">
+                <img src="/ertiga.jpg" alt="Maruti Suzuki Ertiga" className="w-full h-full object-cover" />
+              </div>
+              <div className="mt-auto">
+                <a href="/fleetertiga" className="block w-full bg-orange-500 text-white py-2 px-4 rounded text-sm hover:bg-orange-600 transition-colors">
+                  Book Maruti Suzuki Ertiga
+                </a>
+              </div>
             </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <img src="/path/to/volvo-bus-image.jpg" alt="Volvo Buses" className="w-full h-auto mb-4" />
-              <a href="/fleetvolvo" className="w-full inline-block bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                Book Volvo Buses
-              </a>
+            <div className="bg-white p-4 rounded-lg shadow-md text-center flex flex-col h-full">
+              <div className="aspect-[4/3] overflow-hidden mb-4 h-48">
+                <img src="/volvo.jpeg" alt="Volvo Buses" className="w-full h-full object-cover" />
+              </div>
+              <div className="mt-auto">
+                <a href="/fleetvolvo" className="block w-full bg-orange-500 text-white py-2 px-4 rounded text-sm hover:bg-orange-600 transition-colors">
+                  Book Volvo Buses
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -205,7 +227,7 @@ export default function Page() {
               {openFaq === 0 && (
                 <div className="p-4 bg-gray-50 border-t">
                   <p className="text-gray-600">
-                  Yashika Tour & Travels is in this business since 1995 and is one of the best Innova Crysta cab booking provider in Noida. Whether it’s a business trips or event, employee transportation service, family tour, etc. we have got a ride for everything! All our innova crysta cabs are GPS enabled so you don’t have to worry about security.
+                  Yashika Tour & Travels is in this business since 1995 and is one of the best Innova Crysta cab booking provider in Noida. Whether it's a business trips or event, employee transportation service, family tour, etc. we have got a ride for everything! All our innova crysta cabs are GPS enabled so you don't have to worry about security.
                   </p>
                 </div>
               )}
@@ -277,7 +299,7 @@ export default function Page() {
               {openFaq === 3 && (
                 <div className="p-4 bg-gray-50 border-t">
                   <p className="text-gray-600">
-                  No, Toyota Innova Crysta is a 8 seater MUV. Innova is widely used as cabs in metro cities like Noida because of its comfort and it’s 8 seater capacity.
+                  No, Toyota Innova Crysta is a 8 seater MUV. Innova is widely used as cabs in metro cities like Noida because of its comfort and it's 8 seater capacity.
                   </p>
                 </div>
               )}

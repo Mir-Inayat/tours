@@ -9,9 +9,24 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [isServicesOpen, setIsServicesOpen] = useState(false)
   const [isFleetOpen, setIsFleetOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
   
   const servicesRef = useRef(null)
   const fleetRef = useRef(null)
+
+  // Add scroll event listener
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsScrolled(true)
+      } else {
+        setIsScrolled(false)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -51,7 +66,7 @@ export function Navbar() {
   ]
 
   return (
-    <header className="sticky top-0 z-50 bg-gray-800/90 py-4">
+    <header className="sticky top-0 z-50 bg-gray-800 py-4">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -88,13 +103,13 @@ export function Navbar() {
                 Services <span className="ml-1">▼</span>
               </button>
               {isServicesOpen && (
-                <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5">
                   <div className="py-1" role="menu">
                     {services.map((service) => (
                       <Link
                         key={service.href}
                         href={service.href}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        className="block px-4 py-2 text-sm text-white hover:bg-gray-700"
                         role="menuitem"
                       >
                         {service.name}
@@ -115,13 +130,16 @@ export function Navbar() {
                 Our Fleet <span className="ml-1">▼</span>
               </button>
               {isFleetOpen && (
-                <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                <div className={`absolute left-0 mt-2 w-48 rounded-md shadow-lg 
+                  ${isScrolled ? 'bg-white' : 'bg-gray-800/90'} 
+                  ring-1 ring-black ring-opacity-5`}>
                   <div className="py-1" role="menu">
                     {fleet.map((item) => (
                       <Link
                         key={item.href}
                         href={item.href}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        className={`block px-4 py-2 text-sm 
+                          ${isScrolled ? 'text-gray-700 hover:bg-gray-100' : 'text-white hover:bg-gray-700'}`}
                         role="menuitem"
                       >
                         {item.name}
@@ -149,7 +167,8 @@ export function Navbar() {
 
         {/* Mobile Navigation - unchanged */}
         {isOpen && (
-          <div className="md:hidden mt-4">
+          <div className={`md:hidden mt-4 
+            ${isScrolled ? 'bg-gray-800/90' : 'bg-gray-800/90'}`}>
             <nav className="flex flex-col space-y-4">
               <Link
                 href="/"

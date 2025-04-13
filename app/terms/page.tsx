@@ -61,11 +61,11 @@ export default function TermsAndConditions() {
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">Refunds and Cancellation</h2>
             <p className="text-gray-600 mb-6">
               If you are eligible for refunds based on the "Cancellation and Returns" policy above, then the refund will be remitted back to you in 5-7 working days. In case of any issues, write to us at{" "}
-              <a href="mailto:contact@yashikatourandtravel.com" className="text-blue-600 hover:text-blue-800">
+              <a href="mailto:contact@yashikatourandtravel.com" className="text-orange-500 hover:text-orange-700">
                 contact@yashikatourandtravel.com
               </a>{" "}
               or call us at{" "}
-              <a href="tel:9312244228" className="text-blue-600 hover:text-blue-800">
+              <a href="tel:9312244228" className="text-orange-500 hover:text-orange-700">
                 9312244228
               </a>
             </p>

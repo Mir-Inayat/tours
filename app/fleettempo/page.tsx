@@ -17,7 +17,7 @@ export default function Page() {
     <>
       <Navbar />
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-orange-500 text-white py-12">
+      <section className="bg-blue-600 text-white py-12">
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-8 md:mb-0">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -32,19 +32,19 @@ export default function Page() {
 
             {/* Service Buttons */}
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-6">
-              <a href="/servicelocaltaxi" className="text-sm bg-emerald-500 text-white py-1.5 px-3 rounded hover:bg-white hover:text-emerald-500 transition-all duration-300 text-center font-medium shadow-sm">
+              <a href="/servicelocaltaxi" className="text-sm bg-orange-500 text-white py-1.5 px-3 rounded hover:bg-white hover:text-orange-500 transition-all duration-300 text-center font-medium shadow-sm">
                 Local Travel
               </a>
-              <a href="/serviceout" className="text-sm bg-sky-500 text-white py-1.5 px-3 rounded hover:bg-white hover:text-sky-500 transition-all duration-300 text-center font-medium shadow-sm">
+              <a href="/serviceout" className="text-sm bg-orange-500 text-white py-1.5 px-3 rounded hover:bg-white hover:text-orange-500 transition-all duration-300 text-center font-medium shadow-sm">
                 Outstation Travel
               </a>
-              <a href="/serviceCorporateCab" className="text-sm bg-violet-500 text-white py-1.5 px-3 rounded hover:bg-white hover:text-violet-500 transition-all duration-300 text-center font-medium shadow-sm">
+              <a href="/serviceCorporateCab" className="text-sm bg-orange-500 text-white py-1.5 px-3 rounded hover:bg-white hover:text-orange-500 transition-all duration-300 text-center font-medium shadow-sm">
                 Employee Transport
               </a>
-              <a href="/servicecabForevents" className="text-sm bg-rose-500 text-white py-1.5 px-3 rounded hover:bg-white hover:text-rose-500 transition-all duration-300 text-center font-medium shadow-sm">
+              <a href="/servicecabForevents" className="text-sm bg-orange-500 text-white py-1.5 px-3 rounded hover:bg-white hover:text-orange-500 transition-all duration-300 text-center font-medium shadow-sm">
                 Event Transport
               </a>
-              <a href="/serviceCorporateCab" className="text-sm bg-amber-500 text-white py-1.5 px-3 rounded hover:bg-white hover:text-amber-500 transition-all duration-300 text-center font-medium shadow-sm">
+              <a href="/serviceCorporateCab" className="text-sm bg-orange-500 text-white py-1.5 px-3 rounded hover:bg-white hover:text-orange-500 transition-all duration-300 text-center font-medium shadow-sm">
                 Corporate Rental
               </a>
             </div>
@@ -139,7 +139,7 @@ export default function Page() {
               <div className="aspect-[4/3] overflow-hidden mb-4">
                 <img src="/ertiga.jpg" alt="Ertiga" className="w-full h-48 object-cover rounded" />
               </div>
-              <a href="/fleetertiga" className="w-full inline-block bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+              <a href="/fleetertiga" className="w-full inline-block bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600 transition-colors">
                 Book Ertiga
               </a>
             </div>
@@ -148,7 +148,7 @@ export default function Page() {
               <div className="aspect-[4/3] overflow-hidden mb-4">
                 <img src="/ennova.jpeg" alt="Innova" className="w-full h-48 object-cover rounded" />
               </div>
-              <a href="/fleetnova" className="w-full inline-block bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+              <a href="/fleetnova" className="w-full inline-block bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600 transition-colors">
                 Book Innova
               </a>
             </div>
@@ -157,7 +157,7 @@ export default function Page() {
               <div className="aspect-[4/3] overflow-hidden mb-4">
                 <img src="/crysta.jpeg" alt="Innova Crysta" className="w-full h-48 object-cover rounded" />
               </div>
-              <a href="/fleetcrysta" className="w-full inline-block bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+              <a href="/fleetcrysta" className="w-full inline-block bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600 transition-colors">
                 Book Innova Crysta
               </a>
             </div>
@@ -166,7 +166,7 @@ export default function Page() {
               <div className="aspect-[4/3] overflow-hidden mb-4">
                 <img src="/swift.jpeg" alt="Swift Dzire" className="w-full h-48 object-cover rounded" />
               </div>
-              <a href="/fleetswift" className="w-full inline-block bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+              <a href="/fleetswift" className="w-full inline-block bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600 transition-colors">
                 Book Maruti Suzuki Swift Dzire
               </a>
             </div>
@@ -175,7 +175,7 @@ export default function Page() {
               <div className="aspect-[4/3] overflow-hidden mb-4">
                 <img src="/tatasumo.jpg" alt="Tata Sumo Gold" className="w-full h-48 object-cover rounded" />
               </div>
-              <a href="/fleetsumo" className="w-full inline-block bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+              <a href="/fleetsumo" className="w-full inline-block bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600 transition-colors">
                 Book Tata Sumo Gold
               </a>
             </div>
@@ -184,7 +184,7 @@ export default function Page() {
               <div className="aspect-[4/3] overflow-hidden mb-4">
                 <img src="/etois.jpeg" alt="Toyota Etios" className="w-full h-48 object-cover rounded" />
               </div>
-              <a href="/fleetetios" className="w-full inline-block bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+              <a href="/fleetetios" className="w-full inline-block bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600 transition-colors">
                 Book Toyota Etios
               </a>
             </div>
@@ -193,7 +193,7 @@ export default function Page() {
               <div className="aspect-[4/3] overflow-hidden mb-4">
                 <img src="/volvo.jpeg" alt="Volvo Buses" className="w-full h-48 object-cover rounded" />
               </div>
-              <a href="/fleetvolvo" className="w-full inline-block bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+              <a href="/fleetvolvo" className="w-full inline-block bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600 transition-colors">
                 Book Volvo Buses
               </a>
             </div>
@@ -224,7 +224,7 @@ export default function Page() {
               {openFaq === 0 && (
                 <div className="p-4 bg-gray-50 border-t">
                   <p className="text-gray-600">
-                  Yashika Tour & Travels is in this business since 1995 and is one of the best Tempo Traveller booking provider in Noida. Whether it’s a business trips or event, employee transportation service, family tour, etc. we have got a ride for everything! All our force tempo travellers are GPS enabled so you don’t have to worry about security.
+                  Yashika Tour & Travels is in this business since 1995 and is one of the best Tempo Traveller booking provider in Noida. Whether it's a business trips or event, employee transportation service, family tour, etc. we have got a ride for everything! All our force tempo travellers are GPS enabled so you don't have to worry about security.
                   </p>
                 </div>
               )}
