@@ -22,7 +22,7 @@ export default function EventTransport() {
     <>
       <Navbar />
       {/* Hero Section */}
-      <section className="py-16 bg-gradient-to-b from-blue-600 to-blue-800 text-white">
+      <section className="bg-blue-600 text-white py-12">
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-8 md:mb-0">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">

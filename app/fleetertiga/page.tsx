@@ -5,7 +5,7 @@ import { Navbar } from "@/components/ui/navbar";
 import { Footer } from "@/components/ui/footer";
 import { Copyright } from "@/components/ui/copyright";
 import { BusBookingForm } from "@/components/ui/bus-booking-form";
-
+import { Carousel } from "@/components/ui/carousel";
 export default function Page() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
@@ -103,6 +103,30 @@ export default function Page() {
           <p className="text-gray-600 mb-6">
             We strive to provide you best, reliable, and affordable local cab rental service, outstation cab rental service, bus/deluxe coach rental service, tempo traveller rental service, minibus, corporate car rental service, School/College Transport service in Noida, Greater Noida and Ghaziabad.
           </p>
+        </div>
+      </section>
+
+      {/* Carousel Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-7xl mx-auto">
+            <Carousel
+              images={[
+                {
+                  src: "/image1.jpg",
+                  alt: "Ertiga Exterior View"
+                },
+                {
+                  src: "/image2.jpg",
+                  alt: "Ertiga Interior View"
+                },
+                {
+                  src: "/image3.jpg",
+                  alt: "Ertiga Side View"
+                }
+              ]}
+            />
+          </div>
         </div>
       </section>
 

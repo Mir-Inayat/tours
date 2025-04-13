@@ -5,6 +5,8 @@ import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from "embla-carousel-react"
 import { ArrowLeft, ArrowRight } from "lucide-react"
+import { useState, useEffect } from "react"
+import Image from "next/image"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -14,7 +16,14 @@ type UseCarouselParameters = Parameters<typeof useEmblaCarousel>
 type CarouselOptions = UseCarouselParameters[0]
 type CarouselPlugin = UseCarouselParameters[1]
 
+interface CarouselImage {
+  src: string
+  alt: string
+}
+
 type CarouselProps = {
+  images: CarouselImage[]
+  autoSlideInterval?: number
   opts?: CarouselOptions
   plugins?: CarouselPlugin
   orientation?: "horizontal" | "vertical"
@@ -48,6 +57,8 @@ const Carousel = React.forwardRef<
 >(
   (
     {
+      images,
+      autoSlideInterval = 5000,
       orientation = "horizontal",
       opts,
       setApi,
@@ -58,6 +69,7 @@ const Carousel = React.forwardRef<
     },
     ref
   ) => {
+    const [currentIndex, setCurrentIndex] = useState(0)
     const [carouselRef, api] = useEmblaCarousel(
       {
         ...opts,
@@ -97,6 +109,14 @@ const Carousel = React.forwardRef<
       },
       [scrollPrev, scrollNext]
     )
+
+    useEffect(() => {
+      const timer = setInterval(() => {
+        setCurrentIndex((current) => (current + 1) % images.length)
+      }, autoSlideInterval)
+
+      return () => clearInterval(timer)
+    }, [images.length, autoSlideInterval])
 
     React.useEffect(() => {
       if (!api || !setApi) {
@@ -142,7 +162,47 @@ const Carousel = React.forwardRef<
           aria-roledescription="carousel"
           {...props}
         >
-          {children}
+          <div className="relative w-full h-64 overflow-hidden rounded-lg">
+            <div className="relative h-full w-full">
+              <Image
+                src={images[currentIndex].src}
+                alt={images[currentIndex].alt}
+                fill
+                className="object-cover transition-opacity duration-500"
+                priority
+              />
+            </div>
+
+            <button
+              onClick={scrollPrev}
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/30 text-white p-2 rounded-full hover:bg-black/50 transition-colors"
+              aria-label="Previous slide"
+            >
+              ←
+            </button>
+            <button
+              onClick={scrollNext}
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/30 text-white p-2 rounded-full hover:bg-black/50 transition-colors"
+              aria-label="Next slide"
+            >
+              →
+            </button>
+
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+              {images.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    api?.scrollTo(index)
+                  }}
+                  className={`w-2 h-2 rounded-full transition-colors ${
+                    index === currentIndex ? "bg-white" : "bg-white/50"
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </CarouselContext.Provider>
     )

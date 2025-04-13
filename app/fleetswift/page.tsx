@@ -5,6 +5,7 @@ import { Navbar } from "@/components/ui/navbar";
 import { Footer } from "@/components/ui/footer";
 import { Copyright } from "@/components/ui/copyright";
 import { BusBookingForm } from "@/components/ui/bus-booking-form";
+import { Carousel } from "@/components/ui/carousel";
 
 export default function Page() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -94,6 +95,30 @@ export default function Page() {
         </div>
       </section>
 
+      {/* Carousel Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-7xl mx-auto">
+            <Carousel
+              images={[
+                {
+                  src: "/image1.jpg",
+                  alt: "Swift Dzire Exterior View"
+                },
+                {
+                  src: "/image2.jpg",
+                  alt: "Swift Dzire Interior View"
+                },
+                {
+                  src: "/image3.jpg",
+                  alt: "Swift Dzire Side View"
+                }
+              ]}
+            />
+          </div>
+        </div>
+      </section>
+
       {/* Why Swift Dzire is Best Section */}
       <section className="py-16">
         <div className="container mx-auto px-4">
@@ -122,7 +147,7 @@ export default function Page() {
               <div className="aspect-[4/3] overflow-hidden mb-4">
                 <img src="/ertiga.jpg" alt="Ertiga" className="w-full h-48 object-cover rounded" />
               </div>
-              <a href="/fleetertiga" className="w-full inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition-colors">
+              <a href="/fleetertiga" className="w-full inline-block bg-orange-500 text-white py-1.5 px-3 rounded hover:bg-orange-600 transition-colors text-sm">
                 Book Ertiga
               </a>
             </div>
@@ -131,7 +156,7 @@ export default function Page() {
               <div className="aspect-[4/3] overflow-hidden mb-4">
                 <img src="/ennova.jpeg" alt="Innova" className="w-full h-48 object-cover rounded" />
               </div>
-              <a href="/fleetnova" className="w-full inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition-colors">
+              <a href="/fleetnova" className="w-full inline-block bg-orange-500 text-white py-1.5 px-3 rounded hover:bg-orange-600 transition-colors text-sm">
                 Book Innova
               </a>
             </div>
@@ -140,7 +165,7 @@ export default function Page() {
               <div className="aspect-[4/3] overflow-hidden mb-4">
                 <img src="/crysta.jpeg" alt="Innova Crysta" className="w-full h-48 object-cover rounded" />
               </div>
-              <a href="/fleetcrysta" className="w-full inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition-colors">
+              <a href="/fleetcrysta" className="w-full inline-block bg-orange-500 text-white py-1.5 px-3 rounded hover:bg-orange-600 transition-colors text-sm">
                 Book Innova Crysta
               </a>
             </div>
@@ -149,7 +174,7 @@ export default function Page() {
               <div className="aspect-[4/3] overflow-hidden mb-4">
                 <img src="/tatasumo.jpg" alt="Tata Sumo Gold" className="w-full h-48 object-cover rounded" />
               </div>
-              <a href="/fleetsumo" className="w-full inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition-colors">
+              <a href="/fleetsumo" className="w-full inline-block bg-orange-500 text-white py-1.5 px-3 rounded hover:bg-orange-600 transition-colors text-sm">
                 Book Tata Sumo Gold
               </a>
             </div>
@@ -158,7 +183,7 @@ export default function Page() {
               <div className="aspect-[4/3] overflow-hidden mb-4">
                 <img src="/tempo.jpg" alt="Force Tempo Traveller" className="w-full h-48 object-cover rounded" />
               </div>
-              <a href="/fleettempo" className="w-full inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition-colors">
+              <a href="/fleettempo" className="w-full inline-block bg-orange-500 text-white py-1.5 px-3 rounded hover:bg-orange-600 transition-colors text-sm">
                 Book Force Tempo Traveller
               </a>
             </div>
@@ -167,7 +192,7 @@ export default function Page() {
               <div className="aspect-[4/3] overflow-hidden mb-4">
                 <img src="/etois.jpeg" alt="Toyota Etios" className="w-full h-48 object-cover rounded" />
               </div>
-              <a href="/fleetetios" className="w-full inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition-colors">
+              <a href="/fleetetios" className="w-full inline-block bg-orange-500 text-white py-1.5 px-3 rounded hover:bg-orange-600 transition-colors text-sm">
                 Book Toyota Etios
               </a>
             </div>
@@ -176,7 +201,7 @@ export default function Page() {
               <div className="aspect-[4/3] overflow-hidden mb-4">
                 <img src="/volvo.jpeg" alt="Volvo Buses" className="w-full h-48 object-cover rounded" />
               </div>
-              <a href="/fleetvolvo" className="w-full inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition-colors">
+              <a href="/fleetvolvo" className="w-full inline-block bg-orange-500 text-white py-1.5 px-3 rounded hover:bg-orange-600 transition-colors text-sm">
                 Book Volvo Buses
               </a>
             </div>

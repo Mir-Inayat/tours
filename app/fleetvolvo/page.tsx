@@ -5,6 +5,8 @@ import { Navbar } from "@/components/ui/navbar";
 import { Footer } from "@/components/ui/footer";
 import { Copyright } from "@/components/ui/copyright";
 import { BusBookingForm } from "@/components/ui/bus-booking-form";
+// Add this import at the top of each fleet page
+import { Carousel } from "@/components/ui/carousel";
 
 export default function Page() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -59,6 +61,8 @@ export default function Page() {
         </div>
       </section>
 
+
+
       {/* Why book Volvo Bus Section */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
@@ -91,6 +95,29 @@ export default function Page() {
           <p className="text-gray-600 mb-6">
             Yashika Tour & Travels is a renowned and well-established Deluxe Volvo Bus & Coaches rental provider company in Noida, specialized in car/taxi/bus/tempo-traveller/school & college transport/corporate car rental solutions. Our journey began in 1995; since then, our Deluxe Bus rental services have expanded more with our fleet in time and more with thousands of happy customers. We believe in our customer's safety & they believe in us!
           </p>
+        </div>
+      </section>
+      {/* Carousel Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-7xl mx-auto">
+            <Carousel
+              images={[
+                {
+                  src: "/image1.jpg",
+                  alt: "Volvo Bus Exterior View"
+                },
+                {
+                  src: "/image2.jpg",
+                  alt: "Volvo Bus Interior View"
+                },
+                {
+                  src: "/image3.jpg",
+                  alt: "Volvo Bus Side View"
+                }
+              ]}
+            />
+          </div>
         </div>
       </section>
 
