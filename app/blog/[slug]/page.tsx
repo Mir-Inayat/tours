@@ -60,7 +60,6 @@ export default async function BlogPage({ params }: BlogPageProps) {
 
   return (
     <>
-      <Navbar />
       <div className="container mx-auto py-12 px-4 max-w-4xl">
         <div className="relative h-72 md:h-96 mb-8">
           <Image
@@ -101,8 +100,6 @@ export default async function BlogPage({ params }: BlogPageProps) {
         {/* Comments Section */}
         <CommentSection blogId={blog.id} comments={blog.comments || []} />
       </div>
-      <Footer />
-      <Copyright />
     </>
   );
 }
