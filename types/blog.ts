@@ -1,16 +1,39 @@
+export interface BlogFAQ {
+  question: string;
+  answer: string;
+}
+
 export interface Blog {
-  id: string;
+  id?: string;
   title: string;
-  slug: string;
+  slug?: string;
+  author: string;
   content: string;
   excerpt: string;
   coverImage: string;
-  author: string;
-  date: string;
-  published: boolean;
-  isTrending: boolean; // New field for trending status
   tags: string[];
-  comments: Comment[]; // Add comments array
+  categories?: string[];
+  published: boolean;
+  publishDate?: string;
+  isTrending?: boolean;
+  isVideo?: boolean;
+  allowComments?: boolean;
+  showOnHome?: boolean;
+  metaTitle?: string;
+  metaUrl?: string;
+  metaKeywords?: string;
+  metaDescription?: string;
+  faqs?: BlogFAQ[];
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface BlogCategory {
+  id: string;
+  name: string;
+  slug: string;
+  description?: string;
+  createdAt?: string;
 }
 
 export interface Comment {

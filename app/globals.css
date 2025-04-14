@@ -255,3 +255,201 @@ body {
 .animate-bounce {
   animation: bounce 2s infinite;
 }
+
+/* Tiptap Editor Styles */
+.tiptap-editor-container {
+  background-color: white;
+}
+
+.tiptap-editor-container .ProseMirror {
+  outline: none;
+  min-height: 250px;
+  padding: 0.5rem;
+}
+
+.tiptap-editor-container .ProseMirror p.is-editor-empty:first-child::before {
+  color: #adb5bd;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+.tiptap-editor-container .ProseMirror img {
+  max-width: 100%;
+  height: auto;
+}
+
+.tiptap-editor-container .ProseMirror table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+.tiptap-editor-container .ProseMirror td,
+.tiptap-editor-container .ProseMirror th {
+  min-width: 1em;
+  border: 2px solid #ced4da;
+  padding: 3px 5px;
+  vertical-align: top;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.tiptap-editor-container .ProseMirror th {
+  font-weight: bold;
+  background-color: #f8f9fa;
+}
+
+.tiptap-editor-container .ProseMirror .selectedCell:after {
+  z-index: 2;
+  position: absolute;
+  content: "";
+  left: 0; right: 0; top: 0; bottom: 0;
+  background: rgba(200, 200, 255, 0.4);
+  pointer-events: none;
+}
+
+.tiptap-editor-container .ProseMirror pre {
+  background: #0d0d0d;
+  color: #fff;
+  font-family: "JetBrainsMono", monospace;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+}
+
+.tiptap-editor-container .ProseMirror code {
+  background-color: rgba(97, 97, 97, 0.1);
+  color: #616161;
+}
+
+.tiptap-editor-container .ProseMirror pre code {
+  color: inherit;
+  padding: 0;
+  background: none;
+  font-size: 0.8rem;
+}
+
+.tiptap-editor-container .ProseMirror blockquote {
+  border-left: 3px solid #0d0d0d;
+  padding-left: 1rem;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* CKEditor-like Styles */
+.ckeditor-container {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: white;
+}
+
+.ckeditor-container .ProseMirror {
+  outline: none;
+  min-height: 250px;
+  padding: 0.75rem;
+}
+
+.ckeditor-container .ProseMirror p.is-editor-empty:first-child::before {
+  color: #adb5bd;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+.ckeditor-container .ProseMirror img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* CKEditor-like table styles */
+.ckeditor-container .ProseMirror table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  margin: 0.5rem 0;
+}
+
+.ckeditor-container .ProseMirror td,
+.ckeditor-container .ProseMirror th {
+  min-width: 1em;
+  border: 2px solid #ced4da;
+  padding: 3px 5px;
+  vertical-align: top;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.ckeditor-container .ProseMirror th {
+  font-weight: bold;
+  background-color: #f8f9fa;
+}
+
+.ckeditor-container .ProseMirror .selectedCell:after {
+  z-index: 2;
+  position: absolute;
+  content: "";
+  left: 0; right: 0; top: 0; bottom: 0;
+  background: rgba(200, 200, 255, 0.4);
+  pointer-events: none;
+}
+
+/* CKEditor-like code blocks */
+.ckeditor-container .ProseMirror pre {
+  background: #f5f5f5;
+  color: #333;
+  font-family: monospace;
+  padding: 0.75rem 1rem;
+  border-radius: 0.25rem;
+  overflow-x: auto;
+  border: 1px solid #e2e8f0;
+}
+
+.ckeditor-container .ProseMirror code {
+  background-color: rgba(97, 97, 97, 0.1);
+  color: #616161;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: monospace;
+}
+
+.ckeditor-container .ProseMirror pre code {
+  color: inherit;
+  padding: 0;
+  background: none;
+  font-size: 0.875rem;
+}
+
+.ckeditor-container .ProseMirror blockquote {
+  border-left: 4px solid #e2e8f0;
+  padding-left: 1rem;
+  margin-left: 0;
+  margin-right: 0;
+  font-style: italic;
+  color: #4a5568;
+}
+
+/* Toolbar button styles */
+.ckeditor-container button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ckeditor-container button:hover:not(:disabled) {
+  background-color: #e2e8f0;
+}
+
+/* Dropdown styles */
+.ckeditor-container select {
+  cursor: pointer;
+}
+
+.ckeditor-container select:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 1px;
+}

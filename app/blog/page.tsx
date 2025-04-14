@@ -86,7 +86,6 @@ export default async function BlogPage({
 
     return (
       <>
-        <Navbar />
         <div className="container mx-auto py-12 px-4">
           <div className="mb-12">
             <Link href="/blog" className="text-blue-500 mb-4 inline-block hover:underline">
@@ -108,7 +107,11 @@ export default async function BlogPage({
                 <div className="group" key={blog.id}>
                   <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition h-full flex flex-col">
                     <div className="relative h-48">
-                      <Link href={`/blog/${blog.slug}`}>
+                      <Link 
+                        href={`/blog/${blog.slug}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <Image
                           src={getImageSrc(blog.coverImage)}
                           alt={blog.title}
@@ -130,7 +133,11 @@ export default async function BlogPage({
                           </Link>
                         ))}
                       </div>
-                      <Link href={`/blog/${blog.slug}`}>
+                      <Link 
+                        href={`/blog/${blog.slug}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <h3 className="text-xl font-semibold mb-3 group-hover:text-blue-600">
                           {blog.title}
                         </h3>
@@ -147,8 +154,6 @@ export default async function BlogPage({
             </div>
           )}
         </div>
-        <Footer />
-        <Copyright />
       </>
     );
   }
@@ -212,7 +217,11 @@ export default async function BlogPage({
                 {mainBlog && (
                   <div className="bg-white rounded-xl overflow-hidden shadow-lg h-full">
                     <div className="relative h-96">
-                      <Link href={`/blog/${mainBlog.slug}`}>
+                      <Link 
+                        href={`/blog/${mainBlog.slug}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <Image
                           src={getImageSrc(mainBlog.coverImage)}
                           alt={mainBlog.title}
@@ -235,7 +244,11 @@ export default async function BlogPage({
                             </Link>
                           ))}
                         </div>
-                        <Link href={`/blog/${mainBlog.slug}`}>
+                        <Link 
+                          href={`/blog/${mainBlog.slug}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <h2 className="text-3xl font-bold mb-2">{mainBlog.title}</h2>
                         </Link>
                         <p className="text-sm opacity-90 mb-3">{mainBlog.excerpt}</p>
@@ -244,6 +257,8 @@ export default async function BlogPage({
                           <Link 
                             href={`/blog/${mainBlog.slug}`} 
                             className="bg-white text-gray-800 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition"
+                            target="_blank"
+                            rel="noopener noreferrer"
                           >
                             Read More
                           </Link>
@@ -263,7 +278,11 @@ export default async function BlogPage({
                 {trendingBlogs.map(blog => (
                   <div key={blog.id} className="bg-white rounded-xl overflow-hidden shadow-md flex h-24 hover:shadow-lg transition">
                     <div className="relative w-1/3">
-                      <Link href={`/blog/${blog.slug}`}>
+                      <Link 
+                        href={`/blog/${blog.slug}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <Image
                           src={getImageSrc(blog.coverImage)}
                           alt={blog.title}
@@ -274,7 +293,11 @@ export default async function BlogPage({
                       </Link>
                     </div>
                     <div className="p-3 w-2/3">
-                      <Link href={`/blog/${blog.slug}`}>
+                      <Link 
+                        href={`/blog/${blog.slug}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <h3 className="font-medium text-sm line-clamp-2">{blog.title}</h3>
                       </Link>
                       <p className="text-xs text-gray-500 mt-2">{new Date(blog.date).toLocaleDateString()}</p>
@@ -295,7 +318,11 @@ export default async function BlogPage({
                   <div key={blog.id} className="group">
                     <div className="bg-white rounded-xl overflow-hidden shadow-md transition hover:shadow-lg h-full flex flex-col">
                       <div className="relative h-48">
-                        <Link href={`/blog/${blog.slug}`}>
+                        <Link 
+                          href={`/blog/${blog.slug}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <Image
                             src={getImageSrc(blog.coverImage)}
                             alt={blog.title}
@@ -317,7 +344,11 @@ export default async function BlogPage({
                             </Link>
                           ))}
                         </div>
-                        <Link href={`/blog/${blog.slug}`}>
+                        <Link 
+                          href={`/blog/${blog.slug}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <h3 className="text-xl font-semibold mb-3 group-hover:text-blue-600">
                             {blog.title}
                           </h3>
@@ -346,7 +377,11 @@ export default async function BlogPage({
                     <div key={blog.id} className="group">
                       <div className="bg-white rounded-xl overflow-hidden shadow-sm transition hover:shadow-md h-full flex flex-col">
                         <div className="relative h-40">
-                          <Link href={`/blog/${blog.slug}`}>
+                          <Link 
+                            href={`/blog/${blog.slug}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
                             <Image
                               src={getImageSrc(blog.coverImage)}
                               alt={blog.title}
@@ -357,7 +392,11 @@ export default async function BlogPage({
                           </Link>
                         </div>
                         <div className="p-4">
-                          <Link href={`/blog/${blog.slug}`}>
+                          <Link 
+                            href={`/blog/${blog.slug}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
                             <h3 className="font-medium text-sm line-clamp-2 group-hover:text-blue-600">
                               {blog.title}
                             </h3>

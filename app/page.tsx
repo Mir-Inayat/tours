@@ -244,25 +244,45 @@ export default function Home() {
             </div>
           </div>
         </section>
-
-        {/* Why Choose Us Section - New Version */}
-        <section className="py-16">
-          <div className="container mx-auto px-4">
+        
+        {/* Why Choose Us Section with Phone UI Mockups */}
+        <section className="py-16 relative overflow-hidden">
+          <div className="container mx-auto px-4 relative">
             <div className="w-full">
               <div className="flex flex-col">
+                {/* First Row */}
                 <section className="flex flex-col md:flex-row items-center mb-12">
-                  <div className="w-full md:w-1/2 bg-white relative mb-10 md:mb-0">
-                    <div className="transform transition-transform duration-100">
-                      <img 
-                        src="https://yashikatourandtravel.com/wp-content/uploads/2021/07/Untitled-design-76.png" 
-                        alt="Yashika Tour & Travels satisfied customer reviews" 
-                        className="w-full max-w-md mx-auto"
-                        width={520}
-                        height={796}
-                      />
+                  {/* Left Column with Parallax Image */}
+                  <div className="w-full md:w-1/2 mb-10 md:mb-0">
+                    <div className="relative mx-auto" style={{ maxWidth: '520px' }}>
+                      {/* Background decoration elements */}
+                      <div className="absolute left-0 top-0 bottom-0 w-2/3 bg-blue-500 rounded-l-[40px] -z-10"></div>
+                      <div className="absolute right-0 bottom-0 h-2/3 w-2/3 bg-red-50 rounded-tr-3xl -z-10"></div>
+        
+                      {/* Phone Mockup 1 - Customer Satisfaction with Parallax */}
+                      <div 
+                        className="rounded-[40px] shadow-2xl overflow-hidden relative mx-auto"
+                        style={{
+                          transform: `translateY(${offset * 0.05}px)`,
+                          transition: 'transform 0.1s ease-out',
+                        }}
+                      >
+                        <img 
+                          fetchPriority="high"
+                          decoding="async"
+                          src="https://yashikatourandtravel.com/wp-content/uploads/2021/07/Untitled-design-76.png" 
+                          alt="Yashika Tour & Travels satisfied customer reviews" 
+                          className="w-full rounded-t-3xl relative z-10"
+                          width={520}
+                          height={796}
+                          sizes="(max-width: 520px) 100vw, 520px"
+                          srcSet="https://yashikatourandtravel.com/wp-content/uploads/2021/07/Untitled-design-76.png 520w, https://yashikatourandtravel.com/wp-content/uploads/2021/07/Untitled-design-76-196x300.png 196w"
+                        />
+                      </div>
                     </div>
                   </div>
                   
+                  {/* Right Column - Content */}
                   <div className="w-full md:w-1/2 md:pl-10">
                     <h3 className="text-orange-500 text-lg font-medium mb-2">
                       Best Taxi Service Provider in Noida | Greater Noida | Ghaziabad
@@ -303,7 +323,9 @@ export default function Home() {
                   </div>
                 </section>
                 
-                <section className="flex flex-col md:flex-row items-center">
+                {/* Second Row */}
+                <section className="flex flex-col md:flex-row items-center mt-12">
+                  {/* Left Column - Content */}
                   <div className="w-full md:w-1/2 mb-10 md:mb-0 order-2 md:order-1">
                     <h3 className="text-orange-500 text-lg font-medium mb-2">
                       Keep Calm & Travel With Us
@@ -366,20 +388,43 @@ export default function Home() {
                       </li>
                     </ul>
                   </div>
-                  <div className="w-full md:w-1/2 bg-white relative order-1 md:order-2">
-                    <img 
-                      src="https://yashikatourandtravel.com/wp-content/uploads/2021/08/service-4.png" 
-                      alt="Yashika Tour & Travels Service" 
-                      className="w-full max-w-md mx-auto"
-                      width={520}
-                      height={796}
-                    />
+                  
+                  {/* Right Column with Phone UI Mockup */}
+                  <div className="w-full md:w-1/2 order-1 md:order-2">
+                    <div className="relative mx-auto" style={{ maxWidth: '520px' }}>
+                      {/* Background decoration elements - reversed colors from first mockup */}
+                      <div className="absolute left-0 top-0 bottom-0 w-2/3 bg-red-50 rounded-l-[40px] -z-10"></div>
+                      <div className="absolute right-0 bottom-0 h-2/3 w-2/3 bg-blue-500 rounded-tr-3xl -z-10"></div>
+        
+                      {/* Phone Mockup 2 - Multiple Options with Parallax */}
+                      <div 
+                        className="rounded-[40px] shadow-2xl overflow-hidden relative mx-auto"
+                        style={{
+                          transform: `translateY(${offset * 0.05}px)`,
+                          transition: 'transform 0.1s ease-out',
+                        }}
+                      >
+                        <img 
+                          decoding="async"
+                          src="https://yashikatourandtravel.com/wp-content/uploads/2021/08/service-4.png" 
+                          alt="Yashika Tour & Travels Service Options"
+                          className="w-full rounded-t-3xl relative z-10"
+                          width={520}
+                          height={796}
+                          sizes="(max-width: 520px) 100vw, 520px"
+                          srcSet="https://yashikatourandtravel.com/wp-content/uploads/2021/08/service-4.png 520w, https://yashikatourandtravel.com/wp-content/uploads/2021/08/service-4-196x300.png 196w"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </section>
               </div>
             </div>
           </div>
         </section>
+
+
+
 
 
         {/* Features Section */}
