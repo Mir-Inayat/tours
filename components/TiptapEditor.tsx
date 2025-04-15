@@ -95,7 +95,7 @@ const TiptapEditor: React.FC<TiptapEditorProps> = ({ content, onChange, placehol
     onChange(e.target.value);
   };
 
-  const toggleHeadingLevel = (level: number) => {
+  const toggleHeadingLevel = (level: 1 | 2 | 3 | 4 | 5 | 6) => {
     editor.chain().focus().toggleHeading({ level }).run();
   };
 
@@ -293,7 +293,7 @@ const TiptapEditor: React.FC<TiptapEditorProps> = ({ content, onChange, placehol
             onChange={(e) => {
               const value = e.target.value;
               if (value.startsWith('heading-')) {
-                const level = parseInt(value.split('-')[1]);
+                const level = parseInt(value.split('-')[1]) as 1 | 2 | 3 | 4 | 5 | 6;
                 toggleHeadingLevel(level);
               } else if (value === 'paragraph') {
                 editor.chain().focus().setParagraph().run();

@@ -9,9 +9,10 @@ export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const resolvedParams = await Promise.resolve(params);
+  const blogId = resolvedParams.id;
+
   try {
-    // In Next.js App Router, params is already resolved and doesn't need to be awaited
-    const blogId = params.id;
     const filePath = path.join(dataDirectory, `${blogId}.json`);
     
     const content = await fs.readFile(filePath, 'utf8');
@@ -30,9 +31,10 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const resolvedParams = await Promise.resolve(params);
+  const blogId = resolvedParams.id;
+
   try {
-    // In Next.js App Router, params is already resolved and doesn't need to be awaited
-    const blogId = params.id;
     const filePath = path.join(dataDirectory, `${blogId}.json`);
     
     const content = await fs.readFile(filePath, 'utf8');
@@ -61,9 +63,10 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const resolvedParams = await Promise.resolve(params);
+  const blogId = resolvedParams.id;
+
   try {
-    // In Next.js App Router, params is already resolved and doesn't need to be awaited
-    const blogId = params.id;
     const filePath = path.join(dataDirectory, `${blogId}.json`);
     
     // Check if file exists

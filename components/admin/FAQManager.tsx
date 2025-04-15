@@ -93,7 +93,7 @@ export default function FAQManager({ faqs = [], onChange }: FAQManagerProps) {
         </p>
       ) : (
         <DragDropContext onDragEnd={handleDragEnd}>
-          <Droppable droppableId="faqs">
+          <Droppable droppableId="faqs" isDropDisabled={!!isDropDisabled}>
             {(provided) => (
               <div
                 className="space-y-3"

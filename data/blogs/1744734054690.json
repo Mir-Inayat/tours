@@ -1,0 +1,31 @@
+{
+  "id": "1744734054690",
+  "title": "test",
+  "slug": "test",
+  "content": "<p><span style=\"color: #e70d0d\"><strong>hi in paragraph</strong></span></p><h1>hi in heading</h1>",
+  "excerpt": "test summary",
+  "coverImage": "/placeholder-blog.jpg",
+  "author": "Admin",
+  "date": "2025-04-15T16:20:54.690Z",
+  "published": false,
+  "tags": [
+    "cab-service-for-corporate-employees",
+    "corporate-cab-services",
+    "hire-car-from-noida",
+    "travel-agency-in-noida"
+  ],
+  "categories": [
+    "2"
+  ],
+  "faqs": [
+    {
+      "question": "question 1",
+      "answer": "answer 1"
+    }
+  ],
+  "publishDate": "2025-04-15",
+  "metaTitle": "test",
+  "metaUrl": "test",
+  "metaKeywords": "test",
+  "metaDescription": "test"
+}

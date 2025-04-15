@@ -1,109 +1,86 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { toast } from "@/components/ui/use-toast" // Import toast if you have it, or we can use a simple alert
+import { useState } from "react";
+import { User, Phone, MapPin, Calendar, Users } from "lucide-react";
+import { toast } from "@/components/ui/use-toast";
 
 export function BusBookingForm() {
-  const router = useRouter();
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     phoneNumber: "",
     pickupLocation: "",
     dropoffLocation: "",
     tripType: "One-Way Trip",
-    vehicleType: "",
+    vehicleType: "Swift Dzire",
     numberOfPeople: "",
     departureDate: "",
     returnDate: ""
   });
+  
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: type === 'checkbox' ? checked : value
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    try {
-      // Basic validation
-      if (!formData.fullName || !formData.phoneNumber || !formData.pickupLocation || 
-          !formData.dropoffLocation || !formData.vehicleType || !formData.numberOfPeople || 
-          !formData.departureDate || (formData.tripType === "Round Trip" && !formData.returnDate)) {
-        throw new Error("Please fill all required fields");
-      }
 
-      // In a real app, we would send this to the backend
-      console.log("Form submitted:", formData);
-      
-      // Submit to API
+    try {
       const response = await fetch('/api/bookings', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          ...formData,
-          date: new Date().toISOString(),
-          status: "new"
-        }),
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      toast({
+        title: "Booking Request Submitted!",
+        description: "We'll contact you shortly to confirm your booking.",
       });
       
-      if (!response.ok) {
-        throw new Error('Failed to submit booking');
-      }
-      
-      // Show success message
-      if (typeof toast !== 'undefined') {
-        toast({
-          title: "Booking Received!",
-          description: "We'll contact you shortly to confirm your booking details.",
-        });
-      } else {
-        alert("Booking request received! We'll contact you soon.");
-      }
-      
-      // Reset form after successful submission
+      // Reset form
       setFormData({
         fullName: "",
         phoneNumber: "",
         pickupLocation: "",
         dropoffLocation: "",
         tripType: "One-Way Trip",
-        vehicleType: "",
+        vehicleType: "Swift Dzire",
         numberOfPeople: "",
         departureDate: "",
         returnDate: ""
       });
     } catch (error) {
-      console.error("Form submission error:", error);
-      if (typeof toast !== 'undefined') {
-        toast({
-          title: "Error",
-          description: error.message || "There was an error submitting your booking. Please try again.",
-          variant: "destructive"
-        });
-      } else {
-        alert(error.message || "There was an error submitting your booking. Please try again.");
-      }
+      toast({
+        title: "Submission Failed",
+        description: "Please try again or contact us directly.",
+        variant: "destructive"
+      });
+      console.error('Error submitting form:', error);
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="bg-white rounded-xl p-6 shadow-lg">
-      <h2 className="text-xl font-semibold text-gray-800 mb-4">Book Your Ride</h2>
+    <div className="bg-white rounded-lg shadow-lg p-6">
+      <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">Book Your Ride</h2>
       
-      <form onSubmit={handleSubmit} className="space-y-4">
+      {/* Add autoComplete="off" to the form */}
+      <form onSubmit={handleSubmit} className="space-y-4" autoComplete="off">
         <div className="relative">
+          <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
           <input 
             type="text"
             name="fullName"
@@ -112,16 +89,12 @@ export function BusBookingForm() {
             onChange={handleChange}
             className="pl-9 w-full h-10 rounded-md border border-gray-300 p-2 bg-white text-gray-800"
             required
+            autoComplete="off"
           />
-          <span className="absolute left-2.5 top-1/2 -translate-y-1/2">
-            <svg className="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-              <circle cx="12" cy="7" r="4" />
-            </svg>
-          </span>
         </div>
-
+        
         <div className="relative">
+          <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
           <input 
             type="tel"
             name="phoneNumber"
@@ -130,15 +103,12 @@ export function BusBookingForm() {
             onChange={handleChange}
             className="pl-9 w-full h-10 rounded-md border border-gray-300 p-2 bg-white text-gray-800"
             required
+            autoComplete="off"
           />
-          <span className="absolute left-2.5 top-1/2 -translate-y-1/2">
-            <svg className="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
-            </svg>
-          </span>
         </div>
 
         <div className="relative">
+          <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
           <input 
             type="text"
             name="pickupLocation"
@@ -147,16 +117,12 @@ export function BusBookingForm() {
             onChange={handleChange}
             className="pl-9 w-full h-10 rounded-md border border-gray-300 p-2 bg-white text-gray-800"
             required
+            autoComplete="off"
           />
-          <span className="absolute left-2.5 top-1/2 -translate-y-1/2">
-            <svg className="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-              <circle cx="12" cy="10" r="3" />
-            </svg>
-          </span>
         </div>
 
         <div className="relative">
+          <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
           <input 
             type="text"
             name="dropoffLocation"
@@ -165,61 +131,55 @@ export function BusBookingForm() {
             onChange={handleChange}
             className="pl-9 w-full h-10 rounded-md border border-gray-300 p-2 bg-white text-gray-800"
             required
+            autoComplete="off"
           />
-          <span className="absolute left-2.5 top-1/2 -translate-y-1/2">
-            <svg className="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-              <circle cx="12" cy="10" r="3" />
-            </svg>
-          </span>
         </div>
 
         <div className="flex gap-4">
-          <label className="flex items-center space-x-1.5">
-            <input 
-              type="radio" 
-              name="tripType" 
+          <label className="flex items-center gap-2 text-sm">
+            <input
+              type="radio"
+              name="tripType"
               value="One-Way Trip"
-              checked={formData.tripType === "One-Way Trip"} 
+              checked={formData.tripType === "One-Way Trip"}
               onChange={handleChange}
               className="accent-orange-500"
+              autoComplete="off"
             />
-            <span className="text-sm text-gray-600">One-Way Trip</span>
+            One-Way Trip
           </label>
-          <label className="flex items-center space-x-1.5">
-            <input 
-              type="radio" 
-              name="tripType" 
+          <label className="flex items-center gap-2 text-sm">
+            <input
+              type="radio"
+              name="tripType"
               value="Round Trip"
-              checked={formData.tripType === "Round Trip"} 
+              checked={formData.tripType === "Round Trip"}
               onChange={handleChange}
               className="accent-orange-500"
+              autoComplete="off"
             />
-            <span className="text-sm text-gray-600">Round Trip</span>
+            Round Trip
           </label>
         </div>
 
-        <select 
+        <select
           name="vehicleType"
           value={formData.vehicleType}
           onChange={handleChange}
-          className="w-full h-10 rounded-md border border-gray-300 bg-white text-gray-800 p-2"
+          className="w-full h-10 rounded-md border border-gray-300 p-2 bg-white text-gray-800"
           required
+          autoComplete="off"
         >
-          <option value="">Choose Your Ride</option>
-          <option value="Wagon R">Wagon R</option>
           <option value="Swift Dzire">Swift Dzire</option>
-          <option value="Toyota Etios">Toyota Etios</option>
-          <option value="Ertiga">Ertiga</option>
-          <option value="Innova">Innova</option>
-          <option value="Innova Crysta">Innova Crysta</option>
-          <option value="Tata Sumo Gold">Tata Sumo Gold</option>
-          <option value="Tempo Traveller">Tempo Traveller</option>
-          <option value="Bus">Bus</option>
+          <option value="Toyota Innova">Toyota Innova</option>
+          <option value="Tempo Traveller">Tempo Traveller (12 Seater)</option>
+          <option value="Mini Bus">Mini Bus (18-20 Seater)</option>
+          <option value="Big Bus">Big Bus (35-40 Seater)</option>
+          <option value="Luxury Bus">Luxury Bus (35-40 Seater)</option>
         </select>
 
         <div className="relative">
-          <input 
+          <input
             type="number"
             name="numberOfPeople"
             placeholder="No. of People"
@@ -228,46 +188,45 @@ export function BusBookingForm() {
             onChange={handleChange}
             className="w-full h-10 rounded-md border border-gray-300 p-2 bg-white text-gray-800"
             required
+            autoComplete="off"
           />
         </div>
 
         <div className="relative">
-          <label className="block text-sm text-gray-600 mb-1">
-            Departure Date
-          </label>
-          <input 
+          <label className="text-sm text-gray-600">Departure Date:</label>
+          <input
             type="date"
             name="departureDate"
             value={formData.departureDate}
             onChange={handleChange}
             className="w-full h-10 rounded-md border border-gray-300 p-2 bg-white text-gray-800"
             required
+            autoComplete="off"
           />
         </div>
 
         {formData.tripType === "Round Trip" && (
           <div className="relative">
-            <label className="block text-sm text-gray-600 mb-1">
-              Return Date
-            </label>
-            <input 
+            <label className="text-sm text-gray-600">Return Date:</label>
+            <input
               type="date"
               name="returnDate"
               value={formData.returnDate}
               onChange={handleChange}
               className="w-full h-10 rounded-md border border-gray-300 p-2 bg-white text-gray-800"
               required={formData.tripType === "Round Trip"}
+              autoComplete="off"
             />
           </div>
         )}
 
-        <Button 
-          type="submit" 
-          className="w-full h-10 bg-orange-500 hover:bg-orange-600 text-white rounded-md font-medium"
+        <button
+          type="submit"
           disabled={isSubmitting}
+          className="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-4 rounded-md transition duration-300 disabled:opacity-70"
         >
-          {isSubmitting ? "Processing..." : "Book Now"}
-        </Button>
+          {isSubmitting ? "Submitting..." : "Submit"}
+        </button>
       </form>
     </div>
   );

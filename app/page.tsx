@@ -110,50 +110,88 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Enhanced Image Carousel Section */}
-        <section className="w-full overflow-hidden bg-gray-50 py-12">
-          <div className="container mx-auto px-4">
-            <div className="relative">
-              {/* Auto-scrolling carousel */}
-              <div className="flex overflow-hidden">
-                <div className="flex animate-scroll">
-                  {/* First set of images */}
-                  {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
-                    <div key={num} className="flex-none px-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4">
-                      <div className="relative aspect-[4/3] overflow-hidden rounded-lg shadow-md group">
-                        <Image 
-                          src={`https://yashikatourandtravel.com/wp-content/uploads/2023/10/${num}.webp`}
-                          alt={`Yashika Tour & Travels Vehicle ${num}`}
-                          fill
-                          className="object-cover transition-transform duration-500 group-hover:scale-110"
-                          sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                          priority={num <= 3}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                  
-                  {/* Duplicate set for seamless loop */}
-                  {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
-                    <div key={`dup-${num}`} className="flex-none px-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4">
-                      <div className="relative aspect-[4/3] overflow-hidden rounded-lg shadow-md group">
-                        <Image 
-                          src={`https://yashikatourandtravel.com/wp-content/uploads/2023/10/${num}.webp`}
-                          alt={`Yashika Tour & Travels Vehicle ${num}`}
-                          fill
-                          className="object-cover transition-transform duration-500 group-hover:scale-110"
-                          sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
+        {/* Full Viewport Image Carousel Section */}
+        <section className="relative h-[25vh] w-full overflow-hidden">
+          <div className="flex h-full">
+            {/* Carousel container - triples the width to show 3 images at once */}
+            <div className="flex w-[300%] h-full animate-slideshow">
+              {/* First set of three images */}
+              <div className="w-1/3 h-full flex-shrink-0">
+          <div className="relative h-full">
+            <Image 
+              src="https://yashikatourandtravel.com/wp-content/uploads/2023/10/1.webp"
+              alt="Tour vehicle 1"
+              fill
+              className="object-cover"
+              sizes="100vw"
+              priority
+            />
+          </div>
+              </div>
+              <div className="w-1/3 h-full flex-shrink-0">
+          <div className="relative h-full">
+            <Image 
+              src="https://yashikatourandtravel.com/wp-content/uploads/2023/10/2.webp"
+              alt="Tour vehicle 2"
+              fill
+              className="object-cover"
+              sizes="100vw"
+              priority
+            />
+          </div>
+              </div>
+              <div className="w-1/3 h-full flex-shrink-0">
+          <div className="relative h-full">
+            <Image 
+              src="https://yashikatourandtravel.com/wp-content/uploads/2023/10/3.webp"
+              alt="Tour vehicle 3"
+              fill
+              className="object-cover"
+              sizes="100vw"
+              priority
+            />
+          </div>
+              </div>
+              {/* Duplicate set for seamless loop */}
+              <div className="w-1/3 h-full flex-shrink-0">
+          <div className="relative h-full">
+            <Image 
+              src="https://yashikatourandtravel.com/wp-content/uploads/2023/10/1.webp"
+              alt="Tour vehicle 1"
+              fill
+              className="object-cover"
+              sizes="100vw"
+            />
+          </div>
+              </div>
+              <div className="w-1/3 h-full flex-shrink-0">
+          <div className="relative h-full">
+            <Image 
+              src="https://yashikatourandtravel.com/wp-content/uploads/2023/10/2.webp"
+              alt="Tour vehicle 2"
+              fill
+              className="object-cover"
+              sizes="100vw"
+            />
+          </div>
+              </div>
+              <div className="w-1/3 h-full flex-shrink-0">
+          <div className="relative h-full">
+            <Image 
+              src="https://yashikatourandtravel.com/wp-content/uploads/2023/10/3.webp"
+              alt="Tour vehicle 3"
+              fill
+              className="object-cover"
+              sizes="100vw"
+            />
+          </div>
               </div>
             </div>
           </div>
         </section>
+        
 
-        {/* Our Clients Section */}
+        {/* Our Clients Section - Enhanced with larger images */}
         <section className="py-12 bg-gray-50">
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row items-center">
@@ -163,79 +201,67 @@ export default function Home() {
               <div className="w-full md:w-2/3 overflow-hidden">
                 <div className="flex animate-carousel">
                   {/* Corporate Client 1 */}
-                  <div className="flex-none w-1/2 md:w-1/4 px-4">
-                    <div className="bg-white p-4 rounded-lg shadow-sm">
-                      <Image 
+                  <div className="flex-none w-1/2 md:w-1/4 px-2">
+                    <div className="bg-white p-2 rounded-lg shadow-sm h-40 flex items-center justify-center">
+                      <img 
                         src="https://yashikatourandtravel.com/wp-content/uploads/2021/08/6.png" 
                         alt="Corporate Transport Service" 
-                        width={120} 
-                        height={80} 
-                        className="mx-auto"
+                        className="w-full h-full object-contain max-h-36"
                       />
                     </div>
                   </div>
                   
                   {/* School */}
-                  <div className="flex-none w-1/2 md:w-1/4 px-4">
-                    <div className="bg-white p-4 rounded-lg shadow-sm">
-                      <Image 
+                  <div className="flex-none w-1/2 md:w-1/4 px-2">
+                    <div className="bg-white p-2 rounded-lg shadow-sm h-40 flex items-center justify-center">
+                      <img 
                         src="https://yashikatourandtravel.com/wp-content/uploads/2021/08/1.png" 
                         alt="Transport Service for Schools" 
-                        width={120} 
-                        height={80} 
-                        className="mx-auto"
+                        className="w-full h-full object-contain max-h-36"
                       />
                     </div>
                   </div>
                   
                   {/* College */}
-                  <div className="flex-none w-1/2 md:w-1/4 px-4">
-                    <div className="bg-white p-4 rounded-lg shadow-sm">
-                      <Image 
+                  <div className="flex-none w-1/2 md:w-1/4 px-2">
+                    <div className="bg-white p-2 rounded-lg shadow-sm h-40 flex items-center justify-center">
+                      <img 
                         src="https://yashikatourandtravel.com/wp-content/uploads/2021/08/2.png" 
                         alt="Transport Service for Colleges" 
-                        width={120} 
-                        height={80} 
-                        className="mx-auto"
+                        className="w-full h-full object-contain max-h-36"
                       />
                     </div>
                   </div>
                   
                   {/* IT Companies */}
-                  <div className="flex-none w-1/2 md:w-1/4 px-4">
-                    <div className="bg-white p-4 rounded-lg shadow-sm">
-                      <Image 
+                  <div className="flex-none w-1/2 md:w-1/4 px-2">
+                    <div className="bg-white p-2 rounded-lg shadow-sm h-40 flex items-center justify-center">
+                      <img 
                         src="https://yashikatourandtravel.com/wp-content/uploads/2021/08/3.png" 
                         alt="Transport Service for IT Companies" 
-                        width={120} 
-                        height={80} 
-                        className="mx-auto"
+                        className="w-full h-full object-contain max-h-36"
                       />
                     </div>
                   </div>
                   
                   {/* Call Centers */}
-                  <div className="flex-none w-1/2 md:w-1/4 px-4">
-                    <div className="bg-white p-4 rounded-lg shadow-sm">
-                      <Image 
+                  <div className="flex-none w-1/2 md:w-1/4 px-2">
+                    <div className="bg-white p-2 rounded-lg shadow-sm h-40 flex items-center justify-center">
+                      <img 
                         src="https://yashikatourandtravel.com/wp-content/uploads/2021/08/4.png" 
                         alt="Transport Service for Call Centers" 
-                        width={120} 
-                        height={80} 
-                        className="mx-auto"
+                        className="w-full h-full object-contain max-h-36"
                       />
                     </div>
                   </div>
                   
                   {/* BPOs */}
-                  <div className="flex-none w-1/2 md:w-1/4 px-4">
-                    <div className="bg-white p-4 rounded-lg shadow-sm">
-                      <Image 
+                  <div className="flex-none w-1/2 md:w-1/4 px-2">
+                    <div className="bg-white p-2 rounded-lg shadow-sm h-40 flex items-center justify-center">
+                      <img 
                         src="https://yashikatourandtravel.com/wp-content/uploads/2021/08/5.png" 
                         alt="Transport Service for BPOs" 
-                        width={120} 
-                        height={80} 
-                        className="mx-auto"
+                        className="w-full h-full object-contain max-h-36"
                       />
                     </div>
                   </div>
@@ -245,6 +271,7 @@ export default function Home() {
           </div>
         </section>
         
+
         {/* Why Choose Us Section with Phone UI Mockups */}
         <section className="py-16 relative overflow-hidden">
           <div className="container mx-auto px-4 relative">
@@ -508,8 +535,15 @@ export default function Home() {
         </section>
 
 
-        {/* Video Background Section */}
+        {/* Video Background Section with Tilt Effect */}
         <section className="relative h-screen w-full overflow-hidden">
+          {/* SVG Tilt Shape at Top */}
+          <div className="absolute top-0 left-0 right-0 w-full z-10 overflow-hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none" className="w-full h-[100px]">
+              <path className="fill-gray-50" d="M0,6V0h1000v100L0,6z"></path>
+            </svg>
+          </div>
+          
           <iframe 
             className="absolute inset-0 w-full h-full object-cover pointer-events-none"
             style={{ width: '140vw', height: '120vh', marginLeft: '-20vw' }}
@@ -521,49 +555,56 @@ export default function Home() {
           <div className="absolute inset-0 bg-black bg-opacity-60"></div>
           <div className="absolute inset-0 flex flex-col justify-between">
             <div className="container mx-auto px-16 pt-24">
-              <p className="text-white text-sm font-medium tracking-wider mb-5">100% CUSTOMER SATISFACTION</p>
-              <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 max-w-4xl leading-tight">
+              <div className="flex items-center justify-center mb-8">
+                <div className="bg-white p-4 rounded-full">
+                  <Users className="w-6 h-6 text-blue-600" />
+                </div>
+              </div>
+              <p className="text-white text-sm font-medium tracking-wider mb-5 text-center">100% CUSTOMER SATISFACTION</p>
+              <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 max-w-4xl mx-auto leading-tight text-center">
                 No matter where you travel,
                 <br />
                 we've got a ride for you.
               </h1>
-              <p className="text-white text-base max-w-3xl mb-10 leading-relaxed opacity-90">
+              <p className="text-white text-base max-w-3xl mx-auto mb-10 leading-relaxed opacity-90 text-center">
                 Be it a taxi rental service, tempo-traveller rental service, corporate taxi service,
                 school/college transport service, or bus rental service, we've got everything covered.
                 <br /><br />
                 Whether it is your first time renting a taxi with us or the tenth, we look forward to your
                 booking with the same enthusiasm.
               </p>
-              <Button className="bg-[#FF4A17] hover:bg-[#FF5E33] text-white px-8 py-3 text-base font-medium rounded mb-16">
-                Book Your Ride Now!
-              </Button>
+              <div className="flex justify-center mb-16">
+                <Button className="bg-[#FF4A17] hover:bg-[#FF5E33] text-white px-8 py-3 text-base font-medium rounded">
+                  Book Your Ride Now!
+                </Button>
+              </div>
             </div>
 
             {/* Statistics Section */}
             <div className="w-full border-t border-white/10">
               <div className="container mx-auto px-16 py-6">
                 <div className="grid grid-cols-4">
-                  <div>
+                  <div className="text-center">
                     <h3 className="text-4xl md:text-5xl font-bold text-white mb-2">
-                      <CountUp end={150000} />
+                      <CountUp end={150000} />+
                     </h3>
                     <p className="text-[11px] text-white/70 uppercase tracking-wider">RIDES</p>
                   </div>
-                  <div>
+                  <div className="text-center">
                     <h3 className="text-4xl md:text-5xl font-bold text-white mb-2">
-                      <CountUp end={52} />
+                      <CountUp end={52} />+
                     </h3>
                     <p className="text-[11px] text-white/70 uppercase tracking-wider">CORPORATE CLIENTS</p>
                   </div>
-                  <div>
+                  <div className="text-center">
                     <h3 className="text-4xl md:text-5xl font-bold text-white mb-2">
-                      <CountUp end={1000}  />
+                      <CountUp end={1000} />+
                     </h3>
                     <p className="text-[11px] text-white/70 uppercase tracking-wider">HAPPY CLIENTS</p>
                   </div>
-                  <div>
+                  <div className="text-center">
                     <h3 className="text-4xl md:text-5xl font-bold text-white mb-2">
-                      <CountUp end={131} />
+                      <CountUp end={131} />+
                     </h3>
                     <p className="text-[11px] text-white/70 uppercase tracking-wider">REVIEWS</p>
                   </div>
