@@ -11,9 +11,6 @@ export function Navbar() {
   const [isServicesOpen, setIsServicesOpen] = useState(false)
   const [isFleetOpen, setIsFleetOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
-  
-  const servicesRef = useRef(null)
-  const fleetRef = useRef(null)
 
   // Add scroll event listener
   useEffect(() => {
@@ -27,22 +24,6 @@ export function Navbar() {
 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (servicesRef.current && !servicesRef.current.contains(event.target)) {
-        setIsServicesOpen(false)
-      }
-      if (fleetRef.current && !fleetRef.current.contains(event.target)) {
-        setIsFleetOpen(false)
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside)
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
   }, [])
 
   const services = [
@@ -95,57 +76,73 @@ export function Navbar() {
             <Link href="/about" className="text-white hover:text-orange-400 transition-colors duration-200">
               About
             </Link>
-            <div className="relative group" ref={servicesRef}>
+            
+            {/* Services Dropdown - Hover version */}
+            <div 
+              className="relative group" 
+              onMouseEnter={() => setIsServicesOpen(true)}
+              onMouseLeave={() => setIsServicesOpen(false)}
+            >
               <button 
                 className="text-white hover:text-orange-400 flex items-center transition-colors duration-200"
-                onClick={() => setIsServicesOpen(!isServicesOpen)}
               >
                 Services <span className="ml-1 text-xs">▼</span>
               </button>
-              {isServicesOpen && (
-                <div className="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
-                  <div className="py-1" role="menu">
-                    {services.map((service) => (
-                      <Link
-                        key={service.href}
-                        href={service.href}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-orange-500 transition-colors duration-200"
-                        role="menuitem"
-                      >
-                        {service.name}
-                      </Link>
-                    ))}
-                  </div>
+              <div 
+                className={`absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10 transition-all duration-200 ${
+                  isServicesOpen ? 'opacity-100 visible transform translate-y-0' : 'opacity-0 invisible transform -translate-y-2'
+                }`}
+              >
+                <div className="py-1" role="menu">
+                  {services.map((service) => (
+                    <Link
+                      key={service.href}
+                      href={service.href}
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-orange-500 transition-colors duration-200"
+                      role="menuitem"
+                    >
+                      {service.name}
+                    </Link>
+                  ))}
                 </div>
-              )}
+              </div>
             </div>
+            
             <Link href="/destinations" className="text-white hover:text-orange-400 transition-colors duration-200">
               Popular Destinations
             </Link>
-            <div className="relative group" ref={fleetRef}>
+            
+            {/* Fleet Dropdown - Hover version */}
+            <div 
+              className="relative group"
+              onMouseEnter={() => setIsFleetOpen(true)}
+              onMouseLeave={() => setIsFleetOpen(false)}
+            >
               <button 
                 className="text-white hover:text-orange-400 flex items-center transition-colors duration-200"
-                onClick={() => setIsFleetOpen(!isFleetOpen)}
               >
                 Our Fleet <span className="ml-1 text-xs">▼</span>
               </button>
-              {isFleetOpen && (
-                <div className="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
-                  <div className="py-1" role="menu">
-                    {fleet.map((item) => (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-orange-500 transition-colors duration-200"
-                        role="menuitem"
-                      >
-                        {item.name}
-                      </Link>
-                    ))}
-                  </div>
+              <div 
+                className={`absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10 transition-all duration-200 ${
+                  isFleetOpen ? 'opacity-100 visible transform translate-y-0' : 'opacity-0 invisible transform -translate-y-2'
+                }`}
+              >
+                <div className="py-1" role="menu">
+                  {fleet.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-orange-500 transition-colors duration-200"
+                      role="menuitem"
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
                 </div>
-              )}
+              </div>
             </div>
+            
             <Link href="/blog" className="text-white hover:text-orange-400 transition-colors duration-200">
               Blogs
             </Link>
