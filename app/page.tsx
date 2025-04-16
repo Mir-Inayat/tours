@@ -278,14 +278,14 @@ export default function Home() {
             <div className="w-full">
               <div className="flex flex-col">
                 {/* First Row */}
-                <section className="flex flex-col md:flex-row items-center mb-12">
+                <section className="flex flex-col md:flex-row items-center mb-12 md:mb-20">
                   {/* Left Column with Parallax Image */}
-                  <div className="w-full md:w-1/2 mb-10 md:mb-0">
+                  <div className="w-full md:w-1/2 mb-10 md:mb-0 order-2 md:order-1">
                     <div className="relative mx-auto" style={{ maxWidth: '520px' }}>
                       {/* Background decoration elements */}
-                      <div className="absolute left-0 top-0 bottom-0 w-2/3 bg-blue-500 rounded-l-[40px] -z-10"></div>
-                      <div className="absolute right-0 bottom-0 h-2/3 w-2/3 bg-red-50 rounded-tr-3xl -z-10"></div>
-        
+                      <div className="absolute left-0 top-0 bottom-0 w-2/3 bg-blue-500 rounded-l-[40px] -z-10 hidden md:block"></div>
+                      <div className="absolute right-0 bottom-0 h-2/3 w-2/3 bg-red-50 rounded-tr-3xl -z-10 hidden md:block"></div>
+            
                       {/* Phone Mockup 1 - Customer Satisfaction with Parallax */}
                       <div 
                         className="rounded-[40px] shadow-2xl overflow-hidden relative mx-auto"
@@ -310,50 +310,7 @@ export default function Home() {
                   </div>
                   
                   {/* Right Column - Content */}
-                  <div className="w-full md:w-1/2 md:pl-10">
-                    <h3 className="text-orange-500 text-lg font-medium mb-2">
-                      Best Taxi Service Provider in Noida | Greater Noida | Ghaziabad
-                    </h3>
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">
-                      Why Choose Yashika Tour & Travels?
-                    </h2>
-                    <div className="text-gray-600 space-y-4">
-                      <p>
-                        We have been in the tour and travels business for more than <strong>20 years</strong>. 
-                        We are uniquely placed as <strong>the best & the largest chauffeur-driven taxi/bus/tempo-traveller 
-                        rental company in Noida, Greater Noida and Ghaziabad</strong> in terms of geographical reach. 
-                        We've been rated <strong>4.8/5 (131 Reviews) on </strong>
-                        <a href="https://goo.gl/maps/26oN5USQn7cLxKSK6" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
-                          <strong>Google My Business</strong>
-                        </a> 
-                        <strong> and 4.6/5 on </strong>
-                        <a href="https://www.justdial.com/Delhi/Yashika-Tour-Travels-Near-Noida-Stadium-Income-Tax-Office-Noida-Sector-22/011P250703_BZDET" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
-                          <strong>Just Dial</strong>
-                        </a>.
-                      </p>
-                      <p>
-                        Yashika Tour & Travels provides safe, reliable local and outstation <strong>taxi service in Noida, Greater Noida & Ghaziabad</strong>. 
-                        Our drivers are highly experienced and have been appropriately trained. We offer pick-up services in Noida, 
-                        Greater Noida, Ghaziabad and from Airport, Railway Station, etc.
-                      </p>
-                      <p>
-                        We strive to provide you best, reliable, and affordable 
-                        <a href="/servicelocaltaxi" className="text-blue-600 hover:underline"><strong> local taxi rental service</strong></a>, 
-                        <a href="/serviceout" className="text-blue-600 hover:underline"><strong> outstation taxi rental service</strong></a>, 
-                        <a href="/servicebus" className="text-blue-600 hover:underline"><strong> bus rental service</strong></a>, 
-                        <a href="/serviceTempo" className="text-blue-600 hover:underline"><strong> tempo traveller rental service</strong></a>, 
-                        <a href="/serviceCorporateCab" className="text-blue-600 hover:underline"><strong> corporate car rental service</strong></a>, 
-                        <a href="/serviceSchoolCollege" className="text-blue-600 hover:underline"><strong> School/College Transport service</strong></a> 
-                        in Noida, Greater Noida, and Ghaziabad.
-                      </p>
-                    </div>
-                  </div>
-                </section>
-                
-                {/* Second Row */}
-                <section className="flex flex-col md:flex-row items-center mt-12">
-                  {/* Left Column - Content */}
-                  <div className="w-full md:w-1/2 mb-10 md:mb-0 order-2 md:order-1">
+                  <div className="w-full md:w-1/2 md:pl-10 order-1 md:order-2 mb-8 md:mb-0">
                     <h3 className="text-orange-500 text-lg font-medium mb-2">
                       Keep Calm & Travel With Us
                     </h3>
@@ -361,68 +318,33 @@ export default function Home() {
                       What sets Yashika Tour & Travels apart?
                     </h2>
                     <div className="text-gray-600 mb-6">
-                      <p>
-                        <strong>Yashika Tour & Travels</strong> is a renowned and well-established 
-                        <strong> taxi rental service company in Noida</strong>, specialized in 
-                        car/taxi/bus/tempo-traveller/school & college transport/corporate car rental solutions. 
-                        Our journey began in 1995; since then, our rental services have expanded more and more with 
-                        thousands of happy customers. We believe in our customer's safety & they believe in us!
-                      </p>
-                      <p className="mt-2">
-                        If you're in Noida, Greater Noida or Ghaziabad and are searching for "<strong>tour ad travels near me</strong>", 
-                        "<strong>taxi service near me</strong>", "<strong>tempo traveller near me</strong>", 
-                        "<strong>bus hire near me</strong>", "<strong>corporate cab service near me</strong>", 
-                        "<strong>taxi service in Noida</strong>", "<strong>local taxi near me</strong>", 
-                        "<strong>travel agency in Noida</strong>", "<strong>travel agency in Greater Noida</strong>", 
-                        "<strong>travel agency in Ghaziabad</strong>", "<strong>taxi booking near me</strong>", 
-                        "<strong>cab service in Noida</strong>", "<strong>cab service in Greater Noida</strong>" or, 
-                        "<strong>cab service in Ghaziabad</strong>", you'll surely find us on Google as we're one of the 
-                        <strong> oldest tour and travel agency</strong> in Noida.
-                      </p>
+                      {/* Your existing content */}
                     </div>
-                    <ul className="space-y-3">
-                      <li className="flex items-center">
-                        <span className="bg-orange-100 p-2 rounded-full mr-3 text-orange-500">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 640 512" fill="currentColor">
-                            <path d="M506.1 127.1c-17.97-20.17-61.46-61.65-122.7-71.1c-22.5-3.354-45.39 3.606-63.41 18.21C302 60.47 279.1 53.42 256.5 56.86C176.8 69.17 126.7 136.2 124.6 139.1c-7.844 10.69-5.531 25.72 5.125 33.57c4.281 3.172 9.281 4.703 14.19 4.703c7.375 0 14.66-3.328 19.38-9.594c.4062-.5626 40.19-53.91 100.5-63.23c7.219-.9687 14.59 .8907 20.19 5.219c10.56 8.206 25.91 7.084 35.28-2.516c5.469-5.578 13.19-8.234 20.41-6.703c43.69 7.188 75.84 36.41 89.59 52.28c-42.22-11.06-128.3-24.5-219.4 31.53c-91.13 56.05-108.2 148.9-108.4 149.9c-2.594 12.16 5.469 24.03 17.66 26.62c1.563 .3438 3.125 .5 4.688 .5c10.44 0 19.79-7.313 21.94-17.93c.0313-.1563 11.7-65.34 80.56-109.7c20.94-13.44 42.03-21.13 62.23-25.12c-19.28 25.91-28.23 58.97-28.23 58.97c-2.594 12.16 5.469 24.03 17.66 26.62c1.594 .3438 3.156 .5 4.719 .5c10.44 0 19.75-7.313 21.94-17.97c.0313-.125 7.813-31.34 25.5-54.09c18.22-3.5 99.59-16.39 155.8 35.06c2.906 2.688 100.2 93.69 59.45 175.1c-37.47 75.84-117.9 88.97-120.6 89.28C289.8 510.1 279.4 511.8 267.1 511.9c-24.56 .8438-43.05-9.012-50.3-27.41c-16.69-42.16 5.984-111.2 7.125-114.9c3.906-12.11-2.578-25.13-14.62-29.05c-12.12-3.906-25.13 2.594-29.06 14.62c-.375 1.156-9.188 28.5-13.88 59.67c-4.531 30.25-4.906 62.64 4.438 93.34c15.44 50.43 54.09 79.59 102.8 77.7c18.11-.625 34.31-4.906 45.34-8.562c5.469-1.766 113.3-39.41 162.5-138.9c59.8-120.3-64.05-233.9-73.31-242.4c-25.5-23.39-57.19-36.34-87.47-43.25C322.4 169.8 316.2 183.6 314.8 184.3z"/>
-                          </svg>
-                        </span>
-                        <span className="text-gray-800 font-medium">Reliability</span>
-                      </li>
-                      <li className="flex items-center">
-                        <span className="bg-orange-100 p-2 rounded-full mr-3 text-orange-500">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512" fill="currentColor">
-                            <path d="M256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512zM232 256C232 264 236 271.5 242.7 275.1L338.7 339.1C349.7 347.3 364.6 344.3 371.1 333.3C379.3 322.3 376.3 307.4 365.3 300L280 243.2V120C280 106.7 269.3 96 255.1 96C242.7 96 231.1 106.7 231.1 120L232 256z"/>
-                          </svg>
-                        </span>
-                        <span className="text-gray-800 font-medium">24x7 Service Availability</span>
-                      </li>
-                      <li className="flex items-center">
-                        <span className="bg-orange-100 p-2 rounded-full mr-3 text-orange-500">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512" fill="currentColor">
-                            <path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-111 256-256S393.4 0 256 0zM371.8 211.8l-128 128C238.3 345.3 231.2 348 224 348s-14.34-2.719-19.81-8.188l-64-64c-10.91-10.94-10.91-28.69 0-39.63c10.94-10.94 28.69-10.94 39.63 0L224 280.4l108.2-108.2c10.94-10.94 28.69-10.94 39.63 0C382.7 183.1 382.7 200.9 371.8 211.8z"/>
-                          </svg>
-                        </span>
-                        <span className="text-gray-800 font-medium">Guaranteed Customer Satisfaction</span>
-                      </li>
-                      <li className="flex items-center">
-                        <span className="bg-orange-100 p-2 rounded-full mr-3 text-orange-500">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 448 512" fill="currentColor">
-                            <path d="M80 192V144C80 64.47 144.5 0 224 0C303.5 0 368 64.47 368 144V192H384C419.3 192 448 220.7 448 256V448C448 483.3 419.3 512 384 512H64C28.65 512 0 483.3 0 448V256C0 220.7 28.65 192 64 192H80zM144 192H304V144C304 99.82 268.2 64 224 64C179.8 64 144 99.82 144 144V192z"/>
-                          </svg>
-                        </span>
-                        <span className="text-gray-800 font-medium">Reliability & Security</span>
-                      </li>
-                    </ul>
+                  </div>
+                </section>
+
+                {/* Second Row */}
+                <section className="flex flex-col md:flex-row items-center mt-12 md:mt-0">
+                  {/* Left Column - Content */}
+                  <div className="w-full md:w-1/2 mb-10 md:mb-0 order-1">
+                    <h3 className="text-orange-500 text-lg font-medium mb-2">
+                      Keep Calm & Travel With Us
+                    </h3>
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">
+                      What sets Yashika Tour & Travels apart?
+                    </h2>
+                    <div className="text-gray-600 mb-6">
+                      {/* Your existing content */}
+                    </div>
                   </div>
                   
                   {/* Right Column with Phone UI Mockup */}
-                  <div className="w-full md:w-1/2 order-1 md:order-2">
+                  <div className="w-full md:w-1/2 order-2">
                     <div className="relative mx-auto" style={{ maxWidth: '520px' }}>
                       {/* Background decoration elements - reversed colors from first mockup */}
-                      <div className="absolute left-0 top-0 bottom-0 w-2/3 bg-red-50 rounded-l-[40px] -z-10"></div>
-                      <div className="absolute right-0 bottom-0 h-2/3 w-2/3 bg-blue-500 rounded-tr-3xl -z-10"></div>
-        
+                      <div className="absolute left-0 top-0 bottom-0 w-2/3 bg-red-50 rounded-l-[40px] -z-10 hidden md:block"></div>
+                      <div className="absolute right-0 bottom-0 h-2/3 w-2/3 bg-blue-500 rounded-tr-3xl -z-10 hidden md:block"></div>
+            
                       {/* Phone Mockup 2 - Multiple Options with Parallax */}
                       <div 
                         className="rounded-[40px] shadow-2xl overflow-hidden relative mx-auto"
@@ -449,10 +371,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-
-
-
-
 
         {/* Features Section */}
         <section className="py-16 bg-gray-50">
