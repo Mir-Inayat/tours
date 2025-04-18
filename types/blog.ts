@@ -1,4 +1,6 @@
+// Update the BlogFAQ type to match the FAQ type from FAQManager
 export interface BlogFAQ {
+  id: string;
   question: string;
   answer: string;
 }

@@ -136,7 +136,10 @@ export default function FAQManager({ faqs = [], onChange }: FAQManagerProps) {
     })
   );
 
-  const addNewFAQ = () => {
+  const addNewFAQ = (e: React.MouseEvent) => {
+    // Prevent the default action (which might be submitting a form)
+    e.preventDefault();
+    
     const newFAQ: FAQ = {
       id: generateId(),
       question: "",
@@ -194,6 +197,7 @@ export default function FAQManager({ faqs = [], onChange }: FAQManagerProps) {
           size="sm"
           onClick={addNewFAQ}
           className="flex items-center gap-1"
+          type="button" // Explicitly set button type to prevent form submission
         >
           <PlusCircle className="h-4 w-4" />
           <span>Add FAQ</span>

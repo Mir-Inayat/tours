@@ -2,12 +2,7 @@
 
 import { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
-
-export interface BlogFAQ {
-  id: string;
-  question: string;
-  answer: string;
-}
+import { BlogFAQ } from '@/types/blog';
 
 interface BlogFAQsProps {
   faqs: BlogFAQ[];
@@ -37,6 +32,7 @@ const BlogFAQs: React.FC<BlogFAQsProps> = ({ faqs }) => {
             <button
               className="flex justify-between items-center w-full text-left p-4 bg-white hover:bg-gray-50"
               onClick={() => toggleFAQ(index)}
+              type="button"
             >
               <h3 className="text-lg font-semibold text-gray-800">{faq.question}</h3>
               <span className="text-gray-500">

@@ -232,7 +232,7 @@ export default async function BlogPage({ params }: BlogPageParams) {
 
             {/* FAQs section */}
             {blog.faqs && blog.faqs.length > 0 && (
-              <div className="container mx-auto px-4 max-w-4xl">
+              <div className="my-8">
                 <BlogFAQs faqs={blog.faqs} />
               </div>
             )}
