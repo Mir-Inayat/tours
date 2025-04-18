@@ -15,7 +15,8 @@ import {
   Mail,
   Menu,
   X,
-  Loader2
+  Loader2,
+  MailOpen
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
@@ -38,7 +39,8 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   const [notifications, setNotifications] = useState({
     comments: 0,
     bookings: 0,
-    contacts: 0
+    contacts: 0,
+    newsletter: 0
   });
   
   useEffect(() => {
@@ -116,7 +118,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
     return null; // Will redirect in useEffect
   }
   
-  const totalNotifications = notifications.comments + notifications.bookings + notifications.contacts;
+  const totalNotifications = notifications.comments + notifications.bookings + notifications.contacts + notifications.newsletter;
 
   return (
     <div className="flex min-h-screen flex-col md:flex-row">
@@ -180,6 +182,16 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
             {notifications.bookings > 0 && (
               <Badge className="ml-auto bg-red-500 text-white">
                 {notifications.bookings}
+              </Badge>
+            )}
+          </Link>
+
+          <Link href="/admin/newsletter" className={`flex items-center px-4 py-2 text-sm font-medium rounded-md ${pathname === "/admin/newsletter" ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`}>
+            <MailOpen className="h-5 w-5 mr-3 text-gray-500" />
+            Newsletter
+            {notifications.newsletter > 0 && (
+              <Badge className="ml-auto bg-red-500 text-white">
+                {notifications.newsletter}
               </Badge>
             )}
           </Link>

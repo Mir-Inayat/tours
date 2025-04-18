@@ -76,6 +76,8 @@ const TiptapEditor: React.FC<TiptapEditorProps> = ({ content, onChange, placehol
       onChange(html);
       setSourceCode(html);
     },
+    immediatelyRender: false,
+
   });
 
   if (!editor) {

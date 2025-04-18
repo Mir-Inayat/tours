@@ -24,10 +24,60 @@ async function getBlogs(): Promise<Blog[]> {
   }
 }
 
-// GET all blogs
-export async function GET() {
-  const blogs = await getBlogs();
-  return NextResponse.json(blogs);
+// GET endpoint for blogs with optional tag filter
+export async function GET(request: NextRequest) {
+  try {
+    const searchParams = request.nextUrl.searchParams;
+    const tag = searchParams.get('tag');
+    
+    // Ensure the directory exists
+    try {
+      await fs.access(dataDirectory);
+    } catch (error) {
+      // Create directory if it doesn't exist
+      await fs.mkdir(dataDirectory, { recursive: true });
+      return NextResponse.json([]);
+    }
+    
+    // Read all blog files
+    const files = await fs.readdir(dataDirectory);
+    const blogFiles = files.filter(file => file.endsWith('.json'));
+    
+    // Parse each blog file
+    const blogs = await Promise.all(
+      blogFiles.map(async (file) => {
+        const content = await fs.readFile(path.join(dataDirectory, file), 'utf8');
+        return JSON.parse(content) as Blog;
+      })
+    );
+    
+    // Filter and sort blogs
+    let filteredBlogs = blogs.filter(blog => blog.published);
+    
+    if (tag) {
+      // If tag is provided, filter by tag
+      filteredBlogs = filteredBlogs.filter(blog => 
+        blog.tags && blog.tags.some(blogTag => 
+          blogTag.toLowerCase() === tag.toLowerCase())
+      );
+    }
+    
+    // Sort blogs by date (newest first)
+    filteredBlogs.sort((a, b) => {
+      const dateA = new Date(a.publishedDate || a.createdAt);
+      const dateB = new Date(b.publishedDate || b.createdAt);
+      return dateB.getTime() - dateA.getTime();
+    });
+    
+    return NextResponse.json(filteredBlogs);
+    
+  } catch (error) {
+    console.error('Error fetching blogs:', error);
+    return NextResponse.json(
+      { error: 'Failed to fetch blogs' },
+      { status: 500 }
+    );
+  }
 }
 
 // POST a new blog

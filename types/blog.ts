@@ -23,7 +23,11 @@ export interface Blog {
   metaUrl?: string;
   metaKeywords?: string;
   metaDescription?: string;
-  faqs?: BlogFAQ[];
+  faqs?: {
+    id: string;
+    question: string;
+    answer: string;
+  }[];
   createdAt?: string;
   updatedAt?: string;
 }

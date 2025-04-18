@@ -10,6 +10,7 @@ import { BlogGalleryCarousel } from "@/components/ui/blog-gallery-carousel"
 import Link from "next/link"
 import { CalendarIcon, UserIcon, TagIcon, MessageCircleIcon } from "lucide-react"
 import CommentSection from "@/components/comments/CommentSection"
+import BlogFAQs from "@/components/blog/BlogFAQs"
 
 // Interface for the page params
 interface BlogPageParams {
@@ -228,6 +229,13 @@ export default async function BlogPage({ params }: BlogPageParams) {
             <div className="p-6 sm:p-8 prose prose-slate max-w-none">
               <BlogContent content={blog.content} />
             </div>
+
+            {/* FAQs section */}
+            {blog.faqs && blog.faqs.length > 0 && (
+              <div className="container mx-auto px-4 max-w-4xl">
+                <BlogFAQs faqs={blog.faqs} />
+              </div>
+            )}
 
             {/* Related Posts */}
             {relatedBlogs.length > 0 && (
