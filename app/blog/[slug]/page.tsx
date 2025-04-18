@@ -321,12 +321,12 @@ export default async function BlogPage({ params }: BlogPageParams) {
             <p className="text-sm text-gray-600">
               Experience our premium fleet of vehicles and professional services
             </p>
-            <a 
-              href="/services" 
+            <Link 
+              href="/about" 
               className="inline-block mt-4 text-orange-500 hover:text-orange-600 font-medium"
             >
               View All Services →
-            </a>
+            </Link>
           </div>
           
           {/* Related services/content */}
