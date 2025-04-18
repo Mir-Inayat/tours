@@ -1,36 +1,17 @@
 [
   {
-    "id": "12e361ae-d778-4bd7-a313-afd7d39954f7",
-    "name": "Mir",
-    "phone": "100",
-    "from": "Hyd",
-    "to": "delhi",
-    "date": "2025-04-24",
-    "passengers": "10",
-    "vehicleType": "Swift Dzire",
-    "message": "",
-    "sourcePage": "/",
-    "status": "completed",
-    "createdAt": "2025-04-18T06:19:09.659Z",
-<<<<<<< HEAD
-    "updatedAt": "2025-04-18T06:19:09.659Z"
-  },
-  {
-    "id": "62661997-3917-4e47-ac7b-ccdcb4c66afd",
-    "name": "anurag",
-    "phone": "9149703494",
-    "from": "asjk",
-    "to": "askncd",
-    "date": "2025-03-04",
-    "passengers": "4",
-    "vehicleType": "Swift Dzire",
+    "id": "d997bfca-a0c3-4fa8-b7e3-4c5928cd09da",
+    "name": "anurags",
+    "phone": "9149703496",
+    "from": "noida",
+    "to": "hyderabad",
+    "date": "2025-09-04",
+    "passengers": "8",
+    "vehicleType": "Toyota Innova",
     "message": "",
     "sourcePage": "/servicecabForevents",
-    "status": "pending",
-    "createdAt": "2025-04-18T11:41:34.858Z",
-    "updatedAt": "2025-04-18T11:41:34.858Z"
-=======
-    "updatedAt": "2025-04-18T12:05:28.583Z"
->>>>>>> 9bd6c7d6fa1353586833face0d69f5c0825e66d5
+    "status": "confirmed",
+    "createdAt": "2025-04-18T12:22:30.157Z",
+    "updatedAt": "2025-04-18T13:14:56.290Z"
   }
 ]
