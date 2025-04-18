@@ -93,3 +93,16 @@ export async function DELETE(
     );
   }
 }
+
+export async function PUT(request: Request, { params }: { params: { id: string } }) {
+  const blogData = await request.json();
+  
+  // Make sure faqs are included in the data passed to your storage function
+  const updatedBlog = await updateBlogInDatabase({
+    ...blogData,
+    faqs: blogData.faqs || [],
+    id: params.id
+  });
+  
+  return Response.json(updatedBlog);
+}
