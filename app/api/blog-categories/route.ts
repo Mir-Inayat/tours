@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
 
 // In a real app, this would come from your database
-let categories = [
+// Add 'export' keyword here to make the array available for import
+export let categories = [
   {
     id: "1",
     name: "Travel",
