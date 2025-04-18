@@ -31,6 +31,8 @@ const handler = NextAuth({
       }
     }),
   ],
+  // Add this secret configuration
+  secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: '/admin/login',
   },
