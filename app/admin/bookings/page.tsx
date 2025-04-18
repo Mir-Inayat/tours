@@ -16,78 +16,80 @@ export default async function BookingsPage() {
   const bookings = await getBookings();
   
   return (
-    <div className="container mx-auto py-10">
+    <div className="container mx-auto py-6">
       <h1 className="text-2xl font-bold mb-6">Bookings Management</h1>
       
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>ID</TableHead>
-            <TableHead>Name</TableHead>
-            <TableHead>Contact</TableHead>
-            <TableHead>Trip Details</TableHead>
-            <TableHead>Date & Passengers</TableHead>
-            <TableHead>Source Page</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Created</TableHead>
-            <TableHead>Actions</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {bookings.length === 0 ? (
+      <div className="overflow-x-auto rounded-lg border">
+        <Table>
+          <TableHeader>
             <TableRow>
-              <TableCell colSpan={9} className="text-center py-8 text-gray-500">
-                No bookings found
-              </TableCell>
+              <TableHead className="w-[80px]">ID</TableHead>
+              <TableHead className="min-w-[120px]">Name</TableHead>
+              <TableHead className="hidden sm:table-cell min-w-[180px]">Contact</TableHead>
+              <TableHead className="hidden md:table-cell min-w-[200px]">Trip Details</TableHead>
+              <TableHead className="hidden lg:table-cell min-w-[180px]">Date & Passengers</TableHead>
+              <TableHead className="hidden xl:table-cell min-w-[150px]">Source</TableHead>
+              <TableHead className="min-w-[100px]">Status</TableHead>
+              <TableHead className="hidden md:table-cell min-w-[120px]">Created</TableHead>
+              <TableHead className="w-[80px]">Actions</TableHead>
             </TableRow>
-          ) : (
-            bookings.map((booking) => (
-              <TableRow key={booking.id}>
-                <TableCell className="font-mono text-xs">{booking.id.slice(0, 8)}</TableCell>
-                <TableCell>{booking.name}</TableCell>
-                <TableCell>
-                  <div>{booking.email || "No email provided"}</div>
-                  <div className="text-sm text-gray-500">{booking.phone}</div>
-                </TableCell>
-                <TableCell>
-                  <div className="flex items-center">
-                    <MapPin className="h-4 w-4 mr-1 text-gray-500" />
-                    <span>{booking.from}</span>
-                  </div>
-                  <div className="flex items-center mt-1">
-                    <MapPin className="h-4 w-4 mr-1 text-gray-500" />
-                    <span>{booking.to}</span>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <div className="flex items-center">
-                    <CalendarIcon className="h-4 w-4 mr-1 text-gray-500" />
-                    <span>{formatDate(booking.date)}</span>
-                  </div>
-                  <div className="flex items-center mt-1">
-                    <Users className="h-4 w-4 mr-1 text-gray-500" />
-                    <span>{booking.passengers} passengers</span>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <Badge variant="outline" className="bg-gray-100">
-                    {formatSourcePage(booking.sourcePage)}
-                  </Badge>
-                </TableCell>
-                <TableCell>
-                  <StatusBadge status={booking.status} />
-                </TableCell>
-                <TableCell>
-                  {formatDate(booking.createdAt)}
-                </TableCell>
-                <TableCell>
-                  <BookingActions booking={booking} />
+          </TableHeader>
+          <TableBody>
+            {bookings.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={9} className="text-center py-8 text-gray-500">
+                  No bookings found
                 </TableCell>
               </TableRow>
-            ))
-          )}
-        </TableBody>
-      </Table>
+            ) : (
+              bookings.map((booking) => (
+                <TableRow key={booking.id}>
+                  <TableCell className="font-mono text-xs">{booking.id.slice(0, 8)}</TableCell>
+                  <TableCell>{booking.name}</TableCell>
+                  <TableCell className="hidden sm:table-cell">
+                    <div className="truncate max-w-[180px]">{booking.email || "No email"}</div>
+                    <div className="text-sm text-gray-500">{booking.phone}</div>
+                  </TableCell>
+                  <TableCell className="hidden md:table-cell">
+                    <div className="flex items-center">
+                      <MapPin className="h-4 w-4 mr-1 text-gray-500 flex-shrink-0" />
+                      <span className="truncate max-w-[150px]">{booking.from}</span>
+                    </div>
+                    <div className="flex items-center mt-1">
+                      <MapPin className="h-4 w-4 mr-1 text-gray-500 flex-shrink-0" />
+                      <span className="truncate max-w-[150px]">{booking.to}</span>
+                    </div>
+                  </TableCell>
+                  <TableCell className="hidden lg:table-cell">
+                    <div className="flex items-center">
+                      <CalendarIcon className="h-4 w-4 mr-1 text-gray-500 flex-shrink-0" />
+                      <span>{formatDate(booking.date)}</span>
+                    </div>
+                    <div className="flex items-center mt-1">
+                      <Users className="h-4 w-4 mr-1 text-gray-500 flex-shrink-0" />
+                      <span>{booking.passengers} passengers</span>
+                    </div>
+                  </TableCell>
+                  <TableCell className="hidden xl:table-cell">
+                    <Badge variant="outline" className="bg-gray-100">
+                      {formatSourcePage(booking.sourcePage || "Unknown")}
+                    </Badge>
+                  </TableCell>
+                  <TableCell>
+                    <StatusBadge status={booking.status} />
+                  </TableCell>
+                  <TableCell className="hidden md:table-cell">
+                    {formatDate(booking.createdAt)}
+                  </TableCell>
+                  <TableCell>
+                    <BookingActions booking={booking} />
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 }

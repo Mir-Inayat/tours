@@ -166,7 +166,7 @@ export function BusBookingForm({ compact = false, className = "" }: BusBookingFo
         </div>
 
         <div className="flex gap-4">
-          <label className="flex items-center gap-2 text-sm">
+          <label className="flex items-center gap-2 text-sm text-gray-800"> {/* Added text-gray-800 class */}
             <input
               type="radio"
               name="tripType"
@@ -178,7 +178,7 @@ export function BusBookingForm({ compact = false, className = "" }: BusBookingFo
             />
             One-Way Trip
           </label>
-          <label className="flex items-center gap-2 text-sm">
+          <label className="flex items-center gap-2 text-sm text-gray-800"> {/* Added text-gray-800 class */}
             <input
               type="radio"
               name="tripType"

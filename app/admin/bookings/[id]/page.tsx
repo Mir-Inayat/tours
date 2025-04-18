@@ -41,13 +41,13 @@ export default async function BookingDetailsPage({
   }
   
   return (
-    <div className="container mx-auto py-10 px-4">
-      <div className="flex justify-between items-center mb-6">
+    <div className="container mx-auto py-6 px-4">
+      <div className="flex justify-between items-center mb-6 flex-wrap gap-4">
         <div className="flex items-center">
           <Link href="/admin/bookings" className="mr-4 text-gray-500 hover:text-gray-700">
             <ArrowLeft className="w-5 h-5" />
           </Link>
-          <h1 className="text-2xl font-bold">Booking Details</h1>
+          <h1 className="text-xl md:text-2xl font-bold">Booking Details</h1>
         </div>
         
         <div>
@@ -55,28 +55,34 @@ export default async function BookingDetailsPage({
         </div>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Main info card */}
-        <div className="md:col-span-2">
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <div className="flex justify-between items-start mb-6">
-              <h2 className="text-xl font-semibold">{booking.name}</h2>
+        <div className="lg:col-span-2">
+          <div className="bg-white rounded-lg shadow-md p-4 md:p-6">
+            <div className="flex justify-between items-start mb-6 flex-wrap gap-2">
+              <h2 className="text-lg md:text-xl font-semibold">{booking.name}</h2>
               <Badge className={getStatusColor(booking.status)}>
                 {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
               </Badge>
             </div>
             
-            <div className="space-y-4">
+            <div className="space-y-6">
               <div>
                 <h3 className="text-sm font-medium text-gray-500">Trip Details</h3>
-                <div className="mt-2 space-y-2">
-                  <div className="flex items-center">
-                    <MapPin className="h-4 w-4 text-gray-500 mr-2" />
-                    <p><span className="font-medium">From:</span> {booking.from}</p>
+                <div className="mt-2 space-y-3">
+                  <div className="flex items-start">
+                    <MapPin className="h-4 w-4 text-gray-500 mr-2 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="font-medium">From:</p>
+                      <p className="text-gray-700">{booking.from}</p>
+                    </div>
                   </div>
-                  <div className="flex items-center">
-                    <MapPin className="h-4 w-4 text-gray-500 mr-2" />
-                    <p><span className="font-medium">To:</span> {booking.to}</p>
+                  <div className="flex items-start">
+                    <MapPin className="h-4 w-4 text-gray-500 mr-2 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="font-medium">To:</p>
+                      <p className="text-gray-700">{booking.to}</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -85,13 +91,13 @@ export default async function BookingDetailsPage({
                 <h3 className="text-sm font-medium text-gray-500">Contact Information</h3>
                 <div className="mt-2 space-y-2">
                   <div className="flex items-center">
-                    <Phone className="h-4 w-4 text-gray-500 mr-2" />
+                    <Phone className="h-4 w-4 text-gray-500 mr-2 flex-shrink-0" />
                     <p>{booking.phone}</p>
                   </div>
                   {booking.email && (
                     <div className="flex items-center">
-                      <Mail className="h-4 w-4 text-gray-500 mr-2" />
-                      <p>{booking.email}</p>
+                      <Mail className="h-4 w-4 text-gray-500 mr-2 flex-shrink-0" />
+                      <p className="break-all">{booking.email}</p>
                     </div>
                   )}
                 </div>
@@ -101,12 +107,18 @@ export default async function BookingDetailsPage({
                 <h3 className="text-sm font-medium text-gray-500">Travel Information</h3>
                 <div className="mt-2 space-y-2">
                   <div className="flex items-center">
-                    <CalendarIcon className="h-4 w-4 text-gray-500 mr-2" />
-                    <p><span className="font-medium">Date:</span> {formatDate(booking.date)}</p>
+                    <CalendarIcon className="h-4 w-4 text-gray-500 mr-2 flex-shrink-0" />
+                    <div>
+                      <span className="font-medium">Date: </span>
+                      <span>{formatDate(booking.date)}</span>
+                    </div>
                   </div>
                   <div className="flex items-center">
-                    <Users className="h-4 w-4 text-gray-500 mr-2" />
-                    <p><span className="font-medium">Passengers:</span> {booking.passengers}</p>
+                    <Users className="h-4 w-4 text-gray-500 mr-2 flex-shrink-0" />
+                    <div>
+                      <span className="font-medium">Passengers: </span>
+                      <span>{booking.passengers}</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -116,7 +128,7 @@ export default async function BookingDetailsPage({
                   <h3 className="text-sm font-medium text-gray-500">Message</h3>
                   <div className="mt-2 p-3 bg-gray-50 rounded-md">
                     <div className="flex items-start">
-                      <MessageSquare className="h-4 w-4 text-gray-500 mr-2 mt-1" />
+                      <MessageSquare className="h-4 w-4 text-gray-500 mr-2 mt-1 flex-shrink-0" />
                       <p className="text-gray-700">{booking.message}</p>
                     </div>
                   </div>
@@ -127,8 +139,8 @@ export default async function BookingDetailsPage({
         </div>
         
         {/* Side panel */}
-        <div className="md:col-span-1">
-          <div className="bg-white rounded-lg shadow-md p-6 space-y-6">
+        <div>
+          <div className="bg-white rounded-lg shadow-md p-4 md:p-6 space-y-6">
             <div>
               <h3 className="text-sm font-medium text-gray-500 mb-2">Vehicle</h3>
               <p className="font-medium">{booking.vehicleType}</p>
@@ -155,7 +167,7 @@ export default async function BookingDetailsPage({
             
             <div>
               <h3 className="text-sm font-medium text-gray-500 mb-2">Booking ID</h3>
-              <p className="font-mono text-xs">{booking.id}</p>
+              <p className="font-mono text-xs break-all">{booking.id}</p>
             </div>
           </div>
         </div>

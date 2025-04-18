@@ -12,7 +12,9 @@ import {
   LogOut,
   Bell,
   Car,
-  Mail
+  Mail,
+  Menu,
+  X
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
@@ -28,6 +30,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   const { data: session, status } = useSession();
   const router = useRouter();
   const pathname = usePathname();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   
   // State for notifications
   const [notifications, setNotifications] = useState({
@@ -77,6 +80,11 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
     }
   }, [status, router, pathname]);
 
+  // Close sidebar on path change for mobile
+  useEffect(() => {
+    setSidebarOpen(false);
+  }, [pathname]);
+
   if (pathname === "/admin/login") {
     return children;
   }
@@ -92,13 +100,31 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   const totalNotifications = notifications.comments + notifications.bookings + notifications.contacts;
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen flex-col md:flex-row">
+      {/* Mobile overlay */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 z-20 bg-black bg-opacity-50 md:hidden"
+          onClick={() => setSidebarOpen(false)}
+        ></div>
+      )}
+
       {/* Sidebar */}
-      <div className="w-64 bg-gray-800 text-white">
-        <div className="p-4">
+      <div 
+        className={`fixed inset-y-0 left-0 z-30 w-64 transform bg-gray-800 text-white transition-transform duration-300 ease-in-out md:relative md:translate-x-0 ${
+          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        <div className="p-4 flex justify-between items-center">
           <h2 className="text-xl font-bold">Admin Panel</h2>
+          <button 
+            className="md:hidden text-white"
+            onClick={() => setSidebarOpen(false)}
+          >
+            <X size={24} />
+          </button>
         </div>
-        <nav className="mt-6 space-y-1">
+        <nav className="mt-6 space-y-1 px-2">
           <Link href="/admin/dashboard" className={`flex items-center px-4 py-2 text-sm font-medium rounded-md ${pathname === "/admin/dashboard" ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`}>
             <LayoutDashboard className="h-5 w-5 mr-3 text-gray-500" />
             Dashboard
@@ -150,10 +176,18 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 overflow-auto">
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         <header className="bg-white shadow">
-          <div className="px-6 py-4 flex justify-between items-center">
-            <h1 className="text-xl font-semibold text-gray-800">
+          <div className="px-4 md:px-6 py-4 flex justify-between items-center">
+            {/* Mobile Menu Button */}
+            <button
+              className="md:hidden p-2 rounded-md text-gray-500 hover:bg-gray-100"
+              onClick={() => setSidebarOpen(true)}
+            >
+              <Menu size={24} />
+            </button>
+            
+            <h1 className="text-xl font-semibold text-gray-800 ml-2 md:ml-0">
               {pathname === "/admin/dashboard" && "Dashboard"}
               {pathname === "/admin/blogs" && "Blog Management"}
               {pathname === "/admin/comments" && "Comments Management"}
@@ -174,13 +208,12 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
                 <div className="h-8 w-8 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 font-semibold">
                   {session?.user?.name?.charAt(0) || 'A'}
                 </div>
-                <span className="ml-2 text-gray-700">{session?.user?.name || 'Admin'}</span>
               </div>
             </div>
           </div>
         </header>
         
-        <main className="p-6">
+        <main className="flex-1 overflow-auto p-4 md:p-6">
           {children}
         </main>
       </div>
