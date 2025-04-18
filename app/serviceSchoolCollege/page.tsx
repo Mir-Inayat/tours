@@ -66,7 +66,7 @@ export default function Page() {
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-8 md:mb-0">
             <img 
-              src="https://th.bing.com/th/id/OIP.jjk7UfkigWWJZzL2plYrpwHaE8?rs=1&pid=ImgDetMain" 
+              src="/blogs/image3.jpg" 
               alt="School/College Transport" 
               className="w-full max-w-md mx-auto h-auto rounded-lg shadow-md"
               loading="lazy"

@@ -8,8 +8,11 @@ import {
   CheckCircle, 
   XCircle, 
   Download, 
-  Trash2
+  Trash2,
+  Eye
 } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -37,6 +40,7 @@ export function BookingActions({ booking }: BookingActionsProps) {
   const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
   const [isStatusUpdateAlertOpen, setIsStatusUpdateAlertOpen] = useState(false);
   const [newStatus, setNewStatus] = useState<'pending' | 'confirmed' | 'completed' | 'cancelled'>(booking.status);
+  const router = useRouter();
 
   const handleStatusUpdate = async () => {
     try {
@@ -53,7 +57,8 @@ export function BookingActions({ booking }: BookingActionsProps) {
       }
 
       // Refresh the page to show updated data
-      window.location.reload();
+      router.refresh();
+      setIsStatusUpdateAlertOpen(false);
     } catch (error) {
       console.error('Error updating booking status:', error);
       alert('Failed to update booking status. Please try again.');
@@ -70,8 +75,9 @@ export function BookingActions({ booking }: BookingActionsProps) {
         throw new Error('Failed to delete booking');
       }
 
-      // Refresh the page to show updated data
-      window.location.reload();
+      // Refresh rather than reload
+      router.refresh();
+      router.push('/admin/bookings');
     } catch (error) {
       console.error('Error deleting booking:', error);
       alert('Failed to delete booking. Please try again.');
@@ -106,6 +112,10 @@ ${booking.message ? `\nMessage: ${booking.message}` : ''}
     URL.revokeObjectURL(url);
   };
 
+  const viewBookingDetails = () => {
+    router.push(`/admin/bookings/${booking.id}`);
+  };
+
   return (
     <>
       <DropdownMenu>
@@ -114,115 +124,87 @@ ${booking.message ? `\nMessage: ${booking.message}` : ''}
             <MoreVertical className="h-4 w-4 text-gray-500" />
           </div>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="min-w-[200px]">
-          <DropdownMenuLabel>Booking Actions</DropdownMenuLabel>
-          <DropdownMenuSeparator />
+        <DropdownMenuContent align="end">
+          <DropdownMenuLabel>Actions</DropdownMenuLabel>
           
-          <DropdownMenuItem onSelect={() => window.location.href = `/admin/bookings/${booking.id}`}>
-            <Edit className="h-4 w-4 mr-2" />
+          <DropdownMenuItem onClick={viewBookingDetails}>
+            <Eye className="h-4 w-4 mr-2" />
             View Details
           </DropdownMenuItem>
           
-          <DropdownMenuSeparator />
+          <DropdownMenuItem onClick={() => setIsStatusUpdateAlertOpen(true)}>
+            <CheckCircle className="h-4 w-4 mr-2" />
+            Update Status
+          </DropdownMenuItem>
           
-          {booking.status !== 'confirmed' && (
-            <DropdownMenuItem 
-              onSelect={() => {
-                setNewStatus('confirmed');
-                setIsStatusUpdateAlertOpen(true);
-              }}
-            >
-              <CheckCircle className="h-4 w-4 mr-2 text-green-500" />
-              Confirm Booking
-            </DropdownMenuItem>
-          )}
-          
-          {booking.status !== 'completed' && (
-            <DropdownMenuItem
-              onSelect={() => {
-                setNewStatus('completed');
-                setIsStatusUpdateAlertOpen(true);
-              }}
-            >
-              <CheckCircle className="h-4 w-4 mr-2 text-blue-500" />
-              Mark as Completed
-            </DropdownMenuItem>
-          )}
-          
-          {booking.status !== 'cancelled' && (
-            <DropdownMenuItem
-              onSelect={() => {
-                setNewStatus('cancelled');
-                setIsStatusUpdateAlertOpen(true);
-              }}
-            >
-              <XCircle className="h-4 w-4 mr-2 text-red-500" />
-              Cancel Booking
-            </DropdownMenuItem>
-          )}
-          
-          <DropdownMenuSeparator />
-          
-          <DropdownMenuItem onSelect={downloadBookingDetails}>
+          <DropdownMenuItem onClick={downloadBookingDetails}>
             <Download className="h-4 w-4 mr-2" />
             Download Details
           </DropdownMenuItem>
           
+          <DropdownMenuSeparator />
+          
           <DropdownMenuItem 
-            className="text-red-600 focus:text-red-700"
-            onSelect={() => setIsDeleteAlertOpen(true)}
+            onClick={() => setIsDeleteAlertOpen(true)}
+            className="text-red-600 focus:text-red-600"
           >
             <Trash2 className="h-4 w-4 mr-2" />
-            Delete Booking
+            Delete
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
-      {/* Status Update Alert Dialog */}
-      <AlertDialog 
-        open={isStatusUpdateAlertOpen} 
-        onOpenChange={setIsStatusUpdateAlertOpen}
-      >
+      {/* Delete Confirmation Dialog */}
+      <AlertDialog open={isDeleteAlertOpen} onOpenChange={setIsDeleteAlertOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Update Booking Status</AlertDialogTitle>
+            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to change this booking's status to{" "}
-              <span className="font-semibold text-black">
-                {newStatus}
-              </span>?
-              {newStatus === 'cancelled' && 
-                " This will cancel the booking and may notify the customer."}
+              This will permanently delete this booking. This action cannot be undone.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={handleStatusUpdate}>
-              Update Status
+            <AlertDialogAction onClick={handleDelete} className="bg-red-600 hover:bg-red-700">
+              Delete
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
 
-      {/* Delete Alert Dialog */}
-      <AlertDialog 
-        open={isDeleteAlertOpen} 
-        onOpenChange={setIsDeleteAlertOpen}
-      >
+      {/* Status Update Dialog */}
+      <AlertDialog open={isStatusUpdateAlertOpen} onOpenChange={setIsStatusUpdateAlertOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete Booking</AlertDialogTitle>
+            <AlertDialogTitle>Update Booking Status</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to delete this booking? This action cannot be undone.
+              Change the status of this booking.
             </AlertDialogDescription>
           </AlertDialogHeader>
+          
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+              <label htmlFor="status" className="text-right">
+                Status
+              </label>
+              <select 
+                id="status"
+                className="col-span-3 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background"
+                value={newStatus}
+                onChange={(e) => setNewStatus(e.target.value as any)}
+              >
+                <option value="pending">Pending</option>
+                <option value="confirmed">Confirmed</option>
+                <option value="completed">Completed</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
+          </div>
+          
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction 
-              onClick={handleDelete}
-              className="bg-red-500 hover:bg-red-600"
-            >
-              Delete
+            <AlertDialogAction onClick={handleStatusUpdate}>
+              Update
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

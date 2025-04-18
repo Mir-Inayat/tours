@@ -1,255 +1,396 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle, XCircle, Trash2, AlertCircle } from "lucide-react";
-import { toast } from "@/components/ui/use-toast";
+import { Input } from "@/components/ui/input";
+import { 
+  Search, 
+  Calendar, 
+  MessageSquare,
+  Trash2,
+  Check,
+  X,
+  User
+} from "lucide-react";
+import { formatDate } from "@/lib/utils";
+import { useToast } from "@/components/ui/use-toast";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+  SheetFooter,
+  SheetClose,
+} from "@/components/ui/sheet";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import Link from "next/link";
 
-// Sample blog and comments data
-const initialBlogs = [
-  {
-    id: 1,
-    title: "Top 10 Tourist Destinations Near Noida",
-    comments: [
-      {
-        id: 1,
-        author: "Rahul Singh",
-        content: "Great list! I especially love Agra and Jaipur.",
-        date: "2023-10-15",
-        approved: true,
-        isNew: false
-      },
-      {
-        id: 2,
-        author: "Priya Sharma",
-        content: "You should add Rishikesh to this list.",
-        date: "2023-10-16",
-        approved: false,
-        isNew: true
-      }
-    ]
-  },
-  {
-    id: 2,
-    title: "Why Choose Tempo Traveller for Group Travel",
-    comments: [
-      {
-        id: 1,
-        author: "Amit Kumar",
-        content: "We hired a tempo traveller for our family trip and it was amazing!",
-        date: "2023-10-14",
-        approved: true,
-        isNew: false
-      },
-      {
-        id: 2,
-        author: "Neha Gupta",
-        content: "What's the seating capacity of your largest tempo traveller?",
-        date: "2023-10-17",
-        approved: false,
-        isNew: true
-      },
-      {
-        id: 3,
-        author: "Vijay Patel",
-        content: "Do you provide tempo travellers with push-back seats?",
-        date: "2023-10-18",
-        approved: false,
-        isNew: true
-      }
-    ]
-  }
-];
+interface Comment {
+  id: string;
+  name: string;
+  email: string;
+  content: string;
+  blogId: string;
+  blogTitle: string;
+  status: 'pending' | 'approved' | 'rejected' | 'spam';
+  createdAt: string;
+}
 
-export default function AdminComments() {
-  const [blogs, setBlogs] = useState(initialBlogs);
-  const [filter, setFilter] = useState("all"); // all, approved, pending, new
-  
-  // Count new comments
-  const newCommentsCount = blogs.reduce((count, blog) => {
-    return count + blog.comments.filter(comment => comment.isNew).length;
-  }, 0);
-  
-  // Handle approving/unapproving comments
-  const handleApproveComment = (blogId, commentId, approve) => {
-    setBlogs(prevBlogs => 
-      prevBlogs.map(blog => {
-        if (blog.id === blogId) {
-          return {
-            ...blog,
-            comments: blog.comments.map(comment => {
-              if (comment.id === commentId) {
-                return { 
-                  ...comment, 
-                  approved: approve,
-                  isNew: false // Mark as seen
-                };
-              }
-              return comment;
-            })
-          };
-        }
-        return blog;
-      })
-    );
-    
-    toast({
-      title: approve ? "Comment Approved" : "Comment Unapproved",
-      description: `The comment has been ${approve ? 'approved' : 'unpublished'} successfully.`
-    });
+export default function CommentsPage() {
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedComment, setSelectedComment] = useState<Comment | null>(null);
+  const [deleteId, setDeleteId] = useState<string | null>(null);
+  const { toast } = useToast();
+
+  const fetchComments = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch("/api/comments");
+      
+      if (!response.ok) {
+        throw new Error("Failed to fetch comments");
+      }
+      
+      const data = await response.json();
+      setComments(data);
+    } catch (error) {
+      console.error("Error fetching comments:", error);
+      toast({
+        title: "Error",
+        description: "Failed to load comments.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
-  
-  // Handle deleting comments
-  const handleDeleteComment = (blogId, commentId) => {
-    setBlogs(prevBlogs => 
-      prevBlogs.map(blog => {
-        if (blog.id === blogId) {
-          return {
-            ...blog,
-            comments: blog.comments.filter(comment => comment.id !== commentId)
-          };
-        }
-        return blog;
-      })
-    );
-    
-    toast({
-      title: "Comment Deleted",
-      description: "The comment has been deleted successfully."
-    });
+
+  useEffect(() => {
+    fetchComments();
+  }, []);
+
+  const handleStatusChange = async (id: string, status: 'pending' | 'approved' | 'rejected' | 'spam') => {
+    try {
+      const response = await fetch(`/api/comments/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status }),
+      });
+      
+      if (!response.ok) {
+        throw new Error("Failed to update status");
+      }
+      
+      setComments((prev) =>
+        prev.map((comment) =>
+          comment.id === id ? { ...comment, status } : comment
+        )
+      );
+      
+      toast({
+        title: "Success",
+        description: `Comment ${status}`,
+      });
+      
+      if (status === 'approved' || status === 'rejected') {
+        setSelectedComment(null);
+      }
+    } catch (error) {
+      console.error("Error updating comment status:", error);
+      toast({
+        title: "Error",
+        description: "Failed to update status.",
+        variant: "destructive",
+      });
+    }
   };
-  
-  // Filter comments based on current filter
-  const filteredBlogs = blogs.map(blog => ({
-    ...blog,
-    comments: blog.comments.filter(comment => {
-      if (filter === "all") return true;
-      if (filter === "approved") return comment.approved;
-      if (filter === "pending") return !comment.approved;
-      if (filter === "new") return comment.isNew;
-      return true;
-    })
-  })).filter(blog => blog.comments.length > 0);
+
+  const handleDelete = async () => {
+    if (!deleteId) return;
+    
+    try {
+      const response = await fetch(`/api/comments/${deleteId}`, {
+        method: "DELETE",
+      });
+      
+      if (!response.ok) {
+        throw new Error("Failed to delete comment");
+      }
+      
+      setComments((prev) => prev.filter((comment) => comment.id !== deleteId));
+      
+      toast({
+        title: "Success",
+        description: "Comment deleted successfully",
+      });
+    } catch (error) {
+      console.error("Error deleting comment:", error);
+      toast({
+        title: "Error",
+        description: "Failed to delete comment.",
+        variant: "destructive",
+      });
+    } finally {
+      setDeleteId(null);
+    }
+  };
+
+  const filteredComments = comments.filter(
+    (comment) =>
+      comment.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      comment.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      comment.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      comment.blogTitle.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const getStatusBadge = (status: string) => {
+    switch (status) {
+      case "pending":
+        return <Badge className="bg-yellow-100 text-yellow-800">Pending</Badge>;
+      case "approved":
+        return <Badge className="bg-green-100 text-green-800">Approved</Badge>;
+      case "rejected":
+        return <Badge className="bg-red-100 text-red-800">Rejected</Badge>;
+      case "spam":
+        return <Badge className="bg-gray-100 text-gray-800">Spam</Badge>;
+      default:
+        return <Badge>{status}</Badge>;
+    }
+  };
 
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Comments Management</h1>
-        
-        <div className="flex items-center gap-2">
-          {newCommentsCount > 0 && (
-            <Badge className="bg-red-500">
-              {newCommentsCount} new
-            </Badge>
-          )}
-          <div className="flex bg-gray-100 rounded-lg">
-            <Button 
-              variant={filter === "all" ? "default" : "ghost"}
-              className={filter === "all" ? "rounded-l-lg" : "rounded-l-lg bg-gray-100 text-gray-900 hover:bg-gray-200"}
-              onClick={() => setFilter("all")}
-            >
-              All
-            </Button>
-            <Button 
-              variant={filter === "approved" ? "default" : "ghost"}
-              className={filter === "approved" ? "" : "bg-gray-100 text-gray-900 hover:bg-gray-200"}
-              onClick={() => setFilter("approved")}
-            >
-              Approved
-            </Button>
-            <Button 
-              variant={filter === "pending" ? "default" : "ghost"}
-              className={filter === "pending" ? "" : "bg-gray-100 text-gray-900 hover:bg-gray-200"}
-              onClick={() => setFilter("pending")}
-            >
-              Pending
-            </Button>
-            <Button 
-              variant={filter === "new" ? "default" : "ghost"}
-              className={filter === "new" ? "rounded-r-lg" : "rounded-r-lg bg-gray-100 text-gray-900 hover:bg-gray-200"}
-              onClick={() => setFilter("new")}
-            >
-              New
-              {newCommentsCount > 0 && (
-                <Badge className="ml-2 bg-red-500">
-                  {newCommentsCount}
-                </Badge>
-              )}
-            </Button>
-          </div>
+        <h1 className="text-2xl font-bold">Comments Management</h1>
+      </div>
+      
+      <div className="mb-6">
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+          <Input
+            placeholder="Search comments..."
+            className="pl-10"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
         </div>
       </div>
       
-      {filteredBlogs.length === 0 ? (
-        <div className="bg-gray-50 rounded-lg p-8 text-center">
-          <AlertCircle className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">No comments found</h3>
-          <p className="text-gray-500">
-            There are no comments matching your current filter.
-          </p>
-        </div>
-      ) : (
-        <div className="space-y-8">
-          {filteredBlogs.map(blog => (
-            <div key={blog.id} className="bg-white rounded-lg shadow overflow-hidden">
-              <div className="border-b border-gray-200 bg-gray-50 px-6 py-4">
-                <h2 className="text-xl font-semibold">{blog.title}</h2>
-              </div>
-              
-              <div className="divide-y divide-gray-200">
-                {blog.comments.map(comment => (
-                  <div key={comment.id} className={`p-6 flex flex-col md:flex-row ${comment.isNew ? 'bg-blue-50' : ''}`}>
-                    <div className="flex-grow mb-4 md:mb-0">
-                      <div className="flex items-center mb-2">
-                        <h3 className="font-medium text-gray-900">{comment.author}</h3>
-                        {comment.isNew && (
-                          <Badge className="ml-2 bg-blue-500">New</Badge>
-                        )}
-                        <span className="ml-2 text-sm text-gray-500">{comment.date}</span>
-                      </div>
-                      <p className="text-gray-600">{comment.content}</p>
+      <div className="border rounded-lg overflow-x-auto">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Name</TableHead>
+              <TableHead className="hidden md:table-cell">Comment</TableHead>
+              <TableHead className="hidden sm:table-cell">Blog</TableHead>
+              <TableHead className="hidden sm:table-cell">Date</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead className="text-right">Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {isLoading ? (
+              <TableRow>
+                <TableCell colSpan={6} className="text-center py-10 text-gray-500">
+                  Loading comments...
+                </TableCell>
+              </TableRow>
+            ) : filteredComments.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={6} className="text-center py-10 text-gray-500">
+                  {searchTerm ? "No comments match your search" : "No comments found"}
+                </TableCell>
+              </TableRow>
+            ) : (
+              filteredComments.map((comment) => (
+                <TableRow key={comment.id} className={comment.status === 'pending' ? 'bg-yellow-50' : ''}>
+                  <TableCell className="font-medium">
+                    <div className="flex items-center gap-2">
+                      <User className="h-4 w-4 text-gray-500" />
+                      <span>{comment.name}</span>
                     </div>
-                    
-                    <div className="flex md:flex-col gap-2 md:w-40 md:items-end justify-end">
-                      {comment.approved ? (
-                        <Button 
-                          variant="outline" 
-                          size="sm" 
-                          onClick={() => handleApproveComment(blog.id, comment.id, false)}
-                          className="mr-2 text-yellow-600 border-yellow-600 hover:bg-yellow-50"
+                    <div className="text-xs text-gray-500 sm:hidden mt-1">
+                      On: {comment.blogTitle}
+                    </div>
+                    <div className="sm:hidden text-xs text-gray-500 mt-1 flex items-center">
+                      <Calendar className="h-3 w-3 mr-1" />
+                      {formatDate(comment.createdAt)}
+                    </div>
+                  </TableCell>
+                  <TableCell className="hidden md:table-cell">
+                    <div className="truncate max-w-[200px]">
+                      {comment.content.substring(0, 50)}
+                      {comment.content.length > 50 ? "..." : ""}
+                    </div>
+                  </TableCell>
+                  <TableCell className="hidden sm:table-cell">
+                    <div className="truncate max-w-[150px]">
+                      <Link href={`/blog/${comment.blogId}`} className="hover:underline text-blue-600">
+                        {comment.blogTitle}
+                      </Link>
+                    </div>
+                  </TableCell>
+                  <TableCell className="hidden sm:table-cell">{formatDate(comment.createdAt)}</TableCell>
+                  <TableCell>{getStatusBadge(comment.status)}</TableCell>
+                  <TableCell className="text-right">
+                    <div className="flex justify-end items-center space-x-1">
+                      {comment.status === 'pending' && (
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          className="text-green-500 hover:text-green-600 hover:bg-green-50 p-0 w-8 h-8"
+                          onClick={() => handleStatusChange(comment.id, 'approved')}
+                          title="Approve"
                         >
-                          <XCircle className="h-4 w-4 mr-1" />
-                          Unpublish
-                        </Button>
-                      ) : (
-                        <Button 
-                          variant="outline" 
-                          size="sm" 
-                          onClick={() => handleApproveComment(blog.id, comment.id, true)}
-                          className="mr-2 text-green-600 border-green-600 hover:bg-green-50"
-                        >
-                          <CheckCircle className="h-4 w-4 mr-1" />
-                          Approve
+                          <Check className="h-4 w-4" />
                         </Button>
                       )}
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
-                        onClick={() => handleDeleteComment(blog.id, comment.id)}
-                        className="text-red-600 border-red-600 hover:bg-red-50"
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        className="p-0 w-8 h-8"
+                        onClick={() => setSelectedComment(comment)}
                       >
-                        <Trash2 className="h-4 w-4 mr-1" />
-                        Delete
+                        <MessageSquare className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        className="text-red-500 hover:text-red-600 hover:bg-red-50 p-0 w-8 h-8"
+                        onClick={() => setDeleteId(comment.id)}
+                      >
+                        <Trash2 className="h-4 w-4" />
                       </Button>
                     </div>
-                  </div>
-                ))}
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
+          </TableBody>
+        </Table>
+      </div>
+      
+      {/* Comment Details Sheet */}
+      <Sheet open={!!selectedComment} onOpenChange={() => setSelectedComment(null)}>
+        <SheetContent className="sm:max-w-md">
+          <SheetHeader>
+            <SheetTitle>Comment Details</SheetTitle>
+            <SheetDescription>
+              Posted on {selectedComment && formatDate(selectedComment.createdAt)}
+            </SheetDescription>
+          </SheetHeader>
+          
+          {selectedComment && (
+            <div className="py-4 space-y-4">
+              <div className="space-y-2">
+                <h3 className="text-sm font-medium text-gray-500">Name</h3>
+                <p className="font-medium">{selectedComment.name}</p>
+                <p className="text-sm text-gray-500">{selectedComment.email}</p>
+              </div>
+              
+              <div className="space-y-2">
+                <h3 className="text-sm font-medium text-gray-500">Blog</h3>
+                <Link href={`/blog/${selectedComment.blogId}`} className="text-blue-600 hover:underline">
+                  {selectedComment.blogTitle}
+                </Link>
+              </div>
+              
+              <div className="space-y-2">
+                <h3 className="text-sm font-medium text-gray-500">Comment</h3>
+                <div className="p-4 bg-gray-50 rounded-md text-gray-800 whitespace-pre-wrap">
+                  {selectedComment.content}
+                </div>
+              </div>
+              
+              <div className="space-y-2">
+                <h3 className="text-sm font-medium text-gray-500">Status</h3>
+                <div className="flex items-center space-x-2">
+                  {getStatusBadge(selectedComment.status)}
+                </div>
               </div>
             </div>
-          ))}
-        </div>
-      )}
+          )}
+          
+          <SheetFooter className="flex-col sm:flex-row gap-2 pt-4 border-t">
+            {selectedComment?.status !== 'approved' && (
+              <Button
+                variant="outline"
+                className="text-green-500 border-green-200 hover:bg-green-50 hover:text-green-600"
+                onClick={() => selectedComment && handleStatusChange(selectedComment.id, 'approved')}
+              >
+                <Check className="h-4 w-4 mr-1" />
+                Approve
+              </Button>
+            )}
+            
+            {selectedComment?.status !== 'rejected' && (
+              <Button
+                variant="outline"
+                className="text-red-500 border-red-200 hover:bg-red-50 hover:text-red-600"
+                onClick={() => selectedComment && handleStatusChange(selectedComment.id, 'rejected')}
+              >
+                <X className="h-4 w-4 mr-1" />
+                Reject
+              </Button>
+            )}
+            
+            {selectedComment?.status !== 'spam' && (
+              <Button
+                variant="outline"
+                className="text-gray-500 border-gray-200 hover:bg-gray-50"
+                onClick={() => selectedComment && handleStatusChange(selectedComment.id, 'spam')}
+              >
+                Mark as Spam
+              </Button>
+            )}
+            
+            <SheetClose asChild>
+              <Button>Close</Button>
+            </SheetClose>
+          </SheetFooter>
+        </SheetContent>
+      </Sheet>
+      
+      {/* Delete Confirmation Dialog */}
+      <AlertDialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete the comment.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction className="bg-red-500 hover:bg-red-600" onClick={handleDelete}>
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

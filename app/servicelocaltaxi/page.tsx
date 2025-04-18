@@ -76,7 +76,7 @@ export default function Page() {
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-8 md:mb-0">
             <img 
-              src="https://droptaxiinoneway.com/gleensic/2024/02/Outstation-Cab-Booking-1024x1024.jpg" 
+              src="/image1.jpg" 
               alt="Local Taxi Service" 
               className="w-full max-w-md mx-auto h-auto rounded-lg shadow-md"
               loading="lazy"

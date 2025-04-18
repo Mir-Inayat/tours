@@ -12,12 +12,12 @@ const galleryImages = [
   { src: "/image1.jpg", alt: "Fleet of taxis" },
   { src: "/image2.jpg", alt: "Bus fleet" },
   { src: "/image3.jpg", alt: "Tempo traveller lineup" },
-  { src: "/image4.jpg", alt: "Luxury buses" },
-  { src: "/image5.jpg", alt: "Mini buses" },
-  { src: "/image6.jpg", alt: "Corporate fleet" },
-  { src: "/image7.jpg", alt: "Tempo traveller interior" },
-  { src: "/image8.jpg", alt: "Taxi service" },
-  { src: "/image9.jpg", alt: "Transport fleet" },
+  { src: "/blogs/image4.jpg", alt: "Luxury buses" },
+  { src: "/blogs/image5.jpg", alt: "Mini buses" },
+  { src: "/blogs/image6.jpg", alt: "Corporate fleet" },
+  { src: "/blogs/image7.jpg", alt: "Tempo traveller interior" },
+  { src: "/blogs/image8.jpg", alt: "Taxi service" },
+  { src: "/blogs/image9.jpg", alt: "Transport fleet" },
 ];
 
 export default function GalleryPage() {

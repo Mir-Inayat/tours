@@ -10,8 +10,9 @@
     "vehicleType": "Swift Dzire",
     "message": "",
     "sourcePage": "/",
-    "status": "pending",
+    "status": "completed",
     "createdAt": "2025-04-18T06:19:09.659Z",
+<<<<<<< HEAD
     "updatedAt": "2025-04-18T06:19:09.659Z"
   },
   {
@@ -28,5 +29,8 @@
     "status": "pending",
     "createdAt": "2025-04-18T11:41:34.858Z",
     "updatedAt": "2025-04-18T11:41:34.858Z"
+=======
+    "updatedAt": "2025-04-18T12:05:28.583Z"
+>>>>>>> 9bd6c7d6fa1353586833face0d69f5c0825e66d5
   }
 ]
