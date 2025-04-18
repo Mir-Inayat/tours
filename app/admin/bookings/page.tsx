@@ -46,7 +46,7 @@ export default async function BookingsPage() {
                 <TableCell className="font-mono text-xs">{booking.id.slice(0, 8)}</TableCell>
                 <TableCell>{booking.name}</TableCell>
                 <TableCell>
-                  <div>{booking.email}</div>
+                  <div>{booking.email || "No email provided"}</div>
                   <div className="text-sm text-gray-500">{booking.phone}</div>
                 </TableCell>
                 <TableCell>

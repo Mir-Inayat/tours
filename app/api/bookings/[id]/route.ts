@@ -1,80 +1,95 @@
-import { NextResponse } from 'next/server';
-import { BookingData } from '../route';
+import { NextRequest, NextResponse } from 'next/server';
+import { getBookingById, updateBooking, deleteBooking } from '@/lib/bookings';
 
-export async function PATCH(
-  request: Request,
+// GET a single booking
+export async function GET(
+  request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
-    // Fix: Directly use params.id without awaiting as params is already resolved
-    const bookingId = params.id;
-    const updates = await request.json();
+    const { id } = params;
+    const booking = await getBookingById(id);
     
-    // In a real app, you'd use a database query here
-    // For simplicity here, we'll use global state
-    const bookings: BookingData[] = (global as any).bookings || [];
-    
-    const bookingIndex = bookings.findIndex(booking => booking.id === bookingId);
-    
-    if (bookingIndex === -1) {
+    if (!booking) {
       return NextResponse.json(
-        { error: 'Booking not found' },
+        { error: "Booking not found" },
         { status: 404 }
       );
     }
     
-    const updatedBooking = {
-      ...bookings[bookingIndex],
-      ...updates
-    };
-    
-    bookings[bookingIndex] = updatedBooking;
-    
-    return NextResponse.json({
-      success: true,
-      message: 'Booking updated successfully',
-      booking: updatedBooking
-    });
-    
+    return NextResponse.json(booking);
   } catch (error) {
-    console.error('Error updating booking:', error);
+    console.error("Error fetching booking:", error);
     return NextResponse.json(
-      { success: false, error: 'Failed to update booking' },
+      { error: "Failed to fetch booking" },
       { status: 500 }
     );
   }
 }
 
-export async function DELETE(
-  request: Request,
+// PATCH/UPDATE a booking
+export async function PATCH(
+  request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
-    const bookingId = params.id;
+    const { id } = params;
+    const updates = await request.json();
     
-    const bookings: BookingData[] = (global as any).bookings || [];
-    
-    const bookingIndex = bookings.findIndex(booking => booking.id === bookingId);
-    
-    if (bookingIndex === -1) {
+    // Validate the booking exists
+    const existingBooking = await getBookingById(id);
+    if (!existingBooking) {
       return NextResponse.json(
-        { error: 'Booking not found' },
+        { error: "Booking not found" },
         { status: 404 }
       );
     }
     
-    const deletedBooking = bookings.splice(bookingIndex, 1)[0];
+    // Apply and save updates
+    const updatedBooking = await updateBooking(id, updates);
     
-    return NextResponse.json({
-      success: true,
-      message: 'Booking deleted successfully',
-      booking: deletedBooking
-    });
-    
+    return NextResponse.json(updatedBooking);
   } catch (error) {
-    console.error('Error deleting booking:', error);
+    console.error("Error updating booking:", error);
     return NextResponse.json(
-      { success: false, error: 'Failed to delete booking' },
+      { error: "Failed to update booking" },
+      { status: 500 }
+    );
+  }
+}
+
+// DELETE a booking
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const { id } = params;
+    
+    // Validate the booking exists
+    const existingBooking = await getBookingById(id);
+    if (!existingBooking) {
+      return NextResponse.json(
+        { error: "Booking not found" },
+        { status: 404 }
+      );
+    }
+    
+    // Delete the booking
+    const success = await deleteBooking(id);
+    
+    if (!success) {
+      return NextResponse.json(
+        { error: "Failed to delete booking" },
+        { status: 500 }
+      );
+    }
+    
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("Error deleting booking:", error);
+    return NextResponse.json(
+      { error: "Failed to delete booking" },
       { status: 500 }
     );
   }
