@@ -1,34 +1,70 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
+import fs from 'fs';
+import path from 'path';
 
-// In a real app, this would come from your database
-// Add 'export' keyword here to make the array available for import
-export let categories = [
-  {
-    id: "1",
-    name: "Travel",
-    slug: "travel",
-    description: "Travel related articles",
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: "2",
-    name: "Adventure",
-    slug: "adventure",
-    description: "Adventure related articles",
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: "3",
-    name: "Tips",
-    slug: "tips",
-    description: "Travel tips and guides",
-    createdAt: new Date().toISOString(),
-  },
-];
+// This will dynamically generate categories from blog tags
+export async function getCategories() {
+  try {
+    const blogsDirectory = path.join(process.cwd(), 'data/blogs');
+    
+    // Check if directory exists
+    if (!fs.existsSync(blogsDirectory)) {
+      return [];
+    }
+    
+    // Get all JSON files in the directory
+    const files = fs.readdirSync(blogsDirectory).filter(file => file.endsWith('.json'));
+    
+    // Map of tags to avoid duplicates
+    const tagMap = new Map();
+    
+    // Process each blog file
+    for (const file of files) {
+      const filePath = path.join(blogsDirectory, file);
+      const fileContent = fs.readFileSync(filePath, 'utf8');
+      const blog = JSON.parse(fileContent);
+      
+      // Process tags if they exist
+      if (blog.tags && Array.isArray(blog.tags)) {
+        blog.tags.forEach(tag => {
+          if (tag && !tagMap.has(tag)) {
+            // Create a slug from the tag
+            const slug = tag.toLowerCase().replace(/[^\w\s-]/gi, '').replace(/\s+/g, '-');
+            
+            tagMap.set(tag, {
+              id: uuidv4(),
+              name: tag.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
+              slug,
+              description: `Posts related to ${tag.replace(/-/g, ' ')}`,
+              createdAt: new Date().toISOString()
+            });
+          }
+        });
+      }
+    }
+    
+    // Convert map to array
+    return Array.from(tagMap.values());
+  } catch (error) {
+    console.error("Error reading blog files:", error);
+    return [];
+  }
+}
+
+// Export the categories for other files to use
+export let categories = [];
+
+// Initialize categories 
+(async () => {
+  categories = await getCategories();
+})();
 
 export async function GET() {
-  // In a real app, fetch from database
+  // Ensure categories are loaded
+  if (categories.length === 0) {
+    categories = await getCategories();
+  }
   return NextResponse.json(categories);
 }
 
@@ -59,7 +95,7 @@ export async function POST(request: NextRequest) {
       createdAt: new Date().toISOString(),
     };
     
-    // In a real app, save to database
+    // Add to in-memory categories
     categories.push(newCategory);
     
     return NextResponse.json(newCategory, { status: 201 });

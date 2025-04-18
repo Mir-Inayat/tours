@@ -2,7 +2,7 @@
 
 import { Navbar } from "@/components/ui/navbar"
 import { Footer } from "@/components/ui/footer"
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import Image from "next/image"
 import { useSearchParams } from "next/navigation"
 import { BusBookingForm } from "@/components/ui/bus-booking-form"
@@ -71,10 +71,10 @@ const DestinationSection = ({ city, destinations }: DestinationSectionProps) => 
   );
 };
 
-// Main Page Component
-export default function DestinationsPage() {
+// Component that uses useSearchParams
+function DestinationsContent() {
   const searchParams = useSearchParams();
-
+  
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
@@ -107,7 +107,11 @@ export default function DestinationsPage() {
             {/* Right Side - Booking Form */}
             <div id="booking-form" className="w-full lg:w-1/2 max-w-md mx-auto">
               <div className="bg-white bg-opacity-95 backdrop-blur-sm rounded-xl shadow-xl">
-                <BusBookingForm className="w-full" />
+                <BusBookingForm 
+                  className="w-full" 
+                  initialFrom={searchParams.get('from') || ''} 
+                  initialTo={searchParams.get('to') || ''} 
+                />
               </div>
             </div>
           </div>
@@ -129,5 +133,14 @@ export default function DestinationsPage() {
       
       <Footer />
     </div>
+  );
+}
+
+// Main Page Component with Suspense boundary
+export default function DestinationsPage() {
+  return (
+    <Suspense fallback={<div>Loading destinations...</div>}>
+      <DestinationsContent />
+    </Suspense>
   );
 }
