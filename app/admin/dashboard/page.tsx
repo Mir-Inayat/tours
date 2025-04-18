@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { formatDistanceToNow } from "date-fns";
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
 import Link from "next/link";
@@ -10,12 +12,6 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -32,8 +28,10 @@ import {
   MessageSquare,
   Phone,
   Users,
+  BarChart,
+  LineChart,
 } from "lucide-react";
-import { toast } from "@/components/ui/use-toast";
+import { toast, useToast } from "@/components/ui/use-toast";
 
 // Types
 interface Notification {
@@ -69,7 +67,17 @@ interface DashboardData {
   }[];
 }
 
-export default function Dashboard() {
+export default function DashboardPage() {
+  const [stats, setStats] = useState({
+    totalBookings: 0,
+    newBookings: 0,
+    totalBlogs: 0,
+    totalContacts: 0,
+    recentBookings: [],
+    recentBlogs: []
+  });
+  
+  const { toast } = useToast();
   // State for new password management
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -154,7 +162,7 @@ export default function Dashboard() {
     };
     
     fetchNotifications();
-  }, []);
+  }, [toast]);
   
   // Fetch dashboard data
   useEffect(() => {
@@ -232,7 +240,7 @@ export default function Dashboard() {
     };
     
     fetchDashboardData();
-  }, []);
+  }, [toast]);
 
   // Handle password change
   const handlePasswordChange = (e: React.FormEvent) => {

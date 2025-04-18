@@ -10,7 +10,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/utils";
 import { BookingActions } from "@/components/admin/booking-actions";
-import { MapPin, CalendarIcon, Users } from "lucide-react";
+import { MapPin, CalendarIcon, Users, Car } from "lucide-react";
 
 export default async function BookingsPage() {
   const bookings = await getBookings();
@@ -25,7 +25,7 @@ export default async function BookingsPage() {
             <TableRow>
               <TableHead className="w-[80px]">ID</TableHead>
               <TableHead className="min-w-[120px]">Name</TableHead>
-              <TableHead className="hidden sm:table-cell min-w-[180px]">Contact</TableHead>
+              <TableHead className="hidden sm:table-cell min-w-[180px]">Contact/Vehicle</TableHead>
               <TableHead className="hidden md:table-cell min-w-[200px]">Trip Details</TableHead>
               <TableHead className="hidden lg:table-cell min-w-[180px]">Date & Passengers</TableHead>
               <TableHead className="hidden xl:table-cell min-w-[150px]">Source</TableHead>
@@ -47,8 +47,11 @@ export default async function BookingsPage() {
                   <TableCell className="font-mono text-xs">{booking.id.slice(0, 8)}</TableCell>
                   <TableCell>{booking.name}</TableCell>
                   <TableCell className="hidden sm:table-cell">
-                    <div className="truncate max-w-[180px]">{booking.email || "No email"}</div>
-                    <div className="text-sm text-gray-500">{booking.phone}</div>
+                    <div className="flex items-center">
+                      <Car className="h-4 w-4 mr-1 text-gray-500 flex-shrink-0" />
+                      <span className="font-medium">{booking.vehicleType}</span>
+                    </div>
+                    <div className="text-sm text-gray-500 mt-1">{booking.phone}</div>
                   </TableCell>
                   <TableCell className="hidden md:table-cell">
                     <div className="flex items-center">

@@ -14,13 +14,14 @@ import {
   Car,
   Mail,
   Menu,
-  X
+  X,
+  Loader2
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <SessionProvider>
+    <SessionProvider session={null} refetchInterval={5 * 60} refetchOnWindowFocus={false}>
       <AdminLayoutContent>{children}</AdminLayoutContent>
     </SessionProvider>
   );
@@ -31,6 +32,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [loadingAuth, setLoadingAuth] = useState(true);
   
   // State for notifications
   const [notifications, setNotifications] = useState({
@@ -39,46 +41,55 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
     contacts: 0
   });
   
+  useEffect(() => {
+    // Only redirect if auth check is complete and user is not authenticated
+    if (status === "unauthenticated" && pathname !== "/admin/login") {
+      router.push("/admin/login");
+    } else if (status !== "loading") {
+      // Auth check complete, no longer loading
+      setLoadingAuth(false);
+    }
+  }, [status, router, pathname]);
+
   // Fetch notification counts
   useEffect(() => {
     const fetchNotificationCounts = async () => {
+      if (status !== "authenticated") return;
+      
       try {
         // Fetch bookings
         const bookingsResponse = await fetch('/api/bookings');
-        const bookings = await bookingsResponse.json();
-        const newBookings = bookings.filter(booking => booking.status === 'new').length;
+        if (bookingsResponse.ok) {
+          const bookings = await bookingsResponse.json();
+          const newBookings = bookings.filter(booking => booking.status === 'pending').length;
+          setNotifications(prev => ({ ...prev, bookings: newBookings }));
+        }
         
-        // Fetch contacts
-        const contactsResponse = await fetch('/api/contact');
-        const contacts = await contactsResponse.json();
-        const newContacts = contacts.filter(contact => contact.status === 'new').length;
+        // Fetch contacts - wrapped in try/catch to avoid breaking if API fails
+        try {
+          const contactsResponse = await fetch('/api/contact');
+          if (contactsResponse.ok) {
+            const contacts = await contactsResponse.json();
+            const newContacts = contacts.filter(contact => contact.status === 'new').length;
+            setNotifications(prev => ({ ...prev, contacts: newContacts }));
+          }
+        } catch (error) {
+          console.log("Contact API not available or errored");
+        }
         
-        // Set notification counts
-        setNotifications({
-          comments: 0, // Will implement later
-          bookings: newBookings,
-          contacts: newContacts
-        });
+        // Similar for comments
       } catch (error) {
         console.error('Error fetching notification counts:', error);
       }
     };
     
-    if (status === 'authenticated') {
-      fetchNotificationCounts();
-      
-      // Set up interval to refresh notification counts
-      const interval = setInterval(fetchNotificationCounts, 60000); // Refresh every minute
-      
-      return () => clearInterval(interval);
-    }
+    fetchNotificationCounts();
+    
+    // Set up interval to refresh notification counts, less frequently
+    const interval = setInterval(fetchNotificationCounts, 5 * 60 * 1000); // Every 5 minutes
+    
+    return () => clearInterval(interval);
   }, [status]);
-  
-  useEffect(() => {
-    if (status === "unauthenticated" && pathname !== "/admin/login") {
-      router.push("/admin/login");
-    }
-  }, [status, router, pathname]);
 
   // Close sidebar on path change for mobile
   useEffect(() => {
@@ -89,8 +100,16 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
     return children;
   }
 
-  if (status === "loading") {
-    return <div className="flex h-screen items-center justify-center">Loading...</div>;
+  // Show loading state during initial auth check
+  if (loadingAuth) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <div className="flex flex-col items-center space-y-4">
+          <Loader2 className="h-8 w-8 animate-spin text-gray-500" />
+          <p className="text-gray-500">Loading authentication...</p>
+        </div>
+      </div>
+    );
   }
 
   if (!session && pathname !== "/admin/login") {
@@ -166,7 +185,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
           </Link>
           
           <button
-            onClick={() => router.push('/api/auth/signout')}
+            onClick={() => router.push('/api/auth/signout?callbackUrl=/admin/login')}
             className="flex w-full items-center px-4 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white"
           >
             <LogOut className="h-5 w-5 mr-3 text-gray-500" />
@@ -193,6 +212,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
               {pathname === "/admin/comments" && "Comments Management"}
               {pathname === "/admin/contacts" && "Contact Form Management"}
               {pathname === "/admin/bookings" && "Booking Management"}
+              {pathname.startsWith("/admin/bookings/") && "Booking Details"}
             </h1>
             
             <div className="flex items-center space-x-4">
